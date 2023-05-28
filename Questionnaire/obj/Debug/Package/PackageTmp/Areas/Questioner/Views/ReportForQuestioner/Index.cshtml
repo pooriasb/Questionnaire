@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    //  Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+<h2>گزارشگیری پرسشنامه ها</h2>
+
+@using PagedList.Mvc
+@model PagedList.IPagedList<QuestionnaireProject.Models.Questionnaire>
+@{
+    ViewBag.Title = "پرسشنامه های پایان یافته";
+  
+}
+
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام پرسشنامه</th>
+                    <th>تاریخ پایان</th>
+                    <th>امتیاز کاربران</th>
+                    <th>گزارش کامل در قالب Excel</th>
+                    <th>گزارش به تفکیک پاسخ دهنده</th>
+                    <th>گزارش کلی</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var q in Model)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@q.Name</td>
+                        <td>
+
+                            @if (q.DateExpire != null)
+                            {
+                                <span class="date">
+                                    @q.DateExpire.Value.ToString("MM/dd/yyyy")
+                                </span>
+                            }
+                            else
+                            {
+                                <span>هنوز ثبت نشده است.</span>
+                            }
+                        </td>
+                        <td>@q.Rate</td>
+                        <td>
+                            @using (Html.BeginForm("EachQuestionnaireFullReportInExcel", "ReportForQuestioner", FormMethod.Post,
+                                new { enctype = "multipart/form-data" }))
+                            {
+                                <input type="hidden" name="questionnaireId" id="questionnaireId" value="@q.Id" />
+                                <button type="submit" class="btn btn-success">
+                                    <span class="fa fa-file-excel-o"></span>
+                                    گزارش Excel
+                                </button>
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("Responders", "ReportForQuestioner", FormMethod.Post,
+                                new { enctype = "multipart/form-data" }))
+                            {
+                                <input type="hidden" name="questionnaireId" id="questionnaireId" value="@q.Id" />
+                                <button type="submit" class="btn btn-info">
+                                    <span class="fa fa-address-card"></span>
+                                    گزارش
+                                </button>
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("EachQuestionnaierReport", "ReportForQuestioner", FormMethod.Post,
+                                new { enctype = "multipart/form-data" }))
+                            {
+                                <input type="hidden" name="questionnaireId" id="questionnaireId" value="@q.Id" />
+                                <button type="submit" class="btn btn-info">
+                                    <span class="fa fa-address-card"></span>
+                                    گزارش
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+</div>

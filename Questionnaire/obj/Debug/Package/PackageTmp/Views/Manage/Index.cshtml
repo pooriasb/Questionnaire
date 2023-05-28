@@ -1,0 +1,350 @@
+﻿@model QuestionnaireProject.Models.IndexViewModel
+@{
+    ViewBag.Title = "مدیریت مشخصات کاربری";
+    if (ViewBag.Dashboard == "res")
+    {
+        Layout = "~/Views/Shared/_ResponderDashboardLayout.cshtml";
+    }
+
+    else if (ViewBag.Dashboard == "editor") {
+
+        Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    }
+    else if (ViewBag.Dashboard == "questionair")
+    {
+        Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+
+    }
+    //  Layout = "~/Views/Shared/_ResponderDashboardLayout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>در اینجا میتوانید تنظیمات کاربری خود را تغییر دهید.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>رمز عبور:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("رمز عبور خود را تغییر دهید", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        @*<dt>مشخصات کاربری: </dt>
+        <dd>
+            [
+            <a id="userInfo" href="#">تغییر مشخصات کاربری</a>
+            ]
+        </dd>*@
+
+        <dt> شماره تماس: </dt>
+        <dd>
+            [
+            <a href="#" id="changePhoneNumber">تغییر شماره همراه</a>
+            ]
+        </dd>
+        @if (User.IsInRole("Questioner"))
+        {
+            <dt>تصویر کارت ملی:</dt>
+            <dd>
+                [
+                <a data-toggle="modal" data-target="#nationalCardImage" href="#">تغییر مشخصات کاربری</a>
+                ]
+            </dd>
+        }
+
+        @*<dt>External Logins:</dt>*@
+        @*<dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>*@
+        @*
+            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+             Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*
+            <dt>Phone Number:</dt>
+            <dd>
+                @(Model.PhoneNumber ?? "None")
+                @if (Model.PhoneNumber != null)
+                {
+                    <br />
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                    }
+                }
+                else
+                {
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                }
+            </dd>
+        *@
+        @*<dt>Two-Factor Authentication:</dt>
+            <dd>
+                <p>
+                    There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication.
+                </p>*@
+        @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Enabled
+                    <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                    <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }*@
+        @*</dd>*@
+    </dl>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="nationalCardImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">تغییر تصویر کارت ملی</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="image"></div>
+                    @using (Html.BeginForm(Html.BeginForm("NationalCard", "QuestionerAccount", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label class="control-label col-md-12" for="NationalCardImage">تصویر کارت ملی</label>
+                            <div class="col-md-12">
+                                <input type="file" class="form-control" name="file" id="file">
+                            </div>
+                        </div>
+                        <small class="text-green">فرمت فایل ارسالی باستی .JPG بوده و حداکثر حجم 2 مابایت قابل قبول است.</small>
+                        <hr />
+                        <button class="btn btn-primary" id="savePicture" type="submit">ذخیره</button>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $.post('/questioner/questionerAccount/NationalCardImage')
+                .done(function (data) {
+                    $('#image').html(
+                        `<img style="width:100%" class="thumbnail" src="data:image/Jpg;base64,${data.image
+                        }" alt="National Card Image"/>`)
+                })
+
+        });
+
+
+        $('#userInfo').click(function () {
+            $.get('/api/userProfile/userInfo')
+                .done(function (data) {
+                    $.confirm({
+                        rtl: true,
+                        title: "مشخصات کاربری",
+                        content: `
+
+                                                                <form>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3" for="FirstName">نام</label>
+                                                                        <div class="col-md-9">
+                                                                            <input class="form-control text-box single-line" data-val="true" data-val-maxlength="The field نام must be a string or array type with a maximum length of '40'." data-val-maxlength-max="40" data-val-regex="تنها حروف فارسی قابل قبول است." data-val-regex-pattern="^[\u0600-\u06FF]+$" data-val-required="وارد نمودن نام الزامی است." id="FirstName" name="FirstName" type="text" value="">
+                                                                            <span class="field-validation-valid text-danger" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3" for="LastName">نام خانوادگی</label>
+                                                                        <div class="col-md-9">
+                                                                            <input class="form-control text-box single-line" data-val="true" data-val-maxlength="The field نام خانوادگی must be a string or array type with a maximum length of '40'." data-val-maxlength-max="40" data-val-regex="تنها حروف فارسی قابل قبول است." data-val-regex-pattern="^[\u0600-\u06FF]+$" data-val-required="وارد نمودن نام خانوادگی الزامی است." id="LastName" name="LastName" type="text" value="">
+                                                                            <span class="field-validation-valid text-danger" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-3 control-label" for="BirthDate">تاریخ تولد</label>
+                                                                        <div class="col-md-9">
+                                                                            <input class="form-control date-picker-alt" data-val="true" data-val-date="The field تاریخ تولد must be a date." data-val-required="وارد نمودن تاریخ تولد الزامی است." id="BirthDate" name="BirthDate" type="hidden" value="2019-01-20T18:00:32+03:30">
+                                                                            <input class="form-control date-picker pwt-datepicker-input-element">
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3" for="Email">ایمیل</label>
+                                                                        <div class="col-md-9">
+                                                                            <input class="form-control text-box single-line" data-val="true" data-val-email="ایمیل را بدرستی وارد نمایید." data-val-required="وارد نمودن ایمیل الزامی است." id="Email" name="Email" type="email" value="">
+                                                                            <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-3 control-label" for="StudyFieldId">رشته</label>
+                                                                        <div class="col-md-9">
+                                                                            <select id="StudyField" name="StudyFieldId" class="control-label text-right">
+                                                                                <option value="">انتخاب نمایید.</option>
+                                                                            <option value="1">مهندسی</option><option value="2">پزشکی</option><option value="3">کشاورزی</option></select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-3 control-label" for="NationalCode">استان</label>
+                                                                        <div class="col-md-9">
+                                                                            <select id="Proviences" onchange="changeCities()" class="control-label text-right">
+                                                                                <option value="">انتخاب نمایید.</option>
+                                                                            <option value="1">فارس</option><option value="2">آذربایجان شرقی</option><option value="3">خراسان رضوی</option></select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-3 control-label" for="CityId">شهر</label>
+                                                                        <div class="col-md-9">
+                                                                            <select id="Cities" name="CityId" class="control-label text-right">
+                                                                                <option value="">انتخاب نمایید.</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                <form>
+
+
+
+
+
+                                        `
+                    });
+                })
+                .fail(function (data) {
+                    $.alert({
+                        title: "خطا",
+                        content: "در ارتباط با سرور مشکلی پیش آمده است."
+                    })
+                });
+        });
+
+        $('#changePhoneNumber').click(function () {
+            $.confirm({
+                title: "تغییر شماره همراه",
+                content: `
+                                    <form id="changePhoneNumber">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-12">شماره همراه جدید:</label>
+                                            <div class="col-md-12">
+                                                <input class="form-control text-box single-line" name="phoneNumber"  type="text" value="">
+                                                <span>فرمت صحیح: 09XXXXXXX</span>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    `,
+                buttons:
+                {
+                    تایید: function() {
+                        //console.log($('form[id="changePhoneNumber"]').serialize())
+                        $.post('/Account/ChangePhoneNumber', $('form[id="changePhoneNumber"]').serialize())
+                            .done(function(data) {
+                                if (data.result == true) {
+                                    $.confirm({
+                                        title: "تایید کد ارسالی",
+                                        content: `
+                               <form id="changePhoneNumberConfirm" method="post">
+                                        <span>لطفا تا زمان ارسال پیام کوتاه صبر نمایید.</span>
+                                        <input type="hidden" class="form-control text-box single-line" name="phoneNumber" value="${data.phoneNumber}"  type="text">
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-12">کد ارسالی:</label>
+                                            <div class="col-md-12">
+                                                <input class="form-control text-box single-line" name="code"  type="text" value="">
+                                            </div>
+                                        </div>                                                                
+                               </form>`,
+                                        buttons: {
+                                            تایید: function() {
+                                                $.post('/Account/ChangePhoneNumberConfirm',
+                                                        $('form[id="changePhoneNumberConfirm"]').serialize())
+                                                    .done(function(data2) {
+                                                        if (data2.result) {
+                                                            $.alert({
+                                                                title: "تغییر شماره همراه",
+                                                                content: data2.message
+                                                            })
+                                                        } else {
+                                                            $.alert({
+                                                                title: "خطا",
+                                                                content: data2.message
+                                                            })
+                                                        }
+                                                    })
+                                                    .fail(function() {
+                                                        error;
+                                                    });
+                                            },
+                                            لغو: function() {
+                                            }
+                                        }
+                                    })
+                                } else {
+                                    $.alert({
+                                        title: "خطا",
+                                        content: data.message
+                                    })
+                                }
+
+                            })
+                            .fail(function() {
+                                $.alert({
+                                    title: "خطا",
+                                    content: "در سیستم خطایی رخ داده است."
+                                })
+                            })
+                    },
+                    لغو: function () {
+
+                    }
+
+                }
+            });
+
+
+        });
+
+
+    </script>
+}

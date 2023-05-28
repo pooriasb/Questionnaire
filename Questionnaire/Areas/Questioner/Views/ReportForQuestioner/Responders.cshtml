@@ -1,0 +1,161 @@
+﻿@model PagedList.IPagedList<QuestionnaireProject.Models.Respons>
+
+@{
+    ViewBag.Title = "Index";
+    //   Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+<h2>گزارش بر اساس افراد پاسخ دهنده</h2>
+
+@using PagedList.Mvc
+
+
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>کد شرکت کننده</th>
+                    <th>امتیاز کاربر</th>
+                    <th>تاریخ شروع پاسخگویی</th>
+                    <th>تاریخ پایان پاسخگویی</th>
+                    <th>گزارش</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>
+
+
+
+                            @{
+                                if (r.AspNetUser.UniqueCode != null)
+                                {
+                                    @r.AspNetUser.UniqueCode
+
+                                }
+                                else
+                                {
+                                    <span>موجود نیست</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                if (r.Score != null)
+                                {
+                                    @r.Score
+
+                                }
+                                else
+                                {
+                                    <span>موجود نیست</span>
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @if (r.DateStarted != null)
+                            {
+                                <span class="date">
+                                    @r.DateStarted.Value.ToString("MM/dd/yyyy")
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    وارد نشده
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @if (r.DateFinished != null)
+                            {
+                                <span class="date">
+                                    @r.DateFinished.Value.ToString("MM/dd/yyyy")
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    ناتمام
+                                </span>
+                            }
+
+                        </td>
+                        <td>
+                            @if (r.DateFinished != null)
+                            {
+                                using (Html.BeginForm("EachPersonReport", "ReportForQuestioner", FormMethod.Post,
+                                     new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="hidden" name="responseId" id="responseId" value="@r.Id" />
+                                    <button type="submit" class="btn btn-info">
+                                        <span class="fa fa-address-card"></span>
+                                        گزارش
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("DeletePersonReport", "ReportForQuestioner", FormMethod.Post,
+                                     new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="hidden" name="responseId" id="responseId" value="@r.Id" />
+                                    <button type="submit" class="btn btn-danger deleteQuestion">
+                                        <span class="fa fa-remove"></span>
+                                        حذف پاسخنامه ناتمام
+                                    </button>
+                                }
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-confirm.min.js"></script>
+<script>
+    $('.deleteQuestion').confirm({
+        title: "اخطار",
+        content: "آیا از حذف پرسش اطمینان دارید؟",
+        buttons: {
+            info: {
+                text: "بلی",
+                btnClass: 'btn-success',
+                action: function () {
+                    location.href = this.$target.attr('href');
+                }
+            },
+            danger: {
+                text: "خیر",
+                btnClass: 'btn-red any-other-class' // multiple classes.
+
+            }
+        }
+    });
+</script>

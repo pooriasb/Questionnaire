@@ -1,0 +1,187 @@
+﻿@*The Users Sidebar*@
+
+@if (User.IsInRole("Editor"))
+{
+    <li class="header text-center" style="color: #f39c12; font-size: 15px" data-toggle="collapse" data-target="#demo">ویراستار</li>    
+    <li class="menu">
+        <a href="@Url.Action("Index", "Editor", new {area = "Editor"})">
+            <i class="fa fa-dashboard"></i> <span>پنل کاربری</span>
+        </a>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-file-text"></i> <span> پرسشنامه ها</span>
+            <span class="pull-left-container">
+                <i class="fa fa-angle-right pull-left"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor"})"><i class="fa fa-circle"></i>همه</a></li>
+        </ul>
+    </li>
+    <li class="menu">
+        <a href="@Url.Action("Index", "PaymentReportFroEditor", new {area = "Editor"})">
+            <i class="fa fa-money"></i> <span>گزارش پرداخت</span>
+        </a>
+    </li>
+    <li class="menu">
+        <a href="@Url.Action("Index", "UsersForEditor", new {area = "Editor"})">
+            <i class="fa fa-user"></i> <span>کاربران</span>
+        </a>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-archive"></i>
+            <span>درخواست پرداخت</span>
+            <span class="pull-left-container">
+                <i class="fa fa-angle-right pull-left"></i>
+
+            </span>
+
+        </a>
+        <ul class="treeview-menu">
+
+            <li>
+                <a href="@Url.Action("RequestFromResponder", "RequestForEditor", new {area = "Editor"})">
+                    <i class="fa fa-money text-green"></i> پاسخ دهنده
+                </a>
+            </li>
+
+
+        </ul>
+    </li>
+    <li class="menu">
+        <a href="@Url.Action("Index", "AdminBenchMarkingQuestion", new {area = "Editor"})">
+            <i class="fa fa-download"></i> <span>سوالات راستی آزمایی</span>
+        </a>
+    </li>
+
+
+
+}
+@if (User.IsInRole("Responder"))
+{
+    <li class="header text-center" style="color: #3c8dbc; font-size: 15px">پاسخ دهنده</li>
+    <li class="menu">
+        <a href="@Url.Action("Index", "Responder", new {area = "Responder"})">
+            <i class="fa fa-dashboard"></i> <span>پنل کاربری</span>
+        </a>
+    </li>
+
+    <li class="menu">
+        <a href="@Url.Action("AvailableQuestionnaires", "QuestionnaireForResponder", new {area="Responder"})">
+            <i class="fa fa-file-text"></i> <span> پرسشنامه ها</span>
+        </a>
+    </li>
+
+    <li class="menu">
+        <a href="@Url.Action("AnsweredQuesionnaires", "QuestionnaireForResponder", new {area = "Responder"})">
+            <i class="fa fa-archive"></i> <span>گزارش پاسخگویی</span>
+        </a>
+    </li>
+    <li class="menu">
+        <a href="@Url.Action("Index", "RequestForResponder", new {area = "Responder"})">
+            <i class="fa fa-money"></i> <span>درخواست پرداخت</span>
+        </a>
+    </li>
+    if (!User.IsInRole("Questioner"))
+    {
+        <li class="menu" id="promote-modal">
+            <a href="#">
+                <i class="fa fa-star text-yellow"></i> <span class="text-green">ارتقاء کاربری</span>
+            </a>
+        </li>
+    }
+
+
+}
+
+
+@if (User.IsInRole("Questioner"))
+{
+    <li class="header text-center" style="color: greenyellow; font-size: 15px"> پرسشگر</li>
+
+    <li class="menu">
+        <a href="@Url.Action("Index", "Questioner",new{area="Questioner"})">
+            <i class="fa fa-dashboard"></i> <span>پنل کاربری</span>
+        </a>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-file-text"></i> <span>پرسشنامه ها</span>
+            <span class="pull-left-container">
+                <i class="fa fa-angle-right pull-left"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li>
+                <a href="@Url.Action("Index", "QuestionnaireForQuestioner", new {area = "Questioner"})">
+                    <i class="fa fa-files-o"></i> جدید
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("InProccessQuestionnaires","QuestionnaireForQuestioner", new {area="Questioner"})">
+                    <i class="fa fa-space-shuttle"></i> در حال اجرا
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("FinishedQuestionnaires","QuestionnaireForQuestioner", new {area="Questioner"})">
+                    <i class="fa fa-flag-checkered"></i> پایان یافته
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-archive"></i>
+            <span>درخواست ها</span>
+            <span class="pull-left-container">
+                <i class="fa fa-angle-right pull-left"></i>
+
+            </span>
+
+        </a>
+        <ul class="treeview-menu">
+            <li>
+                <a href="@Url.Action("Index","RequestForQuestioner", new {area="Questioner"})">
+                    <i class="fa fa-circle"></i> همه درخواستها
+                </a>
+            </li>
+
+
+        </ul>
+    </li>
+
+
+    <li class="menu">
+        <a href="@Url.Action("Index", "ReportForQuestioner", new {area = "Questioner"})">
+            <i class="fa fa-pie-chart"></i>
+
+            <span> گزارش ها</span>
+        </a>
+    </li>
+
+    <li class="menu">
+        <a href="@Url.Action("PaymentReport", "ReportForQuestioner", new {area = "Questioner"})">
+            <i class="fa fa-money"></i>
+
+            <span> گزارش پرداخت</span>
+        </a>
+    </li>
+
+    <li class="menu">
+        <a class="discount-modal" href="#">
+            <i class="fa fa-star text-yellow"></i>
+
+            <span> کدهای تخفیف شما</span>
+        </a>
+    </li>
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+
+}

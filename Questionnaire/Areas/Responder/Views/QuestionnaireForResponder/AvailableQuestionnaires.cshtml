@@ -1,0 +1,283 @@
+﻿@using PagedList.Mvc
+@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Responder.Controllers.QuestionnaireForResponderController.AvailableQuestionnairesModel
+@{
+    ViewBag.Title = "AvailableQuestionnaires";
+    //Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_ResponderDashboardLayout.cshtml";
+
+}
+
+<h2>پرسشنامه های موجود</h2>
+@{ 
+    if (TempData["suspend"]!=null)
+    {
+        <div class="alert alert-danger">@TempData["suspend"].ToString()</div>
+    }
+}
+@if (Model.AvailableQuestionnaireDtos.Count == 0)
+{
+    <div class="alert alert-success">پرسشنامه ای بر اساس شرایط شما وجود ندارد.</div>
+}
+else
+{
+
+   
+            @*<table class="table table-hover table-responsive text-center" style="overflow: auto!important">
+            <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>
+                    گروه
+                </th>
+                <th>امتیاز کاربران</th>
+                <th> تعداد سوالات</th>
+                <th>مبلغ دریافتی در صورت پاسخگویی</th>
+                <th>زمینه</th>
+                <th>شروع پاسخگویی</th>
+
+
+            </tr>
+            </thead>
+            @{
+                string style = "";
+                string clss = "";
+                int row = 1;
+            }
+
+            @foreach (var q in Model.AvailableQuestionnaireDtos)
+            {
+
+                {
+                    style = "";
+                    if (q.Special == (int)Enums.Special.Bold)
+                    {
+                        style = "font-weight:bold";
+                    }else if (q.Special == (int) Enums.Special.Color)
+                    {
+                        style = "background-color: lightskyblue";
+                    }
+                    else if (q.Special == (int) Enums.Special.Ladder)
+                    {
+                        style = "background-color: lightgreen;font-weight:bold";
+                    }
+                }
+                <tbody>
+                    <tr style="@(style)">
+                        <td>@(row++)</td>
+                        <td>@q.QuestionnaireCategory</td>
+
+                        <td>
+                            @if (q.Rate != null)
+                            {
+                                for (int i = 1; i <= q.Rate; i++)
+                                {
+                                    <span class="static-rate rate__full fa fa-star"></span>
+                                }
+                                for (int? i = q.Rate; i < 5; i++)
+                                {
+                                    <span class="static-rate rate__full fa fa-star-o"></span>
+                                }
+                            }
+                            else
+                            {
+                                <span>نظری ثبت نشده است.</span>
+                            }
+
+
+
+                        </td>
+
+                        <td>@q.QuestionsNumber</td>
+                        <td>@q.EachPersonMoney  تومان</td>
+                        <td>@q.StudyField</td>
+                        <td>
+                            @using (Html.BeginForm(Html.BeginForm("FirstLevelQuestionShowOneByOne", "QuestionnaireForResponder", new { area = "Responder" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                            {
+                                <input type="hidden" name="questionnaireId" value="@q.QuestionnaireId" />
+                                <button type="submit" class="btn btn-success">
+                                    شروع پاسخگویی
+                                </button>
+
+                            }
+                        </td>
+
+                    </tr>
+                </tbody>
+            }
+
+        </table>*@
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">پرسشنامه های موجود</div>
+                <div class="panel-body">
+                    <table class="table table-hover table-responsive text-center" style="overflow: auto!important">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <td></td>
+                                <th>
+                                    گروه
+                                </th>
+                                <th>امتیاز کاربران</th>
+                                <th> تعداد پرسش ها</th>
+                                <th> فرصت</th>
+                                <th>افراد باقیمانده</th>
+                                <th>قیمت</th>
+
+                                <th>عملیات</th>
+
+
+                            </tr>
+                        </thead>
+                        @{
+                            string style = "";
+                            string clss = "";
+                            int row = 1;
+                        }
+
+                        @foreach (var q in Model.AvailableQuestionnaireDtos)
+                        {
+
+                            {
+                                style = "";
+                                if (q.Special == (int)Enums.Special.Bold)
+                                {
+
+                                }
+                                else if (q.Special == (int)Enums.Special.Color)
+                                {
+                                    //  style = "background-color: lightskyblue";
+                                    clss = "bg-gray-active color-palette";
+                                }
+                                else if (q.Special == (int)Enums.Special.Ladder)
+                                {
+                                    clss = "bg-gray-active color-palette";
+                                }
+                            }
+                            <tbody>
+                                <tr style="@(style)" class="@(clss)">
+                                    <td>@(row++)</td>
+                                    <td>
+                                        @{
+                                            if (q.Special == (int)Enums.Special.Bold)
+                                            {
+                                                <img style="height:40px;" src="~/Content/ladder.png" />
+                                            }
+                                            if (q.Special == (int)Enums.Special.Ladder)
+                                            {
+                                                <img style="height:40px;" src="~/Content/special.png" />
+                                            }
+
+                                        }
+                                    </td>
+                                    <td>@q.QuestionnaireCategory</td>
+
+                                    <td>
+                                        @if (q.Rate != null)
+                                        {
+                                            for (int i = 1; i <= q.Rate; i++)
+                                            {
+                                                <span class="static-rate rate__full fa fa-star"></span>
+                                            }
+                                            for (int? i = q.Rate; i < 5; i++)
+                                            {
+                                                <span class="static-rate rate__full fa fa-star-o"></span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>نظری ثبت نشده است.</span>
+                                        }
+
+
+
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-green"> @q.QuestionsNumber</span>
+
+                                    </td>
+                                    <td>
+
+                                        @{
+                                            if (q.DateToExpire <= 0)
+                                            {
+                                                <span class="badge bg-light-blue">آخرین روز</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-light-blue">@q.DateToExpire روز</span>
+
+                                            }
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-red"> @q.PeapleCount</span>
+
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-yellow">
+                                            @q.EachPersonMoney  تومان
+
+
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @using (Html.BeginForm(Html.BeginForm("FirstLevelQuestionShowOneByOne", "QuestionnaireForResponder", new { area = "Responder" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                                        {
+                                            <input type="hidden" name="questionnaireId" value="@q.QuestionnaireId" />
+                                            <button type="submit" class="btn btn-success">
+                                                شروع پاسخگویی
+                                            </button>
+
+                                        }
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        }
+
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+
+}
+
+    <div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+        صفحه @(Model.AvailableQuestionnaireDtos.PageCount < Model.AvailableQuestionnaireDtos.PageNumber ? 0 : Model.AvailableQuestionnaireDtos.PageNumber) از @Model.AvailableQuestionnaireDtos.PageCount
+
+        @Html.PagedListPager(Model.AvailableQuestionnaireDtos, page => Url.Action("AvailableQuestionnaires",
+            new { page, status= ViewBag.CurrentStatus, search = ViewBag.CurrentSearch }))
+    </div>
+
+<style>
+    .static-rate {
+        font-size: 2rem;
+        color: orange
+    }
+
+        .static-rate.rate__none {
+            color: orange
+        }
+
+        .static-rate.rate__full {
+            font-size: 20px;
+            color: orange;
+        }
+
+        .static-rate.rate__half {
+            color: orange;
+        }
+</style>

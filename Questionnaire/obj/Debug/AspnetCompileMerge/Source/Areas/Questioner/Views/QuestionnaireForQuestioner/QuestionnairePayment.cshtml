@@ -1,0 +1,24 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionnaireForQuestionerController.QuestionPaymentDto
+@{
+    ViewBag.Title = "QuestionnairePayment";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>پرداخت</h2>
+
+@using (Html.BeginForm("PaymentConfirmation", "QuestionnaireForQuestioner", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    <div class="alert alert-warning" style="font-size: 20px">
+        <span>مبلغ نهایی جهت پرسشنامه شما</span>
+        <span>
+            <b>@Model.PriceToPay</b>
+        </span>
+        <span>تومان میباشد.<br/> در صورت تمایل میتوانید با پرداخت این مبلغ پرسشنامه خود را نهایی سازی نمایید.</span>
+        <br/>
+        <br/>
+        <input type="hidden" name="questionnaireId" value="@Model.QuestionnaireId" />
+        <button type="submit" class="btn btn-success btn-lg">پرداخت</button>
+
+    </div>
+}
+

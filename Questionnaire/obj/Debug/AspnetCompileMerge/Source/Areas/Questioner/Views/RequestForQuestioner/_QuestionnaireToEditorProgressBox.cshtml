@@ -1,0 +1,23 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.QuestionnaireSummaryModel
+
+
+<div class="box box-primary no-padding no-margin">
+
+    <div class="box-body">
+        <div>
+            @using (Html.BeginForm(Html.BeginForm("Index", "QuestionForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+            {
+                <input type="hidden" name="questionnaireId" value="@Model.QuestionnaireSummaryDto.QuestionnaireId" />
+                <button type="submit" class="btn btn-primary pull-left">
+                    بازگشت به بخش پرسشنامه اصلی
+                    <span class="fa fa-angle-left"></span>
+
+                </button>
+            }
+
+        </div>
+        <div class="pull-left">
+
+        </div>
+    </div>
+</div>

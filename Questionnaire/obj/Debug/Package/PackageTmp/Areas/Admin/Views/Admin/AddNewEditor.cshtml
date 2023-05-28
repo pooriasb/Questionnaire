@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "AddNewEditor";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@using QuestionnaireProject.Areas.Editor.Models;
+@using QuestionnaireProject.Models;
+
+@model RegisterViewModel
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<h2>ویراستار ها</h2>
+@{
+    if (TempData["ok"] != null)
+    {
+        <div class="alet alert-success">@TempData["ok"]</div>
+    }
+    if (TempData["error"] != null)
+    {
+        <div class="alet alert-danger">@TempData["error"]</div>
+    }
+}
+<div class="box box-danger">
+    <div class="box-header">ویراستار جدید</div>
+    <div class="box-body">
+        <form action="/admin/admin/AddNewEditor" method="post">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label"> نام</label>
+                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.FirstName)
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">نام خانوادگی</label>
+                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.LastName)
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">کد ملی</label>
+                        @Html.TextBoxFor(x => x.NationalCode, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.NationalCode)
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">تلفن</label>
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.PhoneNumber)
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">ایمیل</label>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">گذرواژه</label>
+                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Password)
+                    </div>
+                 
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block">ذخیره</button>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="box box-warning">
+    <div class="box-header">لیست ویراستار ها</div>
+    <div class="box-body">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-responsive table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td>نام ویراستار</td>
+                            <td>کد ملی</td>
+                            <td>تلفن</td>
+                            <td>ایمیل</td>
+                            <td>مسدود سازی</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in ViewBag.users as List<UsersDto>)
+                            {
+                                <tr>
+                                    <td>@item.FirstName @item.LastName</td>
+                                    <td>@item.NationalId</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.Email</td>
+                                    <td>
+                                        @if (item.IsBlocked == null)
+                                        {
+                                            <a class="btn btn-danger" href="@Url.Action("BlockUser", "Admin", new {area = "Admin", NationalId = item.NationalId})">مسدودسازی</a>
+
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-success" href="@Url.Action("UnblockUser", "Admin", new {area = "Admin", NationalId = item.NationalId})">رفع مسدودی</a>
+
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

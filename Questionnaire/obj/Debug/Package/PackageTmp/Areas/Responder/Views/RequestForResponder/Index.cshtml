@@ -1,0 +1,129 @@
+﻿@model QuestionnaireProject.Areas.Responder.Models.RequestForResponderViewModel
+@{
+    ViewBag.Title = "Index";
+    //   Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_ResponderDashboardLayout.cshtml";
+
+}
+
+<h2>تسویه حساب</h2>
+
+@if (Model.HasPaymentRequest != true)
+{
+    <div class="box">
+        <div class="box-header">
+            <div class="box-title">تسویه حساب</div>
+        </div>
+        <div class="box-body">
+            <h4 class="text-blue">در حال حاضر مبلغ موجود در کیف پول شما <b class="text-green">@(Model.MoneyForAnswers + Model.MoneyForReferer + Model.MoneyInWallet)</b> تومان میباشد.</h4>
+            <div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>مبلغ بابت پاسخ سوالات</td>
+                            <td>@Model.MoneyForAnswers</td>
+                        </tr>
+                        <tr>
+                            <td>مبلغ بابت معرفی کاربر</td>
+                            <td>@Model.MoneyForReferer</td>
+                        </tr>
+                        <tr>
+                            <td>موجودی کیف پول</td>
+                            <td>@Model.MoneyInWallet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <p>درخواست شما تنها در صورتیکه مبلغ بیش از <span>@Model.ResponderRequestLeastValue</span> تومان باشد قابل پیگیری است.</p>
+            <p class="text-danger">همچنین درخواست های جدید شما تا زمان تعیین تکلیف آخرین درخواست قابل ثبت نمی باشد.</p>
+            <hr />
+            @if (Model.ResponderRequestLeastValue <= (Model.MoneyForAnswers + Model.MoneyForReferer + Model.MoneyInWallet))
+            {
+                <form action="@Url.Action("PaymentRequest","RequestForResponder", new {area="Responder"})">
+                    <div class="form-group">
+                        <label for="cardId">شماره کارت</label>
+                        @Html.EditorFor(m => m.CardId)
+                        @Html.ValidationMessageFor(m => m.CardId)
+                        <small id="cardId" class="form-text text-muted">شماره کارت بانکی خود را وارد نمایید.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">ارسال درخواست پرداخت</button>
+                </form>
+
+            }
+            <hr/>
+            
+            @*<form action="@Url.Action("PaymentRequest","RequestForResponder", new {area="Responder"})">
+                <div class="form-group">
+                    <label for="cardId">شما میتوانید درآمد حاصل از پاسخگویی به سوالات و معرفی دوستان خود به کیف پولتان، در پرسشن</label>                    
+                    <small id="cardId" class="form-text text-muted">شماره کارت بانکی خود را وارد نمایید.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">ارسال درخواست پرداخت</button>
+            </form>*@
+        </div>
+    </div>
+}
+else
+{
+    <div class="box bg-yellow">
+        <div class="box-header">
+            <h3>شما در حال حاضر یک درخواست در حال پیگیری دارد.</h3>
+            <hr />
+            <p>تا زمان پایان رسیدگی، درخواست دیگری قابل ثبت نمیباشد.</p>
+            <p>باتشکر</p>
+        </div>
+
+    </div>
+}
+
+
+
+
+
+
+@*todo if requests list needed we can use this table*@
+@*<div class="box">
+        <div class="box-header">
+            <div class="box-title">درخواست های پیشین</div>
+        </div>
+        <div class="box-body">
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-title"></div>
+                    <hr/>
+                </div>
+                <div class="box-body">
+                    <table class="table table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>تاریخ ارسال</th>
+                                <th>وضعیت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1392/01/02</td>
+                            <td>
+                                تایید<span class="fa fa-check-circle text-green"></span>
+                                <br/>
+                                رد<span class="fa fa-check-circle text-red"></span>
+                                <br/>
+                                در حال بررسی<span class="fa fa-check-circle text-yellow"></span>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,69 @@
+﻿<div class="box">
+    <div class="box-header">
+        
+        <a class="btn" href="#newQuestionnaireField" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="newQuestionnaireField">
+            <span class="fa fa-plus-circle fa-2x text-green">&nbsp;</span>
+            <h4 class="box-title text-black">ایجاد پرسشنامه جدید</h4>
+        </a>
+        
+    </div>
+    <div class="box-body collapse" id="newQuestionnaireField">
+        <form>
+            <div class="form-group">
+                <label for="questionnaireName">نام پرسشنامه</label>
+                <input class="form-control"
+                       id="questionnaireName"
+                       aria-describedby="questionnaireName"
+                       placeholder="نام پرسشنامه جدید را وارد کنید."
+                       style="max-width: 100%">
+                @*<small id="emailHelp" class="form-text text-muted">متنی در صورت نیاز.</small>*@
+            </div>
+            <hr/>
+            <p class="text-green">شرایط پاسخگویی را انتخاب نمایید.</p>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label class="control-label"> استان :</label>
+                    <select class="form-control">
+                        <option value="-1">نام استان</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label"> شهر  :</label>
+                    <select class="form-control">
+                        <option value="-1">نام شهر</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">حداقل سن  : </label>
+                    <select class="form-control">
+                        <option value="1">همه: دیتابیس انتخاب کند؟</option>
+                        <option value="2">10-15</option>
+                        <option value="3">16-20</option>
+                        <option value="4">20-30</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">حداکثر سن  : </label>
+                    <select class="form-control">
+                        <option value="1">همه: دیتابیس انتخاب کند؟</option>
+                        <option value="2">10-15</option>
+                        <option value="3">16-20</option>
+                        <option value="4">20-30</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">نام رشته :</label>
+                    <select class="form-control">
+                        <option value="1">همه: دیتابیس انتخاب کند؟</option>
+                    </select>
+                </div>
+            </div>
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value=""/>
+            <button type="submit" class="btn btn-primary">ثبت پرسشنامه</button>
+        </form>
+    </div>
+</div>
+
+
+

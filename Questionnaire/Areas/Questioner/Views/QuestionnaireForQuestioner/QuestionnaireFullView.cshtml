@@ -1,0 +1,372 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Editor.Models.EditorReviewModel
+@{
+    ViewBag.Title = "جزئیات پرسشنامه";
+    // Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+<style>
+   
+
+    .btn-circle.btn-xl {
+        width: 90px;
+        height: 90px;
+        padding: 0px 16px;
+        font-size: 15px;
+        line-height: 1.33;
+        border-radius: 35px;
+        margin-bottom: 5px
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 3px solid darkblue;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
+
+<h2>جزئیات پرسشنامه</h2>
+
+
+<div class="alert alert-info">
+    <h5>عنوان پرسشنامه</h5>
+    <h3>@Model.ReviewDto.QuestionnaireName</h3>
+    <table class="table table-hover table-responsive text-center text-black">
+        <thead>
+        <tr>
+            <th>استان</th>
+            <th>شهر</th>
+            <th>حداقل سن</th>
+            <th>حداکثر سن</th>
+            <th>رشته</th>
+            <th>تعداد افراد پاسخگو</th>
+            <th>مبلغ اختصاصی به هر فرد</th>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                @if (@Model.ReviewDto.ConditionDto.Provience != null)
+                {
+                <span>@Model.ReviewDto.ConditionDto.Provience</span>
+                }
+                else
+                {
+                    <span>همه</span>
+                }
+
+            </td>
+            <td>
+                @if (@Model.ReviewDto.ConditionDto.City != null)
+                {
+                <span>@Model.ReviewDto.ConditionDto.City</span>
+                }
+                else
+                {
+                    <span>همه</span>
+                }
+            </td>
+            <td>@Model.ReviewDto.ConditionDto.MinAge</td>
+            <td>@Model.ReviewDto.ConditionDto.MaxAge</td>
+            <td>
+                @if (@Model.ReviewDto.ConditionDto.Field != null)
+                {
+                    <span>@Model.ReviewDto.ConditionDto.Field</span>
+                }
+                else
+                {
+                    <span>همه</span>
+                }
+            </td>
+            <td>@Model.ReviewDto.ConditionDto.PeopleCount</td>
+            <td>@Model.ReviewDto.ConditionDto.EachPersonMoney</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+@*<div class="alert bg-light-blue">
+    <h5>مشخصات پرسشگر</h5>
+    <table class="table table-responsive table-hover text-center text-black">
+        <thead>
+        <tr>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>کد ملی</th>
+            <th>تصویر کارت ملی</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>@Model.ReviewDto.QuestionerInfo.FirstName</td>
+            <td>@Model.ReviewDto.QuestionerInfo.LastName</td>
+            <td>@Model.ReviewDto.QuestionerInfo.NationalCode</td>
+            <td>
+                @if (Model.ReviewDto.QuestionerInfo.NationalCardImage == null)
+                {
+                    <span>تصویر کارت ملی موجود نسیت.</span>
+                }
+                else
+                {
+                    <img src="data:image/png;base64, @System.Convert.ToBase64String(Model.ReviewDto.QuestionerInfo.NationalCardImage)"
+                         style="max-width: 400px"
+                         alt="کارت ملی" />
+                }
+               
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+</div>*@
+
+
+
+
+
+<div class="box context">
+    <div class="box-header">
+        <div class="box-title">
+            پرسشهای لیاقت سنجی
+        </div>
+    </div>
+    <hr />
+    <div class="box-body">
+        @foreach (var q in Model.ReviewDto.QuestionPacks)
+        {
+            if (q.QuestionType == Enums.QuestionType.BenchMarking)
+            {
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="text-green">
+                            صورت پرسش
+
+                            @if (q.EditorComment != null)
+                            {
+                                <span class="text-red">@q.EditorComment</span>
+                            }
+                        </p>
+                        <p class="alert alert-dark">@q.QuestionText</p>
+                        <br />
+
+                    </div>
+
+
+                    <div class="col-md-6" style="border-right: 2px solid #000000">
+                        <p class="text-green">پاسخ ها</p>
+
+
+                        @for (int i = 0; i < q.AnswersText.Count; i++)
+                        {
+                            if (q.CorrectAnswer == q.AnswerId[i])
+                            {
+                                <p class="alert alert-success">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                            else
+                            {
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                        }
+
+                    </div>
+                 
+                </div>
+               
+
+
+
+            }
+
+        }
+
+    </div>
+</div>
+
+<div class="box context">
+    <div class="box-header">
+        <div class="box-title">
+            پرسشهای راستی آزمایی
+        </div>
+    </div>
+    <hr />
+    <div class="box-body">
+        @foreach (var q in Model.ReviewDto.QuestionPacks)
+        {
+            if (q.QuestionType == Enums.QuestionType.Validation)
+            {
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="text-green">صورت پرسش
+                        
+                        @if (q.EditorComment!=null)
+	{
+		<span class="text-red">@q.EditorComment</span>
+	}
+                        </p>
+                        <p class="alert alert-dark">@q.QuestionText</p>
+                        @if (q.MediaType != Enums.MediaType.NoMedia)
+                        {
+                            <div id="15428817136471576">
+                                <script type="text/JavaScript" src="https://www.aparat.com/embed/csXj2?data[rnddiv]=15428817136471576&data[responsive]=yes"></script>
+                            </div>
+                        }
+
+                        <br />
+
+                    </div>
+
+
+                    <div class="col-md-6" style="border-right: 2px solid #000000">
+                        <p class="text-green">پاسخ ها</p>
+                        @for (int i = 0; i < q.AnswersText.Count; i++)
+                        {
+                            if (q.CorrectAnswer == q.AnswerId[i])
+                            {
+                                <p class="alert alert-success">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                            else
+                            {
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                        }
+
+                    </div>                   
+                </div>                
+
+
+
+            }
+
+
+        }
+
+    </div>
+</div>
+
+<div class="box context">
+    <div class="box-header">
+        <div class="box-title">
+            پرسشهای اصلی چند گزینه ای و تشریحی
+        </div>
+    </div>
+    <hr />
+    <div class="box-body">
+        @foreach (var q in Model.ReviewDto.QuestionPacks)
+        {
+            if (q.QuestionType == Enums.QuestionType.Main ||
+                q.QuestionType == Enums.QuestionType.Anatomical ||
+                q.QuestionType == Enums.QuestionType.MainWithPicture)
+            {
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="text-green">
+                            صورت پرسش
+
+                            @if (q.EditorComment != null)
+                            {
+                                <span class="text-red">@q.EditorComment</span>
+                            }
+                        </p>
+                        <p class="alert alert-dark">@q.QuestionText</p>
+                        @if (q.MediaType == Enums.MediaType.Film)
+                        {
+                            <div id="15428817136471576">
+                                <script type="text/JavaScript" src="https://www.aparat.com/embed/@q.MediaUrl?data[rnddiv]=15428817136471576&data[responsive]=yes"></script>
+                            </div>
+                        }
+                        else if (q.MediaType == Enums.MediaType.Picture)
+                        {
+                            <div>
+                                <img class="thumbnail" src="/Uploads/QuestionnairePhotos/@q.MediaUrl" style="max-width: 45rem" alt="@q.QuestionText" />
+
+                            </div>
+                        }
+
+                        <br />
+
+                    </div>
+
+
+                    <div class="col-md-6" style="border-right: 2px solid #000000">
+                        @if (q.QuestionType == Enums.QuestionType.Main)
+                        {
+                            <p class="text-green">پاسخ ها</p>
+                            for (int j = 0; j < q.AnswersText.Count; j++)
+                            {
+
+
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(j + 1)</span>
+                                    @q.AnswersText[j]
+                                </p>
+
+
+                            }
+
+
+                        }
+                        else if (q.QuestionType == Enums.QuestionType.MainWithPicture)
+                        {
+                            <p class="text-green">پاسخ ها</p>
+                            for (int i = 0; i < q.AnswersText.Count; i++)
+                            {
+
+
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    <div>
+                                        <img class="thumbnail" src="/Uploads/QuestionnairePhotos/@q.AnswersText[i]" style="max-width: 45rem" alt="@q.QuestionText" />
+
+                                    </div>
+                                </p>
+
+
+                            }
+                        }
+                        else
+                        {
+                            <h5>پرسش تشریحی میباشد.</h5>
+                        }
+
+                    </div>
+
+                </div>
+                
+                <hr />
+            }
+
+
+        }
+
+    </div>
+</div>
+
+
+

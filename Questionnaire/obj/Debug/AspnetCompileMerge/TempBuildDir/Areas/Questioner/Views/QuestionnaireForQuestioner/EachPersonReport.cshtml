@@ -1,0 +1,15 @@
+﻿@model List<QuestionnaireProject.Areas.Questioner.Controllers.QuestionnaireForQuestionerController.EachPersonReportModel >
+
+@{
+    ViewBag.Title = "EachPersonReport";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>EachPersonReport</h2>
+<ul>
+    @foreach (var qa in Model)
+    {
+        <li>@qa.Question ===> @qa.Answer</li>
+
+    }
+</ul>

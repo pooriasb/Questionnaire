@@ -1,0 +1,112 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<QuestionnaireProject.Models.AdminQuestion>
+@{
+    ViewBag.Title = "پرسشهای ویراستار";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+<h2>پرسشهای ویراستار</h2>
+
+
+<div class="box">
+    <div class="box-header">
+        <a href="@Url.Action("NewAdminQuestion", "AdminBenchMarkingQuestion")" class="btn btn-success btn-lg">
+            <span class="fa fa-plus"></span>
+            ایجاد پرسش جدید
+        </a>
+        <hr />
+    </div>
+    <div class="box-body">
+        <table class="text-center table table-hover">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>صورت پرسش</th>
+                    <th>پاسخ</th>
+                    <th>ویرایش</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = (Model.PageNumber - 1) * Model.PageSize + 1;
+                }
+                @foreach (var question in Model)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>
+                            @question.Text
+                        </td>
+                        <td>
+
+                            @foreach (var answer in question.AdminAnswers)
+                            {
+                                if (answer.IsCorrect == true)
+                                {
+                                    <span class="bg-green" style="padding: 1px 10px 1px 10px; border-radius: 15px" >@answer.AnswerText</span>
+                                }
+                                else
+                                {
+                                    <span>@answer.AnswerText</span>
+
+                                }
+                                <br style="margin: 10px"/>
+                            }
+
+                        </td>
+                        <td>
+                            
+                            <a class="btn btn-warning" href="@Url.Action("NewAdminQuestion","AdminBenchMarkingQuestion", new {id = question.Id})">ویرایش</a>
+
+
+
+                        </td>
+                        <td>
+
+
+                            <a class="btn btn-danger" href="@Url.Action("DeleteAdminQuestion","AdminBenchMarkingQuestion", new {id = question.Id})">حذف</a>
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+</div>    <link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-confirm.min.js"></script>
+
+    <script>
+        $('a.btn-danger').confirm({
+            title: "اخطار",
+            content: "آیا از حذف پرسشنامه اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function () {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+
+                }
+            }
+        });
+    </script>
+}

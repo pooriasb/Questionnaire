@@ -1,0 +1,31 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.BenchMarkingQuestionModel
+
+<div class="box box-primary no-padding no-margin">
+
+    <div class="box-body">
+        <div class="row">    
+            <div class="col-md-6">
+                @using (Html.BeginForm(Html.BeginForm("Index", "QuestionForQuestioner", new { area = "Questioner"}, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                {
+                    <input type="hidden" name="questionnaireId" value="@Model.QuestionnaireId"/>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="fa fa-angle-right"></span>
+                        مرحله بعدی
+                    </button>
+                }
+            </div>
+           
+            <div class="col-md-6">
+                <a class="btn btn-primary pull-left" href="@Url.Action("Index","QuestionnaireForQuestioner", new {area="Questioner"})">
+                    بازگشت به بخش پرسشنامه ها
+                    <span class="fa fa-angle-left"></span>
+                </a>
+            </div>
+
+           
+        </div>
+        <div class="pull-left">
+
+        </div>
+    </div>
+</div>

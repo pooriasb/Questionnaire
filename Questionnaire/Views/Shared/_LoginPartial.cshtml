@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNet.Identity
+@using QuestionnaireProject.Extensions
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new{area=""},FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("سلام " + User.Identity.GetFirstName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">خروج</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li id="registerLink">
+
+            <a href="@Url.Action("Register","Account", new {area=""})">
+                ثبت نام
+            </a>
+        </li>
+        <li>@Html.ActionLink("ورود", "Login", "Account", routeValues: new {area=""}, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

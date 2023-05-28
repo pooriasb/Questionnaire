@@ -1,0 +1,149 @@
+﻿<li class="header text-center" style="color: greenyellow; font-size: 15px">کنترل پنل پرسشگر</li>
+
+<li class="menu">
+    <a href="@Url.Action("Index", "Questioner",new{area="Questioner"})">
+        <i class="fa fa-dashboard"></i> <span>داشبورد</span>
+    </a>
+</li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-file-text"></i> <span>پرسشنامه ها</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li>
+            <a href="@Url.Action("Index", "QuestionnaireForQuestioner", new {area = "Questioner"})">
+                <i class="fa fa-files-o"></i> جدید
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("InProccessQuestionnaires","QuestionnaireForQuestioner", new {area="Questioner"})">
+                <i class="fa fa-space-shuttle"></i> در حال اجرا
+            </a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("FinishedQuestionnaires","QuestionnaireForQuestioner", new {area="Questioner"})">
+                <i class="fa fa-flag-checkered"></i> پایان یافته
+            </a>
+        </li>
+        <li class="menu">
+            <a href="@Url.Action("Index", "ReportForQuestioner", new {area = "Questioner"})">
+                <i class="fa fa-pie-chart"></i>
+
+                <span> گزارش کلی</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("Index","RequestForQuestioner", new {area="Questioner"})">
+                <i class="fa fa-circle"></i> همه پرسشنامه ها
+            </a>
+
+        </li>
+
+        <li>
+            <a href="/Questioner/RequestForQuestioner?status=0&Search=">
+                <i class="fa fa-circle"></i> ارسال نشده
+            </a>
+
+        </li>
+        <li>
+            <a href="/Questioner/RequestForQuestioner?status=1&Search=">
+                <i class="fa fa-circle"></i> رد شده
+            </a>
+
+        </li>
+        <li>
+            <a href="/Questioner/RequestForQuestioner?status=2&Search=">
+                <i class="fa fa-circle"></i> در انتظار تایید ناظر
+            </a>
+
+        </li>
+        <li>
+            <a href="/Questioner/RequestForQuestioner?status=3&Search=">
+                <i class="fa fa-circle"></i> تایید شده (پرداخت نشده)
+            </a>
+
+        </li>
+        @*<li>
+            <a href="/Questioner/RequestForQuestioner?status=4&Search=">
+                <i class="fa fa-circle"></i> درحال اجرا
+            </a>
+
+        </li>*@
+        @*<li>
+            <a href="/Questioner/RequestForQuestioner?status=4&Search=">
+                <i class="fa fa-circle"></i> پایان یافته
+            </a>
+
+        </li>*@
+    </ul>
+</li>
+
+
+@*<li class="menu">
+        <a href="@Url.Action("Index","UploadFileForQuestioner", new {area="Questioner"})">
+            <i class="fa fa-upload"></i>
+            <span> آپلود فایل پرسشنامه</span>
+        </a>
+    </li>*@
+
+@*<li class="treeview">
+    <a href="#">
+        <i class="fa fa-pie-chart"></i>
+        <span>گزارش ها</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+
+        </span>
+
+    </a>
+    <ul class="treeview-menu">
+        <li>
+            <a href="#">
+                <span class="fa fa-signal"></span> گزارش کلی
+
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="fa fa-signal"></span> به تفکیک پاسخ دهنده
+
+            </a>
+        </li>
+    </ul>
+</li>*@
+
+@*<li class="menu">
+    <a href="@Url.Action("Index", "ReportForQuestioner", new {area = "Questioner"})">
+        <i class="fa fa-pie-chart"></i>
+
+        <span> گزارش ها</span>
+    </a>
+</li>*@
+
+
+<li class="menu">
+    <a href="@Url.Action("PaymentReport", "ReportForQuestioner", new {area = "Questioner"})">
+        <i class="fa fa-money"></i>
+
+        <span> گزارش پرداخت</span>
+    </a>
+</li>
+<li class="menu">
+    <a class="discount-modal" href="#">
+        <i class="fa fa-star text-yellow"></i>
+
+        <span> کدهای تخفیف شما</span>
+    </a>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Archive", "QuestionnaireForQuestioner", new {area = "Questioner"})">
+        <i class="fa fa-money"></i>
+
+        <span>آرشیو پرسشنامه ها</span>
+    </a>
+</li>

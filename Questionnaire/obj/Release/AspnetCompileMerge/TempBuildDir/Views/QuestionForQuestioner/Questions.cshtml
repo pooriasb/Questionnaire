@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "سوالات پرسشنامه";
+}
+
+<style>
+    .fade {
+        opacity: 0;
+        -webkit-transition: opacity 0.75s linear;
+        -moz-transition: opacity 0.75s linear;
+        -ms-transition: opacity 0.75s linear;
+        -o-transition: opacity 0.75s linear;
+        transition: opacity 0.75s linear;
+    }
+</style>
+<h2>سوالات پرسشنامه (نام پرسشنام)</h2>
+
+@Html.Partial("_QuestionsProgressBox")
+<div class="nav-tabs-custom">
+    <h3 class="bold text-green" style="padding: 20px; margin: 0">ایجاد پرسش جدید:</h3>
+
+    <h4 class="bold text-red" style="padding: 20px; margin: 0">نوع پرسش خود را انتخاب نمایید.</h4>
+
+    <ul class="nav nav-tabs">
+        <li class=""><a href="#mainQuestion" data-toggle="tab" aria-expanded="false"><b>پرسش اصلی &nbsp;<span class="fa fa-question fa-2x text-blue"></span></b></a></li>
+        <li class=""><a href="#validationQuestioin" data-toggle="tab" aria-expanded="false"><b>پرسش راستی آزمایی &nbsp;<span class="fa fa-question fa-2x text-purple"></span></b></a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade" style="background-color: lightskyblue; border-radius: 20px" id="mainQuestion">
+            <div class="container nav-tabs-custom">
+                <h4 class="text-red">نوع پرسش خود را انتخاب نمایید</h4>
+                <ul class="nav nav-tabs">
+                    <li class=""><a href="#hasNothing" data-toggle="tab" aria-expanded="false">پرسش</a></li>
+                    <li class=""><a href="#hasPicture" data-toggle="tab" aria-expanded="false">پرسش حاوی تصویر</a></li>
+                    <li class=""><a href="#hasMovie" data-toggle="tab" aria-expanded="false">پرسش حاوی فیلم</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="hasNothing">
+                        @Html.Partial("_NewQuestionNothing")
+                    </div>
+
+                    <div class="tab-pane fade" id="hasPicture">
+                        @Html.Partial("_NewQuestionHasPicture")
+
+                    </div>
+
+                    <div class="tab-pane fade" id="hasMovie">
+                        @Html.Partial("_NewQuestionHasMovie")
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" style="background-color: lightcoral; border-radius: 20px" id="validationQuestioin">
+            <div class="tab-pane" id="validationQuestion">
+                <div class="container nav-tabs-custom">
+                    <h4 class="text-red">نوع پرسش خود را انتخاب نمایید</h4>
+                    <ul class="nav nav-tabs">
+                        <li class=""><a href="#validationHasNothing" data-toggle="tab" aria-expanded="false">پرسش</a></li>
+                        <li class=""><a href="#validationHasPicture" data-toggle="tab" aria-expanded="false">پرسش حاوی تصویر</a></li>
+                        <li class=""><a href="#validationHasMovie" data-toggle="tab" aria-expanded="false">پرسش حاوی فیلم</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="validationHasNothing">
+                            @Html.Partial("_NewValidationQuestionNothing")
+                        </div>
+
+                        <div class="tab-pane fade" id="validationHasPicture">
+                            @Html.Partial("_NewValidationQuestionHasPicture")
+
+                        </div>
+
+                        <div class="tab-pane fade" id="validationHasMovie">
+                            @Html.Partial("_NewValidationQuestionHasMovie")
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_QuestionsList")
+
+@section Scripts{
+    <script>
+        var answerListGlobal;
+        console.log('hi');
+        $('textarea').on('input',
+            function() {
+                var textArea = $(this);
+                $('#answers').remove();
+                $('#maxLength').remove();
+                var answersList = (textArea.val()).split('|', 6);
+                answerListGlobal = answersList;
+                if (!answersList.includes('') && answersList.length>=2) {
+                    $('<ol id="answers"></ol>').insertAfter(textArea);
+                    answersList.forEach(function(element) {
+                        
+                        $("#answers").append('<li class="text-green"><b>' + element + '</b></li>');
+                    });
+                } else {
+                    $(
+                            '<div class="text-red" id="answers">پاسخها نمیتواند حاوی گزینه خالی باشد. در این صورت سوال شما به صورت تشریحی در نظر گرفته میشود</div>')
+                        .insertAfter(textArea);
+
+                }
+
+                if (answersList.length >= 6) {
+                    $('<div class="text-red" id="maxLength">حداکثر شش گزینه را میتوانید وارد نمایید</div>')
+                        .insertAfter(textArea);
+                }
+
+            });
+
+        $('textarea').on('focusout', function () {
+            var textArea = $(this);
+            $('select[id="answersSelect"]').empty();
+            if (answerListGlobal.length >= 2) {
+                console.log(answerListGlobal);
+                answerListGlobal.forEach(function(element, index) {
+                    $('select[id="answersSelect"]').prop("disabled", false);
+                    $('select[id="answersSelect"]').append('<option class="answerElement" value="' +
+                        index +
+                        '"><b> گزینه' +
+                        (index + 1) +
+                        '</b></li>');
+                });
+            } else {
+                $('select[id="answersSelect"]').prop("disabled", true);
+            }
+
+        });
+
+
+        //function answers(item, index, arr) {
+        //    console.log(arr);
+        //    $("ul #answers").append('<li><a href="/user/messages"><span class="tab">Message Center</span></a></li>');
+
+        //}
+    </script>
+}

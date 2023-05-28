@@ -1,0 +1,41 @@
+﻿@model QuestionnaireProject.Areas.Editor.Models.EditorReviewModel
+<div class="alert bg-light-blue">
+    <h5>مشخصات پرسشگر</h5>
+    <table class="table table-responsive table-hover text-center text-black">
+        <thead>
+            <tr>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>کد ملی</th>
+                <th>تصویر کارت ملی</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.ReviewDto.QuestionerInfo.FirstName</td>
+                <td>@Model.ReviewDto.QuestionerInfo.LastName</td>
+                <td>@Model.ReviewDto.QuestionerInfo.NationalCode</td>
+                <td>
+                @if (Model.ReviewDto.QuestionerInfo.NationalCardImage == null)
+                {
+                    <span>تصویر کارت ملی موجود نسیت.</span>
+                }
+                else
+                {
+                    <img src="data:image/png;base64, @System.Convert.ToBase64String(Model.ReviewDto.QuestionerInfo.NationalCardImage)"
+                         style="max-width: 400px"
+                         alt="کارت ملی" />
+                }
+               
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @*<hr />
+    <small>در صورت عدم تطابق مشخصات شناسایی بایستی دکمه رد درخواست را فشار دهید.</small>
+    <a href="#" class="btn btn-danger pull-left">
+        رد درخواست
+    </a>*@
+</div>
+

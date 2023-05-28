@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "تایید درخواست";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+<h2>تایید درخواست مربوط به پرسشنامه با عنوان: {نام پرسشنامه}</h2>
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">ارسال پیام تایید درخواست به پرسشگر</div>
+        <hr />
+    </div>
+
+    <div class="box-body">
+        <form>
+            <div class="form-group">
+                <label class="control-label">پیام به پرسشگر:</label>
+                <textarea class="form-control" name="" placeholder="پیام خود را اینجا درج نمایید."></textarea>
+            </div>
+            <input type="submit" class="btn btn-success btn-lg" value="تایید پرسشنامه" />
+        </form>
+    </div>
+</div>
+

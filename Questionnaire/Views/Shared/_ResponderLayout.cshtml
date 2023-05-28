@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/myCss")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.0.0/css/bootstrap.min.css" integrity="sha384-P4uhUIGk/q1gaD/NdgkBIl3a6QywJjlsFJFk7SPRdruoGddvRVSwv5qFnvZ73cpz" crossorigin="anonymous">*@
+
+
+</head>
+<body dir="rtl">
+
+    <div class="layout-top-nav skin-blue">
+        <div class="wrapper" style="height: auto; min-height: 100%;">
+
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand">BRAND</a>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="@Url.Action("Index","Responder", new {area="Responder"})">خانه<span class="sr-only">(current)</span></a></li>
+                                <li><a href="@Url.Action("AvailableQuestionnaires","QuestionnaireForResponder", new{area="Responder"})">پرسشنامه ها</a></li>
+                                <li><a href="@Url.Action("AnsweredQuesionnaires","QuestionnaireForResponder", new{area="Responder"})">گزارش پاسخگویی</a></li>
+                                <li><a href="@Url.Action("Index","RequestForResponder", new{area="Responder"})">درخواست پرداخت</a></li>
+
+                                <li><a href="@Url.Action("About","Home", new{area=""})">درباره ما</a></li>
+                                <li><a href="@Url.Action("Contact","Home", new{area=""})">تماس با ما</a></li>
+
+
+                                @*<li class="bg-aqua text-center">
+                                    @Html.Partial("_LoginPartial")
+                                </li>*@
+
+                            </ul>
+                        </div>
+
+                        @Html.Partial("_Notifications")
+
+                    </div>
+
+                    
+                </nav>
+              
+
+            </header>
+
+            <div class="content-wrapper" style="min-height: 329px;">
+                <div class="container">
+                    @RenderBody()
+
+                </div>
+
+
+            </div>
+
+            <footer class="main-footer text-left">
+                <strong>Copyleft © 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> &amp; <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a></strong>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+
+            </footer>
+        </div>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.rtlcss.com/bootstrap/v4.0.0/js/bootstrap.min.js" integrity="sha384-54+cucJ4QbVb99v8dcttx/0JRx4FHMmhOWi4W+xrXpKcsKQodCBwAvu3xxkZAwsH" crossorigin="anonymous"></script>*@
+
+</body>
+</html>

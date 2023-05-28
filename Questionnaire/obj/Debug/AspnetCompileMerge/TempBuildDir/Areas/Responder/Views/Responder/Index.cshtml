@@ -1,0 +1,57 @@
+﻿@model QuestionnaireProject.Areas.Responder.Controllers.ResponderController.ResponderIndexDto
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ResponderLayout.cshtml";
+
+}
+
+<h2>بخش پاسخ دهنده</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="small-box bg-blue">
+            <div class="inner">
+                <h3>@Model.AvailableQuestionnaires</h3>
+
+                <p>تعداد پرسشنامه های موجود</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-question"></i>
+            </div>
+            <a href="@Url.Action("AvailableQuestionnaires","QuestionnaireForResponder", new{area="Responder"})" class="small-box-footer">شروع پاسخگویی <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>@Model.AnsweredQuestionnaires</h3>
+
+                <p>تعداد پرسشنامه های پاسخ داده شده</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <a href="@Url.Action("AnsweredQuesionnaires","QuestionnaireForResponder", new{area="Responder"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="small-box bg-maroon">
+            <div class="inner">
+                <h3>@Model.MoneyToReceive &nbsp;<span>تومان</span></h3>
+
+                <p>موجودی حساب</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-money"></i>
+            </div>
+            <a href="@Url.Action("Index","RequestForResponder")" class="small-box-footer">تسویه حساب <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>   
+</div>
+
+
+
+
+
+
+

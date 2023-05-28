@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/myCss")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.0.0/css/bootstrap.min.css" integrity="sha384-P4uhUIGk/q1gaD/NdgkBIl3a6QywJjlsFJFk7SPRdruoGddvRVSwv5qFnvZ73cpz" crossorigin="anonymous">*@
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body dir="rtl">
+
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
+    <div class="layout-top-nav skin-blue">
+        <div class="wrapper" style="height: auto; min-height: 100%;">
+            <link href="~/css/count-down-timer.css" rel="stylesheet" />
+
+            <div id="timer"></div>
+
+            @*@Html.Partial("_Navbar")*@
+
+            <div class="content-wrapper" style="min-height: 80vh;">
+                <div class="container">
+                    @RenderBody()
+
+                </div>
+
+
+
+
+            </div>
+
+            <footer class="main-footer text-left" style="max-height: 10vh !important;">
+                <strong>Copyleft © 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> &amp; <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a></strong>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+
+            </footer>
+        </div>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="https://rawcdn.githack.com/SochavaAG/example-mycode/master/pens/timer-countdown/libs/TimeCircles.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            $.post("/home/discount").done(function(data) {
+                console.log(data);
+                if (data.text !== null) {
+
+                    $('#timer').html(`<div class="row hidden-sm hidden-xs" style="max-height: 12vh; background-color: #1a1b4f">
+                                    <div class="col-md-8 text-center" style="text-align: center;margin-top: 5px!important">
+                                    <h3 style="color: white">با استفاده از کد
+                                    <span style="color: #1a1b4f; background-color: gold; padding: 10px 30px 10px 30px; border-radius: 10px">${data.text}</span>
+                                    ،از تخفیف ویژه برخوردار شوید.</h3>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <div class="ag-format-container center-block">
+                                    <div id="js-countdown" style="color: white; font-weight: bold"></div>
+                                    </div>
+                                    </div>
+                                    </div>`);
+                    var date = moment(data.date);
+                    console.log(date.year(), date.month(), date.date(), date.hour(), date.minute(), date.second(), 0);
+                    $('#js-countdown').TimeCircles({
+                        ref_date: new Date(date.year(), date.month(), date.date(), date.hour(), date.minute(), date.second(), 0),                        
+                        start: true,
+                        refresh_interval: 0.1,
+                        count_past_zero: true,
+                        circle_bg_color: '#f95e5e',
+                        use_background: true,
+                        fg_width: 0.05,
+                        bg_width: 0.5,
+                        time: {
+                            Days: { show: true, text: 'روز', color: '#ced119' },
+                            Hours: { show: true, text: 'ساعت', color: '#ced119' },
+                            Minutes: { show: true, text: 'دقیقه', color: '#ced119' },
+                            Seconds: { show: true, text: 'ثانیه', color: '#ced119' }
+                        }
+                    }).rebuild();
+
+
+                }
+            });
+
+
+
+        });
+    @*$("#registerLink").on('click',
+        function() {
+            $.dialog({
+                rtl: true,
+                theme: 'light',
+                title: 'ثبت نام کاربر جدید',
+                content: '<p>عنوان کاربری خود را جهت ثبت نام انتخاب نمایید.</p>' +
+                    '<hr>' +
+                    '<a href="@Url.Action("Register","Account", new {area=""})" class="btn btn-info btn-lg center-block">ثبت نام با عنوان پاسخ دهنده</a>' +
+                    '<hr>' +
+                    '<a href="@Url.Action("QuestionerRegister","QuestionerAccount", new {area="Questioner"})" class="btn btn-success btn-lg center-block">ثبت نام با عنوان پرسشگر</a>'
+            });
+        });*@
+    </script>
+
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.rtlcss.com/bootstrap/v4.0.0/js/bootstrap.min.js" integrity="sha384-54+cucJ4QbVb99v8dcttx/0JRx4FHMmhOWi4W+xrXpKcsKQodCBwAvu3xxkZAwsH" crossorigin="anonymous"></script>*@
+
+</body>
+</html>

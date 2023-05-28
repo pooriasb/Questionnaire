@@ -1,0 +1,74 @@
+﻿
+@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Questioner.Models.BenchMarkingQuestionModel
+
+
+<div class="box">
+    @if (@TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error" role="alert">
+            @TempData["ErrorMessage"] @*make a list of errors*@
+        </div>
+    }
+
+    <div class="box-header">
+        <a class="btn" href="#newBenchMarkingQuestion" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="newBenchMarkingQuestion">
+            <span class="fa fa-plus-circle fa-2x text-green">&nbsp;</span>
+            <h4 class="box-title text-black">ایجاد پرسش لیاقت سنجی</h4>
+        </a>
+    </div>
+    <div class="box-body collapse @((TempData["RedirectModel"] != null) ? "in" : "")" id="newBenchMarkingQuestion">
+        @using (Html.BeginForm(Html.BeginForm("CreateAndEditBenchMarkingQuestion", "BenchMarkingForQuestioner", new {area = "Questioner"}, FormMethod.Post, new {enctype = "multipart/form-data"})))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr/>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group" style="margin: 10px">
+                    @Html.LabelFor(model => model.BenchMarkingQuestionViewModel.Question, htmlAttributes: new {@class = "control-label"})
+                    <br/>
+                    <br/>
+
+                    <div>
+                        @Html.TextAreaFor(model => model.BenchMarkingQuestionViewModel.Question, new {@class = "form-control", @placeholder = "صورت پرسش را وارد نمایید.", @style = "max-width:100%"})
+                        @Html.ValidationMessageFor(model => model.BenchMarkingQuestionViewModel.Question, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <hr/>
+                <small class="text-green">جهت ثبت پرسش لیاقت سنجی، بایستی حداقل چهار گزینه وارد نمایید</small>
+
+                <div class="form-group" style="margin: 10px">
+                    @Html.LabelFor(model => model.BenchMarkingQuestionViewModel.Answers, htmlAttributes: new {@class = "control-label"})
+                    <br/><br/>
+                    <div class="row" style="margin: 10px">
+                        @for (int i = 0; i < (int) Enums.BenchMarkingQuestion.MaxAnswersNumber; i++)
+                        {
+                            <div class="col-md-4">
+                                <label class="control-label" style="margin-bottom: 10px">
+                                    @Html.RadioButtonFor(m => m.BenchMarkingQuestionViewModel.CorrectAnswer, i + 1)
+                                    <span>پاسخ صحیح</span>
+                                </label>
+
+                                @Html.TextAreaFor(model => model.BenchMarkingQuestionViewModel.Answers[i], new {@class = "form-control", placeholder = "گزینه خود را وارد نمایید.", @style = "max-width:100%"})
+                                <br/>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+                @Html.ValidationMessageFor(model => model.BenchMarkingQuestionViewModel.Answers, "", new {@class = "text-danger"})
+
+                <input id="BenchMarkingQuestionViewModel_QuestionnaireId" name="BenchMarkingQuestionViewModel.QuestionnaireId" type="hidden" value="@Request.Params["questionnaireId"]">
+                @Html.HiddenFor(m => m.BenchMarkingQuestionViewModel.QuestionId)
+                <div class="col-md-offset-1 col-md-10">
+                    <input type="submit" value="ثبت پرسش لیاقت سنجی" class="btn btn-primary"/>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+

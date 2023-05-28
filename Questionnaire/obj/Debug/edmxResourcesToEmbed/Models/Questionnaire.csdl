@@ -1,0 +1,1058 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuestionnaireModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="QuestionnaireEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="QuestionnaireModel.C__MigrationHistory" />
+    <EntitySet Name="AdminAnswers" EntityType="QuestionnaireModel.AdminAnswer" />
+    <EntitySet Name="AdminQuestions" EntityType="QuestionnaireModel.AdminQuestion" />
+    <EntitySet Name="Answers" EntityType="QuestionnaireModel.Answer" />
+    <EntitySet Name="AspNetRoles" EntityType="QuestionnaireModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="QuestionnaireModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="QuestionnaireModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="QuestionnaireModel.AspNetUser" />
+    <EntitySet Name="Cities" EntityType="QuestionnaireModel.City" />
+    <EntitySet Name="Conditions" EntityType="QuestionnaireModel.Condition" />
+    <EntitySet Name="Discounts" EntityType="QuestionnaireModel.Discount" />
+    <EntitySet Name="EX_AnatomicalRespnses" EntityType="QuestionnaireModel.EX_AnatomicalRespnses" />
+    <EntitySet Name="EX_MultipleChoiceAnswers" EntityType="QuestionnaireModel.EX_MultipleChoiceAnswers" />
+    <EntitySet Name="EX_MultipleChoiceResponses" EntityType="QuestionnaireModel.EX_MultipleChoiceResponses" />
+    <EntitySet Name="EX_QuestionerProfiles" EntityType="QuestionnaireModel.EX_QuestionerProfiles" />
+    <EntitySet Name="EX_ResponderProfiles" EntityType="QuestionnaireModel.EX_ResponderProfiles" />
+    <EntitySet Name="EX_VBAnswers" EntityType="QuestionnaireModel.EX_VBAnswers" />
+    <EntitySet Name="EX_VBResponses" EntityType="QuestionnaireModel.EX_VBResponses" />
+    <EntitySet Name="Fohshes" EntityType="QuestionnaireModel.Fohsh" />
+    <EntitySet Name="Medias" EntityType="QuestionnaireModel.Media" />
+    <EntitySet Name="MoneyToReferers" EntityType="QuestionnaireModel.MoneyToReferer" />
+    <EntitySet Name="Notifications" EntityType="QuestionnaireModel.Notification" />
+    <EntitySet Name="Options" EntityType="QuestionnaireModel.Option" />
+    <EntitySet Name="Payments" EntityType="QuestionnaireModel.Payment" />
+    <EntitySet Name="Provinces" EntityType="QuestionnaireModel.Province" />
+    <EntitySet Name="QuestionnaireCategories" EntityType="QuestionnaireModel.QuestionnaireCategory" />
+    <EntitySet Name="QuestionnaireRequests" EntityType="QuestionnaireModel.QuestionnaireRequest" />
+    <EntitySet Name="Questionnaires" EntityType="QuestionnaireModel.Questionnaire" />
+    <EntitySet Name="Questions" EntityType="QuestionnaireModel.Question" />
+    <EntitySet Name="RefererCharges" EntityType="QuestionnaireModel.RefererCharge" />
+    <EntitySet Name="Responses" EntityType="QuestionnaireModel.Respons" />
+    <EntitySet Name="SpecialOffers" EntityType="QuestionnaireModel.SpecialOffer" />
+    <EntitySet Name="StudyFields" EntityType="QuestionnaireModel.StudyField" />
+    <EntitySet Name="sysdiagrams" EntityType="QuestionnaireModel.sysdiagram" />
+    <EntitySet Name="UploadedQuestionnaires" EntityType="QuestionnaireModel.UploadedQuestionnaire" />
+    <EntitySet Name="UsersResponses" EntityType="QuestionnaireModel.UsersRespons" />
+    <AssociationSet Name="FK_AdminAnswers_AdminQuestions" Association="QuestionnaireModel.FK_AdminAnswers_AdminQuestions">
+      <End Role="AdminQuestion" EntitySet="AdminQuestions" />
+      <End Role="AdminAnswer" EntitySet="AdminAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answers_Questions" Association="QuestionnaireModel.FK_Answers_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="QuestionnaireModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="QuestionnaireModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Discounts_AspNetUsers" Association="QuestionnaireModel.FK_Discounts_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Discount" EntitySet="Discounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MoneyToReferer_AspNetUsers" Association="QuestionnaireModel.FK_MoneyToReferer_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="MoneyToReferer" EntitySet="MoneyToReferers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_AspNetUsers" Association="QuestionnaireModel.FK_Payments_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_AspNetUsers1" Association="QuestionnaireModel.FK_Payments_AspNetUsers1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionerProfiles_AspNetUsers" Association="QuestionnaireModel.FK_QuestionerProfiles_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="EX_QuestionerProfiles" EntitySet="EX_QuestionerProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionnaireRequests_AspNetUsers" Association="QuestionnaireModel.FK_QuestionnaireRequests_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="QuestionnaireRequest" EntitySet="QuestionnaireRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questionnaires_AspNetUsers" Association="QuestionnaireModel.FK_Questionnaires_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RefererCharges_AspNetUsers" Association="QuestionnaireModel.FK_RefererCharges_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="RefererCharge" EntitySet="RefererCharges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RefererCharges_AspNetUsers1" Association="QuestionnaireModel.FK_RefererCharges_AspNetUsers1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="RefererCharge" EntitySet="RefererCharges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ResponderProfiles_AspNetUsers" Association="QuestionnaireModel.FK_ResponderProfiles_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="EX_ResponderProfiles" EntitySet="EX_ResponderProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Responses_AspNetUsers" Association="QuestionnaireModel.FK_Responses_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Respons" EntitySet="Responses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cities_Provinces" Association="QuestionnaireModel.FK_Cities_Provinces">
+      <End Role="Province" EntitySet="Provinces" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Conditions_Cities" Association="QuestionnaireModel.FK_Conditions_Cities">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Condition" EntitySet="Conditions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Conditions_Provinces" Association="QuestionnaireModel.FK_Conditions_Provinces">
+      <End Role="Province" EntitySet="Provinces" />
+      <End Role="Condition" EntitySet="Conditions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Conditions_Questionnaires" Association="QuestionnaireModel.FK_Conditions_Questionnaires">
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+      <End Role="Condition" EntitySet="Conditions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Conditions_StudyFields" Association="QuestionnaireModel.FK_Conditions_StudyFields">
+      <End Role="StudyField" EntitySet="StudyFields" />
+      <End Role="Condition" EntitySet="Conditions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AnatomicalRespnses_Questions" Association="QuestionnaireModel.FK_AnatomicalRespnses_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="EX_AnatomicalRespnses" EntitySet="EX_AnatomicalRespnses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MultipleChoiceAnswers_Questions" Association="QuestionnaireModel.FK_MultipleChoiceAnswers_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="EX_MultipleChoiceAnswers" EntitySet="EX_MultipleChoiceAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MultipleChoiceResponses_MultipleChoiceAnswers" Association="QuestionnaireModel.FK_MultipleChoiceResponses_MultipleChoiceAnswers">
+      <End Role="EX_MultipleChoiceAnswers" EntitySet="EX_MultipleChoiceAnswers" />
+      <End Role="EX_MultipleChoiceResponses" EntitySet="EX_MultipleChoiceResponses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VBAnswers_Questions" Association="QuestionnaireModel.FK_VBAnswers_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="EX_VBAnswers" EntitySet="EX_VBAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VBResponses_VBAnswers" Association="QuestionnaireModel.FK_VBResponses_VBAnswers">
+      <End Role="EX_VBAnswers" EntitySet="EX_VBAnswers" />
+      <End Role="EX_VBResponses" EntitySet="EX_VBResponses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Medias_Questions" Association="QuestionnaireModel.FK_Medias_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Media" EntitySet="Medias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MoneyToReferer_Questionnaires" Association="QuestionnaireModel.FK_MoneyToReferer_Questionnaires">
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+      <End Role="MoneyToReferer" EntitySet="MoneyToReferers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questionnaires_QuestionnaireCategories" Association="QuestionnaireModel.FK_Questionnaires_QuestionnaireCategories">
+      <End Role="QuestionnaireCategory" EntitySet="QuestionnaireCategories" />
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionnaireRequests_Questionnaires" Association="QuestionnaireModel.FK_QuestionnaireRequests_Questionnaires">
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+      <End Role="QuestionnaireRequest" EntitySet="QuestionnaireRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questionnaires_SepcialOffers" Association="QuestionnaireModel.FK_Questionnaires_SepcialOffers">
+      <End Role="SpecialOffer" EntitySet="SpecialOffers" />
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questions_Questionnaires" Association="QuestionnaireModel.FK_Questions_Questionnaires">
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Responses_Questionnaires" Association="QuestionnaireModel.FK_Responses_Questionnaires">
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+      <End Role="Respons" EntitySet="Responses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersResponses_Responses" Association="QuestionnaireModel.FK_UsersResponses_Responses">
+      <End Role="Respons" EntitySet="Responses" />
+      <End Role="UsersRespons" EntitySet="UsersResponses" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="QuestionnaireModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="ResponderReports" EntityType="QuestionnaireModel.ResponderReport" />
+  </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AdminAnswer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AdminQuestion_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsCorrect" Type="Boolean" />
+    <NavigationProperty Name="AdminQuestion" Relationship="QuestionnaireModel.FK_AdminAnswers_AdminQuestions" FromRole="AdminAnswer" ToRole="AdminQuestion" />
+  </EntityType>
+  <EntityType Name="AdminQuestion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AdminAnswers" Relationship="QuestionnaireModel.FK_AdminAnswers_AdminQuestions" FromRole="AdminQuestion" ToRole="AdminAnswer" />
+  </EntityType>
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsCorrect" Type="Boolean" />
+    <Property Name="Question_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Question" Relationship="QuestionnaireModel.FK_Answers_Questions" FromRole="Answer" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="QuestionnaireModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="StudyFieldId" Type="Int32" Nullable="false" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="PId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="National_Id" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="Sex" Type="Int32" Nullable="false" />
+    <Property Name="UniqueCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HasPaymentRequest" Type="Boolean" Nullable="false" />
+    <Property Name="BankId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MoneyBalance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="NationalCardImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="QuestionnaireModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="QuestionnaireModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="Discounts" Relationship="QuestionnaireModel.FK_Discounts_AspNetUsers" FromRole="AspNetUser" ToRole="Discount" />
+    <NavigationProperty Name="MoneyToReferers" Relationship="QuestionnaireModel.FK_MoneyToReferer_AspNetUsers" FromRole="AspNetUser" ToRole="MoneyToReferer" />
+    <NavigationProperty Name="Payments" Relationship="QuestionnaireModel.FK_Payments_AspNetUsers" FromRole="AspNetUser" ToRole="Payment" />
+    <NavigationProperty Name="Payments1" Relationship="QuestionnaireModel.FK_Payments_AspNetUsers1" FromRole="AspNetUser" ToRole="Payment" />
+    <NavigationProperty Name="EX_QuestionerProfiles" Relationship="QuestionnaireModel.FK_QuestionerProfiles_AspNetUsers" FromRole="AspNetUser" ToRole="EX_QuestionerProfiles" />
+    <NavigationProperty Name="QuestionnaireRequests" Relationship="QuestionnaireModel.FK_QuestionnaireRequests_AspNetUsers" FromRole="AspNetUser" ToRole="QuestionnaireRequest" />
+    <NavigationProperty Name="Questionnaires" Relationship="QuestionnaireModel.FK_Questionnaires_AspNetUsers" FromRole="AspNetUser" ToRole="Questionnaire" />
+    <NavigationProperty Name="RefererCharges" Relationship="QuestionnaireModel.FK_RefererCharges_AspNetUsers" FromRole="AspNetUser" ToRole="RefererCharge" />
+    <NavigationProperty Name="RefererCharges1" Relationship="QuestionnaireModel.FK_RefererCharges_AspNetUsers1" FromRole="AspNetUser" ToRole="RefererCharge" />
+    <NavigationProperty Name="EX_ResponderProfiles" Relationship="QuestionnaireModel.FK_ResponderProfiles_AspNetUsers" FromRole="AspNetUser" ToRole="EX_ResponderProfiles" />
+    <NavigationProperty Name="Responses" Relationship="QuestionnaireModel.FK_Responses_AspNetUsers" FromRole="AspNetUser" ToRole="Respons" />
+    <NavigationProperty Name="AspNetRoles" Relationship="QuestionnaireModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Province_Id" Type="Int32" />
+    <NavigationProperty Name="Province" Relationship="QuestionnaireModel.FK_Cities_Provinces" FromRole="City" ToRole="Province" />
+    <NavigationProperty Name="Conditions" Relationship="QuestionnaireModel.FK_Conditions_Cities" FromRole="City" ToRole="Condition" />
+  </EntityType>
+  <EntityType Name="Condition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sex" Type="Int32" />
+    <Property Name="MaxAge" Type="Int32" />
+    <Property Name="MinAge" Type="Int32" />
+    <Property Name="PeopleCount" Type="Int32" />
+    <Property Name="EachPersonMoney" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Field_Id" Type="Int32" />
+    <Property Name="City_Id" Type="Int32" />
+    <Property Name="Provience_Id" Type="Int32" />
+    <Property Name="Questionnaire_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="City" Relationship="QuestionnaireModel.FK_Conditions_Cities" FromRole="Condition" ToRole="City" />
+    <NavigationProperty Name="Province" Relationship="QuestionnaireModel.FK_Conditions_Provinces" FromRole="Condition" ToRole="Province" />
+    <NavigationProperty Name="Questionnaire" Relationship="QuestionnaireModel.FK_Conditions_Questionnaires" FromRole="Condition" ToRole="Questionnaire" />
+    <NavigationProperty Name="StudyField" Relationship="QuestionnaireModel.FK_Conditions_StudyFields" FromRole="Condition" ToRole="StudyField" />
+  </EntityType>
+  <EntityType Name="Discount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="SitePercent" Type="Int32" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_Discounts_AspNetUsers" FromRole="Discount" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="EX_AnatomicalRespnses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Question_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Question" Relationship="QuestionnaireModel.FK_AnatomicalRespnses_Questions" FromRole="EX_AnatomicalRespnses" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="EX_MultipleChoiceAnswers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Question_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Question" Relationship="QuestionnaireModel.FK_MultipleChoiceAnswers_Questions" FromRole="EX_MultipleChoiceAnswers" ToRole="Question" />
+    <NavigationProperty Name="EX_MultipleChoiceResponses" Relationship="QuestionnaireModel.FK_MultipleChoiceResponses_MultipleChoiceAnswers" FromRole="EX_MultipleChoiceAnswers" ToRole="EX_MultipleChoiceResponses" />
+  </EntityType>
+  <EntityType Name="EX_MultipleChoiceResponses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Answer_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="EX_MultipleChoiceAnswers" Relationship="QuestionnaireModel.FK_MultipleChoiceResponses_MultipleChoiceAnswers" FromRole="EX_MultipleChoiceResponses" ToRole="EX_MultipleChoiceAnswers" />
+  </EntityType>
+  <EntityType Name="EX_QuestionerProfiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="NationalCardImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="MoneyBalance" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_QuestionerProfiles_AspNetUsers" FromRole="EX_QuestionerProfiles" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="EX_ResponderProfiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HasPaymentRequest" Type="Boolean" />
+    <Property Name="Bank_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_ResponderProfiles_AspNetUsers" FromRole="EX_ResponderProfiles" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="EX_VBAnswers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsCorrect" Type="Boolean" />
+    <Property Name="Question_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Question" Relationship="QuestionnaireModel.FK_VBAnswers_Questions" FromRole="EX_VBAnswers" ToRole="Question" />
+    <NavigationProperty Name="EX_VBResponses" Relationship="QuestionnaireModel.FK_VBResponses_VBAnswers" FromRole="EX_VBAnswers" ToRole="EX_VBResponses" />
+  </EntityType>
+  <EntityType Name="EX_VBResponses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Answer_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsCorrect" Type="Boolean" />
+    <NavigationProperty Name="EX_VBAnswers" Relationship="QuestionnaireModel.FK_VBResponses_VBAnswers" FromRole="EX_VBResponses" ToRole="EX_VBAnswers" />
+  </EntityType>
+  <EntityType Name="Fohsh">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fohsh1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Question_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Question" Relationship="QuestionnaireModel.FK_Medias_Questions" FromRole="Media" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="MoneyToReferer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Questionnaire_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ToUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PercentToUser" Type="Int32" />
+    <Property Name="MoneyToUser" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="DatePaid" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_MoneyToReferer_AspNetUsers" FromRole="MoneyToReferer" ToRole="AspNetUser" />
+    <NavigationProperty Name="Questionnaire" Relationship="QuestionnaireModel.FK_MoneyToReferer_Questionnaires" FromRole="MoneyToReferer" ToRole="Questionnaire" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FromUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ToUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="IsSeen" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Option">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="FromUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ToUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+    <Property Name="Value" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_Payments_AspNetUsers" FromRole="Payment" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser1" Relationship="QuestionnaireModel.FK_Payments_AspNetUsers1" FromRole="Payment" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cities" Relationship="QuestionnaireModel.FK_Cities_Provinces" FromRole="Province" ToRole="City" />
+    <NavigationProperty Name="Conditions" Relationship="QuestionnaireModel.FK_Conditions_Provinces" FromRole="Province" ToRole="Condition" />
+  </EntityType>
+  <EntityType Name="QuestionnaireCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Questionnaires" Relationship="QuestionnaireModel.FK_Questionnaires_QuestionnaireCategories" FromRole="QuestionnaireCategory" ToRole="Questionnaire" />
+  </EntityType>
+  <EntityType Name="QuestionnaireRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Questionnaire_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="EditorComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_QuestionnaireRequests_AspNetUsers" FromRole="QuestionnaireRequest" ToRole="AspNetUser" />
+    <NavigationProperty Name="Questionnaire" Relationship="QuestionnaireModel.FK_QuestionnaireRequests_Questionnaires" FromRole="QuestionnaireRequest" ToRole="Questionnaire" />
+  </EntityType>
+  <EntityType Name="Questionnaire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="DateConfirmed" Type="DateTime" Precision="3" />
+    <Property Name="DatePaid" Type="DateTime" Precision="3" />
+    <Property Name="DateExpire" Type="DateTime" Precision="3" />
+    <Property Name="IsExpired" Type="Boolean" />
+    <Property Name="DateSpecialExpire" Type="DateTime" Precision="3" />
+    <Property Name="Special_Id" Type="Int32" />
+    <Property Name="EachPersonMoneyPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="SitePercentValue" Type="Int32" />
+    <Property Name="SitePercentPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Rate" Type="Int32" />
+    <Property Name="AnsweredByPerson" Type="Int32" />
+    <Property Name="RemainMoney" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Category_Id" Type="Int32" />
+    <Property Name="Editor_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_Questionnaires_AspNetUsers" FromRole="Questionnaire" ToRole="AspNetUser" />
+    <NavigationProperty Name="Conditions" Relationship="QuestionnaireModel.FK_Conditions_Questionnaires" FromRole="Questionnaire" ToRole="Condition" />
+    <NavigationProperty Name="MoneyToReferers" Relationship="QuestionnaireModel.FK_MoneyToReferer_Questionnaires" FromRole="Questionnaire" ToRole="MoneyToReferer" />
+    <NavigationProperty Name="QuestionnaireCategory" Relationship="QuestionnaireModel.FK_Questionnaires_QuestionnaireCategories" FromRole="Questionnaire" ToRole="QuestionnaireCategory" />
+    <NavigationProperty Name="QuestionnaireRequests" Relationship="QuestionnaireModel.FK_QuestionnaireRequests_Questionnaires" FromRole="Questionnaire" ToRole="QuestionnaireRequest" />
+    <NavigationProperty Name="SpecialOffer" Relationship="QuestionnaireModel.FK_Questionnaires_SepcialOffers" FromRole="Questionnaire" ToRole="SpecialOffer" />
+    <NavigationProperty Name="Questions" Relationship="QuestionnaireModel.FK_Questions_Questionnaires" FromRole="Questionnaire" ToRole="Question" />
+    <NavigationProperty Name="Responses" Relationship="QuestionnaireModel.FK_Responses_Questionnaires" FromRole="Questionnaire" ToRole="Respons" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MediaType" Type="Int32" Nullable="false" />
+    <Property Name="QuestionType" Type="Int32" Nullable="false" />
+    <Property Name="Questionnaire_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="EditorComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Answers" Relationship="QuestionnaireModel.FK_Answers_Questions" FromRole="Question" ToRole="Answer" />
+    <NavigationProperty Name="EX_AnatomicalRespnses" Relationship="QuestionnaireModel.FK_AnatomicalRespnses_Questions" FromRole="Question" ToRole="EX_AnatomicalRespnses" />
+    <NavigationProperty Name="EX_MultipleChoiceAnswers" Relationship="QuestionnaireModel.FK_MultipleChoiceAnswers_Questions" FromRole="Question" ToRole="EX_MultipleChoiceAnswers" />
+    <NavigationProperty Name="EX_VBAnswers" Relationship="QuestionnaireModel.FK_VBAnswers_Questions" FromRole="Question" ToRole="EX_VBAnswers" />
+    <NavigationProperty Name="Medias" Relationship="QuestionnaireModel.FK_Medias_Questions" FromRole="Question" ToRole="Media" />
+    <NavigationProperty Name="Questionnaire" Relationship="QuestionnaireModel.FK_Questions_Questionnaires" FromRole="Question" ToRole="Questionnaire" />
+  </EntityType>
+  <EntityType Name="RefererCharge">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NewClient_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Referer_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CountToPay" Type="Int32" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_RefererCharges_AspNetUsers" FromRole="RefererCharge" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser1" Relationship="QuestionnaireModel.FK_RefererCharges_AspNetUsers1" FromRole="RefererCharge" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="Respons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Questionnaire_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Score" Type="Int32" />
+    <Property Name="DateStarted" Type="DateTime" Precision="3" />
+    <Property Name="DateFinished" Type="DateTime" Precision="3" />
+    <Property Name="DatePaid" Type="DateTime" Precision="3" />
+    <Property Name="Rate" Type="Int32" />
+    <Property Name="IsBanned" Type="Boolean" />
+    <Property Name="ReceivedMoneyAmount" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="AspNetUser" Relationship="QuestionnaireModel.FK_Responses_AspNetUsers" FromRole="Respons" ToRole="AspNetUser" />
+    <NavigationProperty Name="Questionnaire" Relationship="QuestionnaireModel.FK_Responses_Questionnaires" FromRole="Respons" ToRole="Questionnaire" />
+    <NavigationProperty Name="UsersResponses" Relationship="QuestionnaireModel.FK_UsersResponses_Responses" FromRole="Respons" ToRole="UsersRespons" />
+  </EntityType>
+  <EntityType Name="SpecialOffer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="Days" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Questionnaires" Relationship="QuestionnaireModel.FK_Questionnaires_SepcialOffers" FromRole="SpecialOffer" ToRole="Questionnaire" />
+  </EntityType>
+  <EntityType Name="StudyField">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Conditions" Relationship="QuestionnaireModel.FK_Conditions_StudyFields" FromRole="StudyField" ToRole="Condition" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UploadedQuestionnaire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateSent" Type="DateTime" Precision="3" />
+    <Property Name="Questionnaire_Id" Type="Int32" />
+    <Property Name="IsFinished" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="UsersRespons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Response_Id" Type="Int32" />
+    <Property Name="Question_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsCorrect" Type="Boolean" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Respons" Relationship="QuestionnaireModel.FK_UsersResponses_Responses" FromRole="UsersRespons" ToRole="Respons" />
+  </EntityType>
+  <Association Name="FK_AdminAnswers_AdminQuestions">
+    <End Type="QuestionnaireModel.AdminQuestion" Role="AdminQuestion" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.AdminAnswer" Role="AdminAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdminQuestion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdminAnswer">
+        <PropertyRef Name="AdminQuestion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answers_Questions">
+    <End Type="QuestionnaireModel.Question" Role="Question" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.Answer" Role="Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Discounts_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Discount" Role="Discount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Discount">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MoneyToReferer_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.MoneyToReferer" Role="MoneyToReferer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MoneyToReferer">
+        <PropertyRef Name="ToUser_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="ToUser_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_AspNetUsers1">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="FromUser_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionerProfiles_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.EX_QuestionerProfiles" Role="EX_QuestionerProfiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EX_QuestionerProfiles">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionnaireRequests_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.QuestionnaireRequest" Role="QuestionnaireRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuestionnaireRequest">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questionnaires_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Questionnaire">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RefererCharges_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.RefererCharge" Role="RefererCharge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RefererCharge">
+        <PropertyRef Name="NewClient_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RefererCharges_AspNetUsers1">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.RefererCharge" Role="RefererCharge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RefererCharge">
+        <PropertyRef Name="Referer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ResponderProfiles_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.EX_ResponderProfiles" Role="EX_ResponderProfiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EX_ResponderProfiles">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Responses_AspNetUsers">
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Respons" Role="Respons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Respons">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cities_Provinces">
+    <End Type="QuestionnaireModel.Province" Role="Province" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.City" Role="City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="Province_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Conditions_Cities">
+    <End Type="QuestionnaireModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Condition" Role="Condition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Condition">
+        <PropertyRef Name="City_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Conditions_Provinces">
+    <End Type="QuestionnaireModel.Province" Role="Province" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Condition" Role="Condition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Condition">
+        <PropertyRef Name="Provience_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Conditions_Questionnaires">
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.Condition" Role="Condition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Condition">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Conditions_StudyFields">
+    <End Type="QuestionnaireModel.StudyField" Role="StudyField" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Condition" Role="Condition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StudyField">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Condition">
+        <PropertyRef Name="Field_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AnatomicalRespnses_Questions">
+    <End Type="QuestionnaireModel.Question" Role="Question" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.EX_AnatomicalRespnses" Role="EX_AnatomicalRespnses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EX_AnatomicalRespnses">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MultipleChoiceAnswers_Questions">
+    <End Type="QuestionnaireModel.Question" Role="Question" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.EX_MultipleChoiceAnswers" Role="EX_MultipleChoiceAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EX_MultipleChoiceAnswers">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MultipleChoiceResponses_MultipleChoiceAnswers">
+    <End Type="QuestionnaireModel.EX_MultipleChoiceAnswers" Role="EX_MultipleChoiceAnswers" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.EX_MultipleChoiceResponses" Role="EX_MultipleChoiceResponses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EX_MultipleChoiceAnswers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EX_MultipleChoiceResponses">
+        <PropertyRef Name="Answer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VBAnswers_Questions">
+    <End Type="QuestionnaireModel.Question" Role="Question" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.EX_VBAnswers" Role="EX_VBAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EX_VBAnswers">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VBResponses_VBAnswers">
+    <End Type="QuestionnaireModel.EX_VBAnswers" Role="EX_VBAnswers" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.EX_VBResponses" Role="EX_VBResponses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EX_VBAnswers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EX_VBResponses">
+        <PropertyRef Name="Answer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Medias_Questions">
+    <End Type="QuestionnaireModel.Question" Role="Question" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.Media" Role="Media" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Media">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MoneyToReferer_Questionnaires">
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.MoneyToReferer" Role="MoneyToReferer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MoneyToReferer">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questionnaires_QuestionnaireCategories">
+    <End Type="QuestionnaireModel.QuestionnaireCategory" Role="QuestionnaireCategory" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionnaireCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Questionnaire">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionnaireRequests_Questionnaires">
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.QuestionnaireRequest" Role="QuestionnaireRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuestionnaireRequest">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questionnaires_SepcialOffers">
+    <End Type="QuestionnaireModel.SpecialOffer" Role="SpecialOffer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpecialOffer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Questionnaire">
+        <PropertyRef Name="Special_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questions_Questionnaires">
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Responses_Questionnaires">
+    <End Type="QuestionnaireModel.Questionnaire" Role="Questionnaire" Multiplicity="0..1" />
+    <End Type="QuestionnaireModel.Respons" Role="Respons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Respons">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersResponses_Responses">
+    <End Type="QuestionnaireModel.Respons" Role="Respons" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuestionnaireModel.UsersRespons" Role="UsersRespons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Respons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersRespons">
+        <PropertyRef Name="Response_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="QuestionnaireModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="QuestionnaireModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityType Name="ResponderReport">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResponderID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="QuastionarID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ReportDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmDate" Type="DateTime" Precision="3" />
+    <Property Name="EditorID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,67 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.BenchMarkingQuestionModel
+
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">لیست پرسشنامه لیاقت سنجی</div>
+        <hr />
+    </div>
+    <div class="box-body">
+        <table class="text-center table table-hover">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>صورت پرسش</th>
+                    <th>تعداد گزینه</th>
+                    <th>مشاهده جزئیات</th>
+                    <th>ویرایش</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+            @{
+                int i = 1;
+            }
+            @foreach (var question in Model.QuestionPacksDto)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>
+                        @(question.QuestionText.Length > 100 ? question.QuestionText.Substring(0, 100) : question.QuestionText)
+                    </td>
+                    <td>
+
+                        @question.AnswersText.Count
+
+                    </td>
+                    <td>
+                        <button name="details" id="@question.QuestionId" class="btn btn-info">
+                            مشاهده جزئیات
+                        </button>
+                    </td>
+                    <td>
+                        @using (Html.BeginForm(Html.BeginForm("BenchMarkingQuestionEdit", "BenchMarkingForQuestioner", new {area = "Questioner"}, FormMethod.Post, new {enctype = "multipart/form-data"})))
+                        {
+                            @Html.Hidden("questionnaireId", Model.QuestionnaireId)
+                            <input type="hidden" name="questionId" value="@question.QuestionId"/>
+                            <button type="submit" class="btn btn-warning">
+                                ویرایش
+                            </button>
+
+                        }
+
+                    </td>
+                    <td>
+                        
+                            <a class="btn btn-danger" href="@Url.Action("BenchMarkingQuestionDelete","BenchMarkingForQuestioner", new{area = "Questioner", questionnaireId=Model.QuestionnaireId, questionId = question.QuestionId})">
+                                حذف
+                            </a>                        
+
+
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+</div>

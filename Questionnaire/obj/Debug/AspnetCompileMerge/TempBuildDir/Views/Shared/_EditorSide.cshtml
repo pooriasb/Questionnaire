@@ -1,0 +1,136 @@
+﻿<li class="header text-center" style="color: orange; font-size: 15px">کنترل پنل ویراستار</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "Editor", new {area = "Editor"})">
+        <i class="fa fa-dashboard"></i> <span>داشبورد</span>
+    </a>
+</li>
+
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-file-text"></i> <span> پرسشنامه ها</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor"})"><i class="fa fa-circle"></i>همه</a></li>
+        @*<li class="active"><a href="@Url.Action("NotFianalizedQuestinnaires", "QuestionnaireForEditor")"><i class="fa fa-check-square text-danger"></i>نهایی نشده</a></li>
+        <li class="active"><a href="@Url.Action("FianalizedQuestinnaires", "QuestionnaireForEditor")"><i class="fa fa-check-square text-green"></i>نهایی شده</a></li>
+        <li class="active"><a href="@Url.Action("InProcessQuestionnaires", "QuestionnaireForEditor")"><i class="fa fa-spinner fa-spin"></i>در حال اجرا</a></li>
+        <li class="active"><a href="@Url.Action("FinishedQuestionnaires", "QuestionnaireForEditor")"><i class="fa fa-flag-checkered"></i>پایان یافته</a></li>*@
+        @*<li><a href="~/Assets/index2.html"><i class="fa fa-circle-o"></i> داشبرد دوم</a></li>*@
+    </ul>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "PaymentReportFroEditor", new {area = "Editor"})">
+        <i class="fa fa-money"></i> <span>گزارش پرداخت</span>
+    </a>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "UsersForEditor", new {area = "Editor"})">
+        <i class="fa fa-user"></i> <span>کاربران</span>
+    </a>
+</li>
+@*<li class="treeview">
+    <a href="#">
+        <i class="fa fa-archive"></i>
+        <span>درخواست پرسشنامه</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+
+        </span>
+
+    </a>
+    <ul class="treeview-menu">
+        <li>
+            <a href="@Url.Action("ReceivedRequests", "RequestForEditor")">
+                <i class="fa fa-arrow-down"></i> تایید پرسشنامه
+                <span class="label label-success pull-left">4</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("AcceptedRequests", "RequestForEditor")">
+                <i class="fa fa-check text-success"></i> تایید شده
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("RejectedRequests", "RequestForEditor")">
+                <i class="fa fa-remove text-danger"></i> رد شده
+            </a>
+        </li>
+        <li>
+            <a href="~/Assets/pages/layout/collapsed-sidebar.html">
+                <span class="fa fa-spinner text-info"></span> تایید و نهایی نشده
+
+            </a>
+        </li>
+        <li>
+            <a href="~/Assets/pages/layout/collapsed-sidebar.html">
+                <span class="fa fa-spinner text-info"></span> تایید و نهایی شده
+
+            </a>
+        </li>
+
+    </ul>
+</li>*@
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-archive"></i>
+        <span>درخواست پرداخت</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+
+        </span>
+
+    </a>
+    <ul class="treeview-menu">
+        @*<li>
+            <a href="@Url.Action("ReceivedRequests", "RequestForEditor")">
+                <i class="fa fa-arrow-down"></i> پرسشگر
+            </a>
+        </li>*@
+        <li>
+            <a href="@Url.Action("RequestFromResponder", "RequestForEditor", new {area = "Editor"})">
+                <i class="fa fa-money text-green"></i> پاسخ دهنده
+                @*<span class="label label-success pull-left">4</span>*@
+            </a>
+        </li>
+
+        
+    </ul>
+</li>
+
+
+
+@*<li class="treeview">
+        <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>گزارش ها</span>
+            <span class="pull-left-container">
+                <i class="fa fa-angle-right pull-left"></i>
+
+            </span>
+
+        </a>
+        <ul class="treeview-menu">
+            <li>
+                <a href="#">
+                    <span class="fa fa-signal"></span> گزارش کلی
+
+                </a>
+            </li>
+        </ul>
+    </li>*@
+
+<li class="menu">
+    <a href="@Url.Action("Index", "AdminBenchMarkingQuestion", new {area = "Editor"})">
+        <i class="fa fa-download"></i> <span>سوالات راستی آزمایی</span>
+    </a>
+</li>
+
+<li class="menu">
+    <a href="@Url.Action("Index", "DownloadFileForEditor", new {area = "Editor"})">
+        <i class="fa fa-download"></i> <span>دانلود پرسشنامه</span>
+    </a>
+</li>

@@ -1,0 +1,82 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Editor.Models.EditorQuestionModel
+@{
+    ViewBag.Title = "EditQuestion";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>ویرایش پرسش</h2>
+
+@if (Model.QuestionType == Enums.QuestionType.Validation ||
+     Model.QuestionType == Enums.QuestionType.BenchMarking)
+{
+    @Html.Partial("_ValidationQuestion")
+}
+
+@if (Model.QuestionType == Enums.QuestionType.Main ||
+     Model.QuestionType == Enums.QuestionType.Anatomical)
+{
+    @Html.Partial("_MainQuestion")
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            // The following codes check the radio boxes which are available i this
+            // page and would change the status different divs
+
+            if ($('.isAnatomical').is(':checked')) {
+
+                $("#choices").hide();
+                $(".choices").prop("disabled", true);
+            };
+
+            if ($('.isChoiceable').is(':checked')) {
+                $(".choices").prop("disabled", false);
+                $("#choices").show();
+            };
+
+            if ($('.hasNothing').is(':checked')) {
+                $(".film").prop("disabled", true);
+                $(".picture").prop("disabled", true);
+            };
+
+            if ($('.hasPicture').is(':checked')) {
+                $(".film").prop("disabled", true);
+                $(".picture").prop("disabled", false);
+            };
+            if ($('.hasFilm').is(':checked')) {
+                $(".picture").prop("disabled", true);
+                $(".film").prop("disabled", false);
+            };
+
+        });
+        $(".hasNothing").click(function () {
+            $(".film").prop("disabled", true);
+            $(".picture").prop("disabled", true);
+
+        });
+        $(".hasFilm").click(function () {
+            $(".picture").prop("disabled", true);
+            $(".film").prop("disabled", false);
+        });
+        $(".hasPicture").click(function () {
+            $(".film").prop("disabled", true);
+            $(".picture").prop("disabled", false);
+        });
+
+        $('.isChoiceable').click(function () {
+            $(".choices").prop("disabled", false);
+            $("#choices").toggle("slow");
+        });
+        $('.isAnatomical').click(function () {
+            $(".choices").prop("disabled", true);
+            $("#choices").hide("slow");
+        });
+
+    </script>
+
+}
+

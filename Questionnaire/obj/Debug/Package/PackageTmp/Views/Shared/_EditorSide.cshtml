@@ -1,0 +1,108 @@
+﻿
+@{
+    if (User.IsInRole("Admin"))
+    {
+
+        <li class="header text-center" style="color: orange; font-size: 15px">کنترل پنل ادمین</li>
+
+    }
+    else
+    {
+        <li class="header text-center" style="color: orange; font-size: 15px">کنترل پنل ویراستار</li>
+    }
+}
+
+
+
+<li class="menu">
+    <a href="@Url.Action("Index", "Editor", new {area = "Editor"})">
+        <i class="fa fa-dashboard"></i> <span>پنل کاربری</span>
+    </a>
+</li>
+
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-file-text"></i> <span> پرسشنامه ها</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor"})"><i class="fa fa-circle"></i>همه</a></li>
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor",selft = 1})"><i class="fa fa-circle"></i>در اختیار من</a></li>
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor",status=0})"><i class="fa fa-circle"></i>پرسشنامه های ارسال نشده</a></li>
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor",status=1})"><i class="fa fa-circle"></i>پرسشنامه های رد شده</a></li>
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor",status=2})"><i class="fa fa-circle"></i>در انتظار تایید ناضر</a></li>
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor",status=3})"><i class="fa fa-circle"></i>تایید شده (پرداخت نشده) </a></li>
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor",status=4})"><i class="fa fa-circle"></i>پرسشنامه های در حال اجرا </a></li>
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForEditor", new {area="Editor",status=5})"><i class="fa fa-circle"></i>پرسشنامه های پایان یافته </a></li>
+    </ul>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "PaymentReportFroEditor", new {area = "Editor"})">
+        <i class="fa fa-money"></i> <span>گزارش پرداخت</span>
+    </a>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "UsersForEditor", new {area = "Editor"})">
+        <i class="fa fa-user"></i> <span>کاربران</span>
+    </a>
+</li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-archive"></i>
+        <span>درخواست پرداخت</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+
+        </span>
+
+    </a>
+    <ul class="treeview-menu">
+
+        <li>
+            <a href="@Url.Action("RequestFromResponder", "RequestForEditor", new {area = "Editor"})">
+                <i class="fa fa-money text-green"></i> پاسخ دهنده
+            </a>
+        </li>
+
+
+    </ul>
+</li>
+
+
+
+
+
+<li class="menu">
+    <a href="@Url.Action("Index", "AdminBenchMarkingQuestion", new {area = "Editor"})">
+        <i class="fa fa-download"></i> <span>سوالات راستی آزمایی</span>
+    </a>
+</li>
+
+<li class="menu">
+    <a href="/Editor/UsersForEditor/ReportedResponders">
+        <i style="color:red;" class="fa fa-user"></i> <span>افراد گزارش شده</span>
+    </a>
+</li>
+<li class="menu">
+    <a href="/Editor/Editor/Categories">
+        <i style="color:coral;" class="fa fa-calculator"></i> <span>گروه سوالات</span>
+    </a>
+</li>
+@{
+    if (User.IsInRole("Admin"))
+    {
+
+<li class="menu">
+    <a href="/Editor/editor/SiteContent">
+        <i class="fa fa-gear"></i> <span>محتوای سایت</span>
+    </a>
+</li>
+<li class="menu">
+    <a href="/admin/admin/addneweditor">
+        <i style="color:lightgreen" class="fa fa-user"></i> <span>ثبت ویراستار جدید</span>
+    </a>
+</li>
+    }
+}

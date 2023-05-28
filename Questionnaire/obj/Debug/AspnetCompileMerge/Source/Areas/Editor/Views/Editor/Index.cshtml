@@ -1,0 +1,124 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Editor.Controllers.EditorController.EditorDashboardModel
+@{
+    ViewBag.Title = "داشبورد ویراستار";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+<h2>داشبورد ویراستار</h2>
+<hr />
+
+
+<h3>وضعیت درخواستها</h3>
+<div class="row">
+    <div class="col-md-3">
+        <div class="small-box bg-blue">
+            <div class="inner">
+                <h3>@Model.RecievedRequests</h3>
+
+                <p>درخواست های دریافتی</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-arrow-down"></i>
+            </div>
+            <a href="@Url.Action("Index","QuestionnaireForEditor", new {area = "Editor", status = (int) Enums.RequestStatus.Pending} )" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>@Model.AcceptedRequests</h3>
+
+                <p>درخواستهای تایید شده</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <a href="@Url.Action("Index","QuestionnaireForEditor", new {area = "Editor", status = (int) Enums.RequestStatus.Accepted} )" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>@Model.RejectedRequests</h3>
+
+                <p>درخواست های رد شده</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-remove"></i>
+            </div>
+            <a href="@Url.Action("Index","QuestionnaireForEditor", new {area = "Editor", status = (int) Enums.RequestStatus.Rejected} )" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-orange">
+            <div class="inner">
+                <h3>@Model.RecievedFiles</h3>
+
+                <p>فایلهای پرسشنامه دریافتی</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-download"></i>
+            </div>
+            <a href="#" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+</div>
+
+<h3>وضعیت پرسشنامه ها</h3>
+<div class="row">
+    <div class="col-md-6">
+        <div class="small-box bg-green-active">
+            <div class="inner">
+                <h3>@Model.NotSubmitedQuestionnaires</h3>
+
+                <p>پرسشنامه های ارسال نشده</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-check-square"></i>
+            </div>
+            <a href="@Url.Action("Index","QuestionnaireForEditor", new {area = "Editor", status = (int) Enums.RequestStatus.Created} )" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="small-box bg-red-active">
+            <div class="inner">
+                <h3>@Model.NotPaidQuestionnaires</h3>
+
+                <p>پرسشنامه های پرداخت نشده</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-check-square"></i>
+            </div>
+            <a href="@Url.Action("Index","QuestionnaireForEditor", new {area = "Editor", status = (int) Enums.RequestStatus.Accepted} )" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="small-box bg-purple">
+            <div class="inner">
+                <h3>@Model.PaidQuestionnaires</h3>
+
+                <p>پرسشنامه های در حال اجرا</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-spinner"></i>
+            </div>
+            <a href="@Url.Action("Index","QuestionnaireForEditor", new {area = "Editor", status = (int) Enums.RequestStatus.Paid} )" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@Model.FinishedQuestionnaires</h3>
+
+                <p>پرسشنامه های پایان یافته</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-flag-checkered"></i>
+            </div>
+            <a href="@Url.Action("Index","QuestionnaireForEditor", new {area = "Editor", status = (int) Enums.RequestStatus.Finished} )" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+</div>
+

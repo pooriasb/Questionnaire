@@ -1,0 +1,42 @@
+﻿<div class="box">
+    <div class="box-header">
+        <div class="box-title">پرسشنامه های دریافتی</div>
+        <hr />
+    </div>
+    <div class="box-body">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام پرسشنامه</th>
+                    <th>تاریخ؟؟؟</th>
+                    <th>مشاهده پرسشنامه</th>
+                    <th>پیام پرسشگر</th>
+                    <th>تایید پرسشنامه</th>
+                    <th>رد پرسشنامه</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 1; i < 10; i++)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>پرسشنامه شماره @i</td>
+                        <td>1/1/1</td>
+                        <td>
+                            <a class="btn btn-info" href="@Url.Action("Questions","QuestionForEditor")">مشاهده پرسشنامه</a>
+                        </td>
+                        <td>پیام پرسشگرپیام پرسشگرپیام پرسشگرپیام پرسشگرپیام پرسشگرپیام پرسشگرپیام پرسشگرپیام پرسشگرپیام پرسشگر</td>
+                        <td>
+                            <a class="btn btn-success" href="@Url.Action("SendAcceptToQuestioner","RequestForEditor")">تایید پرسشنامه</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="@Url.Action("SendRejectToQuestioner","RequestForEditor")">رد پرسشنامه</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

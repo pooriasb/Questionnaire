@@ -1,0 +1,334 @@
+﻿@using QuestionnaireProject.Extensions
+@using QuestionnaireProject.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/myCss")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body class="skin-green sidebar-mini" data-gr-c-s-loaded="true" style="height: auto; min-height: 100%;">
+    <div class="se-pre-con"></div>
+
+    <style>
+
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(/Assets/Preloader_8.gif) center no-repeat #fff;
+        }
+    </style>
+
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="#" class="logo" style="position: fixed;right: 0">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini">پنل</span>
+                <!-- logo for regular state and mobile devices -->
+
+
+                <span class="logo-lg"><b>کنترل پنل پرسشگر</b></span>
+
+                <span class="logo-lg"><b>کنترل پنل پاسخگو</b></span>
+
+
+                @*@if (User.IsInRole("Admin"))
+            {
+                <span class="logo-lg"><b>کنترل پنل ادمین</b></span>
+            }*@
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+
+
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- Delete This after download -->
+                <a href="/Responder/Responder" class="btn hidden-xs" style="margin:6px 10px;padding:9px 10px;background-color:#d61577;border-color:#ad0b5d;font-weight:bold;color:#FFF"> کنترل پنل پاسخ دهنده</a>
+
+                @{
+                    if (User.IsInRole("Admin"))
+                    {
+
+                        <a href="/admin/admin" class="btn hidden-xs" style="margin:6px 10px;padding:9px 10px;background-color:#d61577;border-color:#ad0b5d;font-weight:bold;color:#FFF"> پنل ادمین</a>
+
+                    }
+                    if (User.IsInRole("Editor"))
+                    {
+
+                        <a href="/editor/editor" class="btn hidden-xs" style="margin:6px 10px;padding:9px 10px;background-color:#d61577;border-color:#ad0b5d;font-weight:bold;color:#FFF"> پنل ویراستار</a>
+
+                    }
+                }
+                <!-- End Delete-->
+                @Html.Partial("_NotificationsQuestionar")
+
+            </nav>
+
+
+
+        </header>
+        <!-- right side column. contains the logo and sidebar -->
+        <aside class="main-sidebar" style="height: 100%; right: 0; overflow: hidden">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-right image">
+                        <img src="~/Assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-right info">
+
+                        <p>@User.Identity.GetFirstName() @User.Identity.GetLastName()</p>
+                        @*<a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>*@
+                    </div>
+
+                </div>
+                <!-- search form -->
+                @*<form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="جستجو">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>*@
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu treeview" data-widget="tree">
+
+
+                    @Html.Partial("_QuestionerSide")
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="min-height: 915.8px;">
+            <div class="container" style="max-width: 100%; width: 90%">
+                
+                @RenderBody()
+
+            </div>
+        </div>
+        @*<footer class="main-footer text-left">
+                <strong>Copyleft © 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> &amp; <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a></strong>
+            </footer>*@
+
+
+
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+        immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    @*<div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>*@
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/adminlte")
+ 
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/moment.js"></script>
+
+        <script src="~/Scripts/moment-jalaali.js"></script>
+
+    <script>
+
+
+    $(document).ready(function () {
+        //console.log('hiii');
+        $(".se-pre-con").fadeOut("slow");
+        $.post("/api/notifications/GetNotification")
+            .done(function(data) {
+                var newCount = 0;
+
+
+                $.each(data,
+                    function (i, item) {
+                        console.log(item);
+                        if (item.IsSeen === null || item.IsSeen === false) {
+                            newCount++;
+                        }
+                        //console.log(item);
+                        var type = "";
+                        if (item.Type === @((int) Enums.NotificationType.Danger)) {
+                            type = "bg-red";
+                        } else if (item.Type === @((int) Enums.NotificationType.Success)) {
+                            type = "bg-green";
+                        } else if (item.Type === @((int) Enums.NotificationType.Info)) {
+                            type = "bg-info";
+                        } else if (item.Type === @((int) Enums.NotificationType.Primary)) {
+                            type = "bg-primary";
+                        } else if (item.Type === @((int) Enums.NotificationType.Warning)) {
+                            type = "bg-yellow";
+                        }
+                        //console.log(item.IsSeen);
+                        if (item.IsSeen === true) {
+                            type = "bg-gray";
+                        }
+                        $("#notificationsPanel")
+                            .append(
+                                `<li name="notification" id="${item.Id}" class="${type
+                                }" onClick="noifictionModal(id)"><a href="#" ><i class="fa fa-users text-aqua"></i> ${
+                                item.Title}</a></li>`);
+                    });
+                $("#notificationNumber").text(newCount);
+            });
+
+
+        $('.date').each(function() {
+            var date = $(this).html();
+            //console.log(moment(date));
+            var georgian = moment(date);
+            var shamsi = georgian.format('jYYYY/jM/jD');
+            //console.log(shamsi);
+            $(this).html(shamsi);
+
+        });
+
+    });
+
+    function noifictionModal(id) {
+        $.post("/api/notifications/GetNotificationDetails", { Id: id })
+            .done(function(data) {
+                var type = "";
+                if (data.Type === @((int) Enums.NotificationType.Danger)) {
+                    type = "text-red";
+                } else if (data.Type === @((int) Enums.NotificationType.Success)) {
+                    type = "text-green";
+                } else if (data.Type === @((int) Enums.NotificationType.Info)) {
+                    type = "text-info";
+                } else if (data.Type === @((int) Enums.NotificationType.Primary)) {
+                    type = "text-primary";
+                } else if (data.Type === @((int) Enums.NotificationType.Warning)) {
+                    type = "text-yellow";
+                }
+
+
+                //
+                var date = moment(data.DateCreated);
+                console.log(data.DateCreated);
+
+                var shamsiDate = date.format('HH:mm:ss jYYYY/jM/jD');
+                //console.log(data);
+                //console.log(date);
+                $.dialog({
+                    rtl: true,
+                    theme: "dark",
+                    title: `<p class="${type}">${data.Title}</p>`,
+                    content: `<p>${data.Text}</p><br><small class="date">${shamsiDate}</small>`
+                });
+            });
+    }
+
+    function discountContent(discountsArray) {
+        var discountCodes = "<ul>";
+        $.each(discountsArray,
+            function(index, item) {
+                discountCodes += `<li ><span>کد تخفیف ${index + 1}</span> : <span style="color: orange; font-size:larger">${item.Id}</span> </li>`;
+            });
+        discountCodes += "</ul>";
+        return discountCodes;
+    };
+
+
+    $('.discount-modal').click(function() {
+        $.post("/api/discount/GetUserDicounts")
+            .done(function (data) {
+                console.log(data);
+                $.dialog({
+                    rtl: true,
+                    columnClass: 'large',
+                    theme: 'dark',
+                    title: "کدهای تخفیف شما",
+                    content: discountContent(data)
+                });
+            });
+    });
+
+        $('#promote-modal').click(function () {
+            var template = `
+<div style="line-height: 30px">
+
+<p>در اینجا میتوانید تنها با ارسال عکس کارت ملی خود، حساب کاربریتان را ارتقا دهید.</p>
+<form id="promoteUserRoleForm" method="POST" enctype="multipart/form-data" action="@Url.Action("PromoteUserRole","Account", new{ area= ""})">
+@Html.AntiForgeryToken()
+<input type="file" id="NationalCardImage"  accept="image/png, image/jpeg" name="NationalCardImage" class="form-control">
+</form>
+</div>
+`;
+
+                $.confirm({
+                    rtl: true,
+                    title: "ارتقاء کاربری",
+                    content: template,
+                    buttons: {
+                        ok: {
+                            text: "ارسال",
+                            btnClass: "btn-green",
+                            action: function() {
+                                $('#promoteUserRoleForm').submit();
+                            }
+                },
+                cancel: {
+                    text: "بستن",
+                    btnClass: "btn-red"
+                }
+            }
+    });
+    });
+
+
+    </script>
+
+
+
+
+
+</body>
+</html>
+

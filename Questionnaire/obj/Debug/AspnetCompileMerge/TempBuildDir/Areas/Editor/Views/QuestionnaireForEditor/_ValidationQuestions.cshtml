@@ -1,0 +1,72 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Editor.Models.EditorReviewModel
+<div class="box context">
+    <div class="box-header">
+        <div class="box-title">
+            پرسشهای راستی آزمایی
+        </div>
+    </div>
+    <hr />
+    <div class="box-body">
+        @foreach (var q in Model.ReviewDto.QuestionPacks)
+        {
+            if (q.QuestionType == Enums.QuestionType.Validation)
+            {
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <p class="text-green">صورت پرسش</p>
+                        <p class="alert alert-dark">@q.QuestionText</p>
+                        @if (q.MediaType != Enums.MediaType.NoMedia)
+                        {
+                            <div id="15428817136471576">
+                                <script type="text/JavaScript" src="https://www.aparat.com/embed/csXj2?data[rnddiv]=15428817136471576&data[responsive]=yes"></script>
+                            </div>
+                        }
+
+                        <br />
+
+                    </div>
+
+
+                    <div class="col-md-5" style="border-right: 2px solid #000000">
+                        <p class="text-green">پاسخ ها</p>
+                        @for (int i = 0; i < q.AnswersText.Count; i++)
+                        {
+                            if (q.CorrectAnswer == q.AnswerId[i])
+                            {
+                                <p class="alert alert-success">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                            else
+                            {
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }            
+                        }
+
+                    </div>
+                    <div class="col-2 pull-left">
+                        <a href="@Url.Action("EditQuestion","QuestionForEditor",new {area="Editor", questionId = q.QuestionId, uri=Request.RawUrl})" class="btn btn-warning">
+                            ویرایش
+                        </a>
+                        <a href="#" class="btn btn-danger">
+                            حذف
+                        </a>
+                    </div>
+                </div>
+                <hr/>
+
+            }
+
+
+        }
+
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿
+<h1>
+    پرسشنامه با عنوان ....
+</h1>
+
+<form>
+    @for (int i = 0; i < 2; i++)
+    {
+        <h4>صورت سوال شماره @i</h4>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios-@i" id="exampleRadios1-@i" value="option1@i">
+                    <label class="form-check-label" for="exampleRadios1-@i">
+                        پاسخ شماره 1
+                    </label>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios-@i" id="exampleRadios2-@i" value="option2@i">
+                    <label class="form-check-label" for="exampleRadios2-@i">
+                        پاسخ شماره 2
+                    </label>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios-@i" id="exampleRadios3-@i" value="option3@i">
+                    <label class="form-check-label" for="exampleRadios3-@i">
+                        پاسخ شماره 3
+                    </label>
+                </div>
+            </li>
+        </ul>
+    }
+
+        <input type="hidden" value="QuestionnaireId"/>
+        <input class="btn btn-success btn-lg align-middle mt-4 ml-5" type="submit" name="submitButton" value="ذخیره" />
+</form>
+
+

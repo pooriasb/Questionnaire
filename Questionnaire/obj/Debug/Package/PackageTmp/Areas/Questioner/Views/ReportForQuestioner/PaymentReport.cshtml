@@ -1,0 +1,77 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<QuestionnaireProject.Models.Payment>
+@{
+    ViewBag.Title = "PaymentReport";
+    //   Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+<h2>گزارش پرداخت</h2>
+<div class="box">
+    <div class="box-body">
+        <table class="table table-hover text-center">
+            <thead>
+            <tr>
+                <th>نوع پرداخت</th>
+                <th>تاریخ پرداخت</th>
+                <th>مبلغ پرداخت</th>
+                <th>توضیحات</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var q in Model)
+            {
+                <tr>
+
+                    <td>
+                        @switch (q.Type)
+                        {                        
+                            case 1:
+                                <span class="text-green">پرداخت پرسشگر بابت پرسشنامه</span>
+
+                                break;
+                            case 2:
+                                <span class="text-orange">
+                                    پرداخت پرسشگر بابت بسته ویژه
+                                </span>
+
+                                break;
+                        }
+                    </td>
+
+                    <td>
+                        <span class="date">
+                            @q.PaymentDate.Value.ToString("MM/dd/yyyy")
+                        </span>
+                    </td>
+                    <td>                    
+                        @q.Value                                        
+                    </td>
+                    <td>                   
+                        @q.Comment
+                    </td>
+
+
+
+
+
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("PaymentReport",
+        new { page, type = ViewBag.CurrentType, days = ViewBag.CurrentDays, person=ViewBag.CurrentPerson }))
+</div>

@@ -1,0 +1,253 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.QuestionerRegisterViewModel
+
+@{
+    ViewBag.Title = "ثبت نام پرسشگر";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://unpkg.com/persian-datepicker@1.1.3/dist/css/persian-datepicker.min.css" rel="stylesheet" />
+
+<style>
+    select {
+        width: 300px;
+    }
+</style>
+
+<div class="row" style="margin-top: 1vh">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 center-block">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>@ViewBag.Title</h3>
+
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("QuestionerRegister", "QuestionerAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4 class="text-center">یک حساب کاربری جدید بسازید.</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger", @lang = "fa" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NationalId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NationalCardImage, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    <input type="file" class="form-control" name="NationalCardImage" id="NationalCardImage" />
+                                    @Html.ValidationMessageFor(model => model.NationalCardImage, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.HiddenFor(m => m.BirthDate, new { @class = "form-control date-picker-alt" })
+                                    <input class="form-control date-picker" />
+                                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Sex, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    <select id="Sex" name="Sex" class="control-label text-right">
+                                        <option value="">انتخاب نمایید.</option>
+                                        <option value="1">مرد</option>
+                                        <option value="0">زن</option>
+                                    </select>
+                                    <br/>
+                                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+
+                                </div>
+
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.StudyFieldId, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    <select id="StudyField" name="StudyFieldId" class="control-label text-right">
+                                        <option value="">انتخاب نمایید.</option>
+                                    </select>
+                                    <br/>
+                                    @Html.ValidationMessageFor(model => model.StudyFieldId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="Proviences">استان</label>
+                                <div class="col-md-9">
+                                    <select id="Proviences" name="ProvinceId" onchange="changeCities()" class="control-label text-right">
+                                        <option value="">انتخاب نمایید.</option>
+                                    </select>
+                                    <br/>
+                                    @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.CityId, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    <select id="Cities" Name="CityId" class="control-label text-right">
+                                        <option value="">انتخاب نمایید.</option>
+                                    </select>
+                                    <br/>
+                                    @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+
+
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.BirthDate, htmlAttributes: new {@class = "control-label col-md-3"})
+                                    <div class="col-md-9">
+                                        @Html.EditorFor(model => model.BirthDate, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.BirthDate, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>*@
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ReagentEmail, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.ReagentEmail, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ReagentEmail, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="ذخیره" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://unpkg.com/persian-date@1.0.5/dist/persian-date.min.js"></script>
+    <script src="https://unpkg.com/persian-datepicker@1.1.3/dist/js/persian-datepicker.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.date-picker-alt').val(moment().format());
+            $('.date-picker').persianDatepicker({
+                observer: true,
+                //altField: ".date-picker-alt",
+                autoClose: true,
+                responsive: true,
+                altField: '.alt-field-example',
+                format: 'YYYY/MM/DD',
+                //viewMode: 'year',
+                altFormat: 'LLLL',
+                onSelect: function (unix) {
+                    var date = `${moment(unix).format()}`
+                    console.log(date);
+                    $('.date-picker-alt').val(date);
+                }
+            });
+
+            //console.log(dp.getState())
+
+
+            $.post("/Api/SignUp/ProvincesAndFields",
+                function (data) {
+                    data.fields.forEach(function (item, index) {
+                        $("#StudyField").append(`<option value="${item.Id}">${item.Name}</option>`);
+
+                    });
+
+                    data.provinces.forEach(function (item, index) {
+                        $("#Proviences").append(`<option value="${item.Id}">${item.Name}</option>`);
+
+                    });
+                });
+        });
+
+
+        changeCities = function () {
+            var provinceId = $("#Proviences").val();
+            $.post("/Api/SignUp/Cities",
+                { id: provinceId },
+                function (data) {
+                    $("#Cities").find("option").remove().end();
+                    data.cities.forEach(function (item, index) {
+                        $("#Cities").append(`<option value="${item.Id}">${item.Name}</option>`);
+
+                    });
+                });
+        }
+
+
+    </script>
+}

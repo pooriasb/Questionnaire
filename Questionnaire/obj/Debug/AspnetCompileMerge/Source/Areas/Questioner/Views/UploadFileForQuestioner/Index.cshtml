@@ -1,0 +1,88 @@
+﻿
+@model QuestionnaireProject.Areas.Questioner.Controllers.UploadFileForQuestionerController.FileUploadModel
+
+@{
+    ViewBag.Title = "آپلود فایل پرسشنامه";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+<h2>آپلود فایل پرسشنامه</h2>
+@if (@ViewBag.FileStatus != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.FileStatus
+    </div>
+}
+@if (@ViewBag.FileError != null)
+{
+    <div class="alert alert-error" role="alert">
+        @ViewBag.FileError
+    </div>
+}
+
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">شما میتوانید در این قسمت پرسشنامه خود را در قالب فایل اکسل آپلود کنید.</div>
+    </div>
+    <div class="box-body container">
+        @using (Html.BeginForm("UploadToServer", "UploadFileForQuestioner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.File, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.File, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                        @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Upload" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10 text-success">
+                        @ViewBag.FileStatus
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">فایلهای ارسالی شما:</div>
+        <hr />
+    </div>
+    <div class="box-body">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام فایل</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>abcd.xslx</td>
+                    <td>
+                        <button class="btn btn-danger">حذف</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

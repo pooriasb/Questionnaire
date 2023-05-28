@@ -1,0 +1,113 @@
+﻿@model List<QuestionnaireProject.Areas.Editor.Controllers.RequestForEditorController.RequsetForPaymentDto>
+@{
+    ViewBag.Title = "RequestFromResponder";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>لیست درخواست پاسخ دهندگان</h2>
+
+
+<div class="box">
+    <div class="box-header">
+        درخواست پرداخت پاسخ دهندگان
+    </div>
+    <div class="box-body" id="notpaid">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>
+                        نام پاسخ دهنده
+                    </th>
+                    <th>
+                        کد ملی
+                    </th>
+                    <th>
+                        مبلغ درخواستی
+                    </th>
+                    <th>
+                        کد شبا
+                    </th>
+                    <th>
+                        مشاهده جزئیات
+                    </th>
+                    <th>
+                        پرداخت سریع
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var requset in Model)
+                {
+                    <tr>
+                        <td>
+                            @requset.UserNameAndLastName
+                        </td>
+                        <td>
+                            @requset.UserName
+                        </td>
+
+                        <td>
+                            <span>@requset.MoneyToPay</span>
+                            تومان
+                        </td>
+                        <td>
+                            @requset.BankId
+                        </td>
+                        <td>
+
+                            <a class="btn btn-primary" href="@Url.Action("RequestFromResponderReport", "RequestForEditor", new {area="Editor", username = requset.UserName})">
+                                مشاهده و پرداخت
+                            </a>
+
+                        </td>
+
+                        <td>
+
+                            <a class="btn btn-warning" href="@Url.Action("ConfirmPaymentToResponder", "RequestForEditor", new {area="Editor", username = requset.UserName})">
+                                پرداخت سریع
+                            </a>
+
+                        </td>
+
+
+
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/jquery-confirm.min.js"></script>
+    <script>
+        $('a.btn-warning').confirm({
+            title:"اخطار",
+            content: "آیا از پرداخت اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function() {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+
+                }
+            }
+        });
+
+
+        jQuery(document).ready(function($){
+            $('select').find('option[value=@ViewBag.CurrentStatus]').attr('selected','selected');
+        });
+
+    </script>
+}
+

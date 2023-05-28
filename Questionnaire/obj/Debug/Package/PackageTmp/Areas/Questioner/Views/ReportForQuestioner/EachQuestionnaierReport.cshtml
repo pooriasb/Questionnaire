@@ -1,0 +1,247 @@
+﻿@model List<QuestionnaireProject.Areas.Questioner.Models.EachQuestionnaireReportModel>
+@using QuestionnaireProject.Models
+@{
+    ViewBag.Title = "گزارش کلی پرسشنامه";
+    // Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+@{
+    int? responders = ViewBag.responders as int?;
+    string questionnaireId = ViewBag.QuestionnaireId as string;
+}
+<h2>
+    گزارش کلی پرسشنامه:
+    <span class="text-blue">@ViewBag.QuestionnaireName</span>
+</h2>
+
+
+@*<div class="box">
+        <div class="box-header">
+            لیاقت سنجی
+        </div>
+
+    </div>*@
+<div class="box">
+    <div class="box-header  bg-aqua">
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    جهت گزارشگیری میتوانید از گزینه های روبرو استفاده نمایید.
+                </p>
+            </div>
+            <div class="col-md-2">
+                @using (Html.BeginForm("EachQuestionnaierReportToExcel", "ReportForQuestioner", FormMethod.Post,
+                    new {enctype = "multipart/form-data"}))
+                {
+                    <input type="hidden" name="questionnaireId" id="questionnaireId" value="@questionnaireId"/>
+                    <button type="submit" class="btn btn-success">
+                        <span class="fa fa-file-excel-o"></span>
+                        دریافت اکسل
+                    </button>
+                }
+            </div>
+            <div class="col-md-2">
+                @using (Html.BeginForm("EachQuestionnaierReportToPrint", "ReportForQuestioner", FormMethod.Post,
+                    new {enctype = "multipart/form-data"}))
+                {
+                    <input type="hidden" name="questionnaireId" id="questionnaireId" value="@questionnaireId"/>
+                    <button type="submit" class="btn btn-default">
+                        <span class="fa fa-print"></span>
+                        چاپ
+                    </button>
+                }
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="box">
+    <div class="box-header text-red">
+        راستی آزمایی
+    </div>
+    <hr />
+    <div class="box-header">
+
+
+        @foreach (var m in Model.Where(m => m.QuestionType == Enums.QuestionType.Validation))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @m.Question
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        @{
+                            int i = 1;
+                        }
+                        @foreach (var a in m.EachQuestionnaiireAnswerModels.OrderBy(a => a.AnswerId))
+                        {
+                            <div class="col-md-3 text-center" style="margin-bottom: 20px">
+                                <div class="col-md-12 text-blue">
+                                    <span>گزینه</span>
+                                    <span>
+                                        @(i++)
+                                    </span>
+                                </div>
+                                <div class="col-md-12 text-green">
+                                    <span> @((decimal)a.Count / responders * 100)</span>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-container" style="position: relative; height: auto; width: 20vw; margin: 20px">
+                        <canvas dir="rtl" id="@m.QuestionId"></canvas>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+
+
+
+
+    </div>
+</div>
+
+
+<div class="box">
+    <div class="box-header text-red">
+        چند گزینه ای
+    </div>
+    <hr />
+    <div class="box-header">
+        @foreach (var m in Model.Where(m => m.QuestionType == Enums.QuestionType.Main ||
+                                            m.QuestionType == Enums.QuestionType.MainWithPicture))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @m.Question
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        @{
+                            int i = 1;
+                        }
+                        @foreach (var a in m.EachQuestionnaiireAnswerModels.OrderBy(a => a.AnswerId))
+                        {
+                            <div class="col-md-3 text-center" style="margin-bottom: 20px">
+                                <div class="col-md-12 text-blue">
+                                    <span>گزینه</span>
+                                    <span>
+                                        @(i++)
+                                    </span>
+                                </div>
+                                <div class="col-md-12 text-green">
+                                    <span> @((decimal)a.Count / responders * 100)</span>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-container" style="position: relative; height: auto; width: 20vw; margin: 20px">
+                        <canvas dir="rtl" id="@m.QuestionId"></canvas>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+    <script>
+        var model = @Html.Raw(Json.Encode(Model));
+
+        $.each(model,
+            function(index, item) {
+                var answers = [];
+                var counts = [];
+                $.each(item.EachQuestionnaiireAnswerModels,
+                    function(index, item) {
+
+                        answers.push("گزینه " + (index + 1));
+                    });
+                $.each(item.EachQuestionnaiireAnswerModels,
+                    function(index, item) {
+
+                        counts.push(item.Count);
+                    });
+                console.log(item.QuestionId);
+                console.log(answers);
+                console.log(counts);
+
+                var ctx = $(`#${item.QuestionId}`);
+                var myChart = new Chart(ctx,
+                    {
+                        type: 'doughnut',
+                        data: {
+                            labels: answers,
+                            datasets: [
+                                {
+                                    label: '# of Votes',
+                                    data: counts,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgb(188, 71, 108)',
+                                        'rgb(188, 71, 184)',
+                                        'rgb(188, 150, 71)',
+                                        'rgb(188, 71, 71)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255,99,132,1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgb(188, 71, 108)',
+                                        'rgb(188, 71, 184)',
+                                        'rgb(188, 150, 71)',
+                                        'rgb(188, 71, 71)'
+                                    ],
+                                    borderWidth: 1
+                                }
+                            ]
+                        }
+                    });
+            });
+
+
+        //console.log(mm);
+        //console.log('page started');
+
+
+    </script>
+
+
+}

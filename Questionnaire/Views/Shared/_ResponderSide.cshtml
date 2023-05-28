@@ -1,0 +1,96 @@
+﻿<li class="header text-center" style="color: greenyellow; font-size: 15px">کنترل پنل پاسخ دهنده</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "Responder", new { area = "Responder" })">
+        <i class="fa fa-dashboard"></i> <span>داشبورد</span>
+    </a>
+</li>
+
+<li class="menu">
+    <a href="@Url.Action("AvailableQuestionnaires", "QuestionnaireForResponder", new { area = "Responder" })">
+        <i class="fa fa-file-text"></i> <span> پرسشنامه های موجود</span>
+
+        @{
+            if (Session["AvailableCount"] != null)
+            {
+                <small class="label pull-left bg-green">
+
+                    @Session["AvailableCount"].ToString()
+                </small>
+
+            }
+            else
+            {
+                <small class="label pull-left bg-green"> 0 </small>
+
+            }
+        }
+
+    </a>
+<li class="active"></li>
+<li class="menu">
+    <a href="@Url.Action("UnFinishedQuestionnaire", "QuestionnaireForResponder", new {area="Responder"})">
+        <i class="fa fa-file-text"></i> <span> پرسشنامه های ناتمام</span>
+
+
+
+        @{
+            if (Session["UnFinished"] != null)
+            {
+                <small class="label pull-left bg-red">
+
+                    @Session["UnFinished"].ToString()
+                </small>
+
+            }
+            else
+            {
+                <small class="label pull-left bg-red"> 0 </small>
+
+            }
+        }
+    </a>
+
+<li class="active"></li>
+<li class="menu">
+    <a href="/Responder/QuestionnaireForResponder/AnsweredQuesionnaires">
+        <i class="fa fa-archive"></i> <span>پرسشنامه های پاسخ داده شده </span>
+    </a>
+</li>
+<li class="menu">
+    <a href="/Responder/QuestionnaireForResponder/AnsweredQuesionnaires?filter=1">
+        <i class="fa fa-archive"></i> <span>گزارشات پرداخت </span>
+    </a>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "RequestForResponder", new {area = "Responder"})">
+        <i class="fa fa-money"></i> <span>درخواست پرداخت</span>
+    </a>
+</li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-fw fa-envelope"></i> <span>مدیریت پیام ها</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li>
+            <a href="/Questioner/QuestionnaireForQuestioner">
+                <i class="fa fa-fw fa-pencil-square-o"></i> ارسال پیام جدید
+            </a>
+        </li>
+        <li>
+            <a href="/Questioner/QuestionnaireForQuestioner/InProccessQuestionnaires">
+                <i class="fa fa-fw fa-th-list"></i>  مشاهده ی پیام ها
+                <small class="label pull-left bg-green">3</small>
+            </a>
+        </li>
+
+
+    </ul>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "RequestForResponder", new {area = "Responder"})">
+        <i class="fa fa-money"></i> <span>اعلان ها</span>
+    </a>
+</li>

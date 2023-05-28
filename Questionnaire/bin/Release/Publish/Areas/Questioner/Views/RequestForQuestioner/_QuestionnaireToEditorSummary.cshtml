@@ -1,0 +1,80 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.QuestionnaireSummaryModel
+
+<div class="box">
+    <div class="box-header">
+        <h2 class="text-blue">@Model.QuestionnaireSummaryDto.QuestionnaireName</h2>
+        <hr />
+    </div>
+    <div class="box-body row">
+
+
+
+        <table class="table text-center" style="vertical-align: middle!important">
+            <tr>
+                <th colspan="4" class="text-center">خلاصه پرسش های ثبت شده</th>
+            </tr>
+            <tr class="bg-green-active">
+                <td>تعداد پرسشهای لیاقت سنجی</td>
+                <td colspan="3">@Model.QuestionnaireSummaryDto.BenchMarkingQuestion.Total</td>
+            </tr>
+            <tr class="bg-green">
+                <td>تعداد پرسشهای راستی آزمایی</td>
+                <td colspan="3">@Model.QuestionnaireSummaryDto.ValidationQuestion.Total</td>
+            </tr>
+            <tr class="bg-light-blue">
+                <td rowspan="3">تعداد پرسشهای<br> اصلی چند گزینه ای</td>
+                <td rowspan="3">@Model.QuestionnaireSummaryDto.MainQuestion.Total</td>
+                <td>بدون فیلم یا عکس<br></td>
+                <td>@Model.QuestionnaireSummaryDto.MainQuestion.NoMedia</td>
+            </tr>
+            <tr class="bg-light-blue">
+                <td>همراه با عکس</td>
+                <td>@Model.QuestionnaireSummaryDto.MainQuestion.HasPicture</td>
+            </tr>
+            <tr class="bg-light-blue">
+                <td>همراه با فیلم</td>
+                <td>@Model.QuestionnaireSummaryDto.MainQuestion.HasFilm</td>
+            </tr>
+            <tr class="bg-light-blue-active">
+                <td rowspan="3">تعداد پرسشهای<br> تشریحی</td>
+                <td rowspan="3">@Model.QuestionnaireSummaryDto.AnatomicalQuestion.Total</td>
+                <td>بدون فیلم یا عکس</td>
+                <td>@Model.QuestionnaireSummaryDto.AnatomicalQuestion.NoMedia</td>
+            </tr>
+            <tr class="bg-light-blue-active">
+                <td>همراه با عکس</td>
+                <td>@Model.QuestionnaireSummaryDto.AnatomicalQuestion.HasPicture</td>
+            </tr>
+            <tr class="bg-light-blue-active">
+                <td>همراه با فیلم</td>
+                <td>@Model.QuestionnaireSummaryDto.AnatomicalQuestion.HasFilm</td>
+            </tr>
+            <tr class="bg-blue-active">
+                <td>تعداد کل سوالات</td>
+                <td>
+                    @(Model.QuestionnaireSummaryDto.BenchMarkingQuestion.Total + Model.QuestionnaireSummaryDto.ValidationQuestion.Total + Model.QuestionnaireSummaryDto.MainQuestion.Total + Model.QuestionnaireSummaryDto.AnatomicalQuestion.Total)
+            </td>
+            <td>تعداد کل پرسشهای اصلی</td>
+                <td>
+                    @(Model.QuestionnaireSummaryDto.MainQuestion.Total + Model.QuestionnaireSummaryDto.AnatomicalQuestion.Total)
+
+                </td>
+        </tr>
+    </table>
+    <br />
+
+</div>
+<div class="box-footer bg-red-gradient">
+    <h4>
+        در صورت تمایل میتوانید جهت ثبت پرسشنامه، درخواست خود را به ویراستار ارسال نمایید.
+    </h4>
+    <a href="@Url.Action("SubmitToEditor","RequestForQuestioner", new{area="Questioner", questionnaireId=Request.Params["questionnaireId"]})" class="btn btn-success btn-lg">
+        <span class="fa fa-angle-double-right"></span>
+
+        ارسال به ویراستار
+    </a>
+
+</div>
+</div>
+
+

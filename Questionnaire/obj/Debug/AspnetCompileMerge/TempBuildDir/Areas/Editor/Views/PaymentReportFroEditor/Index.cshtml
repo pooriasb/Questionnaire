@@ -1,0 +1,132 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<QuestionnaireProject.Models.Payment>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>گزارش پرداخت</h2>
+<div class="box">
+    <div class="box-header">
+        @using (Html.BeginForm("Index", "PaymentReportFroEditor", FormMethod.Get))
+        {
+            <div class="col-md-4">
+
+                <p>
+                    <label class="custom-control-label">جست و جو بر اساس نوع پرداخت</label>
+                    <select class="form-control" name="type">
+                        <option value="">همه</option>
+                        <option value="0">پرداخت شده به پاسخگو</option>
+                        <option value="1">دریافتی از پرسشگر بابت پرسشنامه</option>
+                        <option value="2">دریافتی از پرسشگر بابت بسته</option>
+
+                    </select>
+                    <br />
+
+                    <label class="control-label">روز</label>
+                    @Html.TextBox("Days", ViewBag.CurrentDays as string, new { @class = "form-control" })
+                    <small class="text-green">گزارشگیری بر اساس تعداد روز گذشته از امروز میباشد.</small>
+                    <br />
+                    <input type="submit" value="جست و جو" />
+                </p>
+
+
+            </div>
+
+            <div class="col-md-4">
+
+                <p>
+                    <label class="control-label">نام شخص</label>
+                    @Html.TextBox("Person", ViewBag.CurrentPerson as string, new { @class = "form-control" })
+                    <small class="text-green">گزارشگیری بر اساس قسمتی از نام شخص میباشد.</small>
+                </p>
+
+
+            </div>
+        }
+        <div class="col-md-4 text-center">
+            <p>
+                <span>جمع مبالغ دریافتی این صفحه: </span>
+                <span class="text-green">@Model.Where(x => x.Type == 1 || x.Type == 2).Select(x => x.Value).Sum() +</span>
+            </p>
+
+            <p>
+                <span>جمع پرداخت های این صفحه: </span>
+                <span class="text-red">@Model.Where(x => x.Type == 0).Select(x => x.Value).Sum() -</span>
+
+            </p>
+        </div>
+
+        <hr />
+    </div>
+    <div class="box-body">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>نام پرداخت کننده</th>
+                    <th>پرداخت شده به</th>
+                    <th>نوع پرداخت</th>
+                    <th>تاریخ پرداخت</th>
+                    <th>مبلغ پرداخت</th>
+                    <th>توضیحات</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var q in Model)
+                {
+                    <tr>
+
+                        <td>@q.AspNetUser.FirstName @q.AspNetUser.LastName </td>
+                        <td>@q.AspNetUser1.FirstName @q.AspNetUser1.LastName</td>
+                        <td>
+                            @switch (q.Type)
+                            {
+                                case 0:
+                                    <span class="text-red">پرداخت به کاربران</span>
+                                    break;
+                                case 1:
+                                    <span class="text-green">پرداخت پرسشگر بابت پرسشنامه</span>
+
+                                    break;
+                                case 2:
+                                    <span class="text-green">پرداخت پرسشگر بابت بسته</span>
+
+                                    break;
+                            }
+                        </td>
+
+                        <td>@q.PaymentDate</td>
+                        <td>@q.Value</td>
+                        <td>@q.Comment</td>
+
+
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+alert(@ViewBag.CurrentPerson);
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, type = ViewBag.CurrentType, days = ViewBag.CurrentDays, person=ViewBag.CurrentPerson }))
+</div>
+
+@section scripts{
+    <script>
+
+        jQuery(document).ready(function($){
+            $('select').find('option[value=@ViewBag.CurrentType]').attr('selected','selected');
+        });
+
+    </script>
+}

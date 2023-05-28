@@ -1,0 +1,188 @@
+﻿
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/AdminLTE")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body class="skin-green sidebar-mini" data-gr-c-s-loaded="true" style="height: auto; min-height: 100%;">
+
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="~/Assets/index2.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini">پنل</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>کنترل پنل پرسشگر</b></span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+                @Html.Partial("_Notifications")
+
+
+
+
+                
+            </nav>
+        </header>
+        <!-- right side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar" style="height: auto;">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-right image">
+                        <img src="~/Assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-right info">
+                        <p>علیرضا حسینی زاده</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>
+                    </div>
+                </div>
+               
+                <ul class="sidebar-menu treeview" data-widget="tree">
+                    <li class="header">منو</li>
+                    <li class="menu">
+                        <a href="@Url.Action("Index", "Questioner")">
+                            <i class="fa fa-dashboard"></i> <span>داشبورد</span>                           
+                        </a>                        
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-file-text"></i> <span>پرسشنامه</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("Questionnaires", "QuestionnaireForQuestioner")"><i class="fa fa-files-o"></i> لیست پرسشنامه ها</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-archive"></i>
+                            <span>درخواست ها</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                                
+                            </span>
+
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="@Url.Action("AllRequests","RequestForQuestioner")">
+                                    <i class="fa fa-circle"></i> همه درخواستها
+                                </a>
+                            </li>
+                            @*<li>
+                                <a href="~/Assets/pages/layout/boxed.html">
+                                    <i class="fa fa-check text-success"></i>  تایید شده
+                                    <span class="label label-success pull-left">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Assets/pages/layout/fixed.html">
+                                    <i class="fa fa-remove text-danger"></i> رد شده
+                                    <span class="label label-danger pull-left">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Assets/pages/layout/collapsed-sidebar.html">
+                                    <span class="fa fa-spinner text-info"></span> در حال بررسی
+                                    <span class="label label-primary pull-left">4</span>
+
+                                </a>
+                            </li>*@
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="@Url.Action("Index","UploadFileForQuestioner")">
+                            <i class="fa fa-upload"></i>
+                            <span> آپلود فایل پرسشنامه</span>
+                        </a>
+                    </li>
+                    
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-pie-chart"></i>
+                            <span>گزارش ها</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+
+                            </span>
+
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="#">
+                                    <span class="fa fa-signal"></span> گزارش کلی
+
+                                </a>
+                            </li>
+                            @*<li>
+                                <a href="#">
+                                    <span class="fa fa-signal"></span> جزء به جزء
+
+                                </a>
+                            </li>*@
+                        </ul>
+                    </li>
+
+
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="min-height: 915.8px;">
+            <div class="container" style="max-width: 100%; width: 90%">
+                @RenderBody()
+
+            </div>
+        </div>
+        <footer class="main-footer text-left">
+            <strong>Copyleft © 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> &amp; <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a></strong>
+        </footer>
+
+
+
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    @*<div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/adminlte")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

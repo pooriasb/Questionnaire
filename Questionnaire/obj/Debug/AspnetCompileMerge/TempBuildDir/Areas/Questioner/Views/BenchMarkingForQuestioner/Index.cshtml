@@ -1,0 +1,27 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionModel2
+@{
+    ViewBag.Title = "پرسشنامه لیاقت سنجی";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+@if (ViewData.ModelState != null && !ViewData.ModelState.IsValid)
+{
+<div class="alert alert-danger">
+    <h5 class="alert-heading">خطا!</h5>
+    @Html.ValidationSummary("", new{style="color:white"})
+
+</div>
+}
+
+
+<h3>پرسشنامه لیاقت سنجی: <b class="text-green">@Model.QuestionnaireName</b></h3>
+
+@Html.Partial("_BenchMarkProgressBox")
+
+@Html.Partial("_BenchMarkQuestion")
+@Html.Partial("_BenchMarkQuestionsList")
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

@@ -1,0 +1,204 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Responder.Controllers.QuestionnaireForResponderController.MainQuestionPackModel
+@{
+    ViewBag.Title = "پرسشنامه";
+    Layout = "~/Views/Shared/_ResponderLayout.cshtml";
+}
+
+
+
+<h2>
+    بخش سوالات مربوط به: <span class="text-green">
+        @Model.QuestionnaireName
+    </span>
+</h2>
+
+@if (TempData["Error"]!=null)
+{
+    <div class="alert alert-danger">
+        <h5 class="alert-heading">خطا!</h5>
+        <h4>
+            @(TempData["Error"] as string)
+
+        </h4>
+
+    </div>
+}
+
+@if (ViewData.ModelState != null && !ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <h5 class="alert-heading">خطا!</h5>
+        @Html.ValidationSummary("", new { style = "color:white" })
+
+    </div>
+}
+
+@using (Html.BeginForm(Html.BeginForm("MainQuestionsEvaluation", "QuestionnaireForResponder", new { area = "Responder", questionnaireId = Model.QuestionnaireId }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+
+
+
+    for (int i = 0; i < Model.ResponderQuestionPackDtos.Count; i++)
+    {
+        
+       
+
+        
+        
+
+        <div class="box">
+            <div class="box-header">
+                <p class="bg-red" style="border-radius: 10px">
+                    @Html.ValidationMessageFor(m => m.ResponderQuestionPackViewModels[i].Answer, "", new {style="color:white!important;margin-right:20px"})
+
+                </p>
+
+                <b>صورت پرسش: </b>
+                @Model.ResponderQuestionPackDtos[i].QuestionText
+            </div>
+
+            <div class="row">
+                @if (Model.ResponderQuestionPackDtos[i].MediaType != Enums.MediaType.NoMedia)
+                {
+                    if (Model.ResponderQuestionPackDtos[i].MediaType == Enums.MediaType.Film)
+                    {
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-8 thumbnail">
+                            <div id="15439864938361735">
+                                <script type="text/JavaScript" src="https://www.aparat.com/embed/@Model.ResponderQuestionPackDtos[i].MediaUrl?data[rnddiv]=15439864938361735&data[responsive]=yes"></script>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-2"></div>
+
+                    }
+                    else if (Model.ResponderQuestionPackDtos[i].MediaType == Enums.MediaType.Picture)
+                    {
+                        <div class="col-xs-2"></div>
+                        <img class="thumbnail col-xs-8" src="/Uploads/QuestionnairePhotos/@Model.ResponderQuestionPackDtos[i].MediaUrl" alt="عکس پرسشنامه" />
+                        <div class="col-xs-2"></div>
+                    }
+
+
+                }
+            </div>
+            <hr />
+
+
+
+            <div class="box-body" data-toggle="buttons">
+
+                <div class="row">
+
+                    @if (Model.ResponderQuestionPackDtos[i].QuestionType != Enums.QuestionType.Anatomical)
+                    {
+                        @Html.HiddenFor(m => m.ResponderQuestionPackViewModels[i].QuestionId,
+                            new {Value = Model.ResponderQuestionPackDtos[i].QuestionId})
+                        for (int j = 0; j < Model.ResponderQuestionPackDtos[i].AnswersText.Count; j++)
+                        {
+
+
+
+                            @*<input type="radio"
+                                name="ResponderQuestionPackViewModel[@(i)]_AnswerId"
+                                id="@Model.ResponderQuestionPackViewModels[i].AnswerId"
+                                value="@Model.ResponderQuestionPackDtos[i].AnswerIds[j]"/>*@
+
+                            if (Model.ResponderQuestionPackDtos[i].QuestionType == Enums.QuestionType.MainWithPicture)
+                            {
+
+                                <div class="col-md-6">
+                                    <label class="control-label text-blue">گزینه @(j + 1):</label>
+                                    <label class="btn btn-default col-md-12" style="margin-top: 5px"
+                                           for="ResponderQuestionPackViewModel[@(i)]_AnswerId">
+                                        @Html.RadioButtonFor(m => m.ResponderQuestionPackViewModels[i].Answer, Model.ResponderQuestionPackDtos[i].AnswerIds[j])
+
+                                        <img src="/Uploads/QuestionnairePhotos/@Model.ResponderQuestionPackDtos[i].AnswersText[j]" style="width: 50rem" alt="عکس مربوط به سوال"/>
+                                    </label>
+                                </div>
+
+                            }
+                            else
+                            {
+
+                                <div class="col-md-3">
+                                    <label class="control-label text-blue">گزینه @(j + 1):</label>
+                                    <label class="btn btn-default col-md-12" style="margin-top: 5px"
+                                           for="ResponderQuestionPackViewModel[@(i)]_AnswerId">
+                                        @Html.RadioButtonFor(m => m.ResponderQuestionPackViewModels[i].Answer, Model.ResponderQuestionPackDtos[i].AnswerIds[j])
+
+                                        @Model.ResponderQuestionPackDtos[i].AnswersText[j]
+                                    </label>
+                                </div>
+                            }
+
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        <div class="col-md-12">
+                            <label class="control-label text-blue">پاسخ تشریحی خود را در این قسمت بنویسید.</label>
+                            @Html.HiddenFor(m => m.ResponderQuestionPackViewModels[i].QuestionId,
+                                new {Value = Model.ResponderQuestionPackDtos[i].QuestionId})
+                            @Html.TextAreaFor(m => m.ResponderQuestionPackViewModels[i].Answer, new {@class = "form-control", @placeholder = "پاسخ خود را وارد نمایید.", @style = "max-width=1000px!important"})
+
+                        </div>
+                    }
+                </div>
+
+
+            </div>
+        </div>
+
+    }
+
+
+
+    <div class="box bg-success">
+        <div class="box-body bg-green-gradient">
+            <h4>پس از تکمیل پرسشنامه پاسخ خود را ثبت نمایید.</h4>
+            <br />
+            <div class="col-md-10">
+                <input type="submit" value="ثبت پاسخ پرسشنامه" class="btn btn-info btn-lg " />
+            </div>
+        </div>
+
+    </div>
+
+
+
+}
+
+
+
+
+<style>
+    textarea {
+        max-width: 100%
+    }
+
+
+    .btn-default.active,
+    .btn-default:active,
+    .btn-default:hover,
+    .open > .dropdown-toggle.btn-default {
+        background-color: green !important;
+        color: white;
+    }
+
+    .btn {
+        white-space: normal;
+        line-height: 20px;
+        text-align: justify
+    }
+</style>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

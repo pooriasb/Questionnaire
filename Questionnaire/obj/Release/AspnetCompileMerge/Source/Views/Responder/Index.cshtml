@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>بخش پاسخ دهنده</h2>
+
+
+@*@Html.Partial("_RelevantList")
+
+<hr/>
+
+@Html.Partial("_MoneyBalance")
+
+<hr/>
+
+@Html.Partial("_Transactions")
+
+<hr/>
+@Html.Partial("_QuestionnaireForResponder")
+
+<hr/>*@
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="small-box bg-blue">
+            <div class="inner">
+                <h3>53</h3>
+
+                <p>تعداد پرسشنامه های موجود</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-question"></i>
+            </div>
+            <a href="#" class="small-box-footer">شروع پاسخگویی <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>53</h3>
+
+                <p>تعداد پرسشنامه های پاسخ داده شده</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <a href="#" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="small-box bg-maroon">
+            <div class="inner">
+                <h3>25000<span>ریال</span></h3>
+
+                <p>موجودی حساب</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-money"></i>
+            </div>
+            <a href="@Url.Action("Index","RequestForResponder")" class="small-box-footer">تسویه حساب <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>   
+</div>
+
+
+
+
+
+
+

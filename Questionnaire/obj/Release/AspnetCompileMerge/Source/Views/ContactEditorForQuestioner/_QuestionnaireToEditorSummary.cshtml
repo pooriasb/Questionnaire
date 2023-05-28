@@ -1,0 +1,73 @@
+﻿<div class="box">
+    <div class="box-header">
+        <h2 class="text-blue">پرسشنامه شماره یک</h2>
+        <hr />
+    </div>
+    <div class="box-body row">
+        <table class="table table-hover text-center col-md-5">
+            <thead>
+            <tr>
+                <th>نوع پرسش</th>
+                <th>تعداد پرسش</th>
+                <th>مشاهده جزئیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>لیاقت سنجی</td>
+                <td>4</td>
+                <td>
+                    <a class="btn btn-info" href="@Url.Action("BenchMarkingQuestions","BenchMarkingForQuestioner")">مشاهده جزئیات</a>
+                </td>
+            </tr>
+            <tr>
+                <td>راستی آزمایی</td>
+                <td>4</td>
+                <td rowspan="3" style="vertical-align: middle">
+                    <a class="btn btn-info" href="@Url.Action("Questions","QuestionForQuestioner")">مشاهده جزئیات</a>
+                </td>
+            </tr>
+            <tr>
+                <td>اصلی</td>
+                <td>4</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-hover text-center col-md-5 pull-left">
+            <thead>
+            <tr>
+                <th>نوع پرسش</th>
+                <th>تعداد پرسش</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>تشریحی</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>چند گزینه ای</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>حاوی تصویر</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>حاوی فیلم</td>
+                <td>4</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="box-footer bg-light-blue-gradient">
+        <a href="#" class="btn btn-success btn-lg">
+            <span class="fa fa-angle-double-right"></span>
+
+            ارسال به ویراستار
+        </a>
+
+    </div>
+</div>

@@ -1,0 +1,156 @@
+﻿
+@using Questionnaire.Models
+@model global::Questionnaire.Controllers.QuestionnaireController.QuestionnaireViewModel
+
+@{
+    ViewBag.Title = "ViewQuestionnaire";
+    TempData["QuestionnaireId"] = 1;
+}
+
+
+
+<h2>پرسشنامه</h2>
+<h3>@Model.QuestionnaireTitle</h3>
+<h4>این پرسشنامه حاوی ... سوال میباشد</h4>
+
+
+<hr />
+
+<form method="post" class="container">
+    <fieldset class="container form-group">
+
+        @*@foreach (var question in Model.Questioins)
+        {
+            <legend class="col-form-label col-sm-6 pt-0">@question.Question</legend>
+            <div class="col-sm-6">
+
+                @foreach (var ans in Model.Answers.Where(ans => ans.QuestionId == question.Id))
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               name="@question.Question"
+                               question="@question.Id"
+                               answer="@ans.Id"
+                               id="@ans.Id"
+                               value="@ans.Id"
+                               required
+                               oninvalid="this.setCustomValidity('لطفاً گزینه مناسب را انتخاب نمایید')"
+                               oninput="setCustomValidity('')">
+                        <label class="form-check-label" for="@ans.Id">
+                            @ans.Answer
+                        </label>
+                    </div>
+                }
+
+            </div>
+            <hr />
+        }*@
+
+       
+    </fieldset>
+
+    <input type="button" onclick="arrayOfAnswers()" class="btn btn-success" value="نام" />
+
+
+
+
+
+</form>
+
+
+
+
+@using (Html.BeginForm("AnswerResultFromView", "Questionnaire", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+    <fieldset class="container form-group">
+        @{
+            int i = 0;
+        }
+        @foreach (var qac in Model.QuestionsAndAnswersCollections)
+        {
+            <legend class="col-form-label col-sm-6 pt-0">@qac.Questioins.Question1</legend>
+            <div class="col-sm-6">
+
+                @foreach (var ans in qac.Answers)
+                {
+                    <div class="form-check">
+                        @Html.RadioButtonFor(m => m.ReturnedAnswers[i]._answer, @ans.Id) @ans.Answer
+                    </div>
+
+                }
+                @Html.ValidationMessageFor(m => m.ReturnedAnswers[i]._answer,"", new { @class = "text-danger" })
+                <div class="text-hide">@(i++)</div>
+
+
+            </div>
+            <hr />
+        }
+    </fieldset>
+    <input type="hidden" name="QuestionnaireId" value="@Model.QuestionnaireId"/>
+    <input type="submit" class="btn btn-success" value="نام" />
+}
+
+<button>click me!</button>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        @*function arrayOfAnswers() {
+            var answersToPost = new Array;
+            var elems = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < elems.length; i++) {
+
+
+                if (elems[i].checked) {
+                    //var questions = @Model.Questioins.Select(q=>q.Id).ToList();
+                    var question = elems[i].getAttribute("question");
+                    //var answers = @Model.Answers.Select(q=>q.Id).ToList();
+                    var answer = elems[i].getAttribute("answer");
+                    if (true) {
+                        var answerToPost = {
+                            question: elems[i].getAttribute("question"),
+                            answer: elems[i].getAttribute("answer")
+                        };
+                        answersToPost.push(answerToPost);
+                    } else {
+                        return;
+
+                    }
+
+                }
+
+
+
+            }
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:53051/Questionnaire/SaveAnswers",
+                "method": "POST",
+                "headers": {
+                    "content-type": "application/json",
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "data": JSON.stringify(answersToPost)
+            }
+
+            var post = $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+
+
+
+        }*@
+
+
+    </script>
+}
+
+
+
+

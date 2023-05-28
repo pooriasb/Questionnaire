@@ -1,0 +1,100 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Responder.Controllers.QuestionnaireForResponderController.AvailableQuestionnairesModel
+@{
+    ViewBag.Title = "AvailableQuestionnaires";
+    Layout = "~/Views/Shared/_ResponderLayout.cshtml";
+}
+
+<h2>پرسشنامه های موجود</h2>
+
+<div class="box">
+    <div class="box-header text-blue">
+        شما میتوانید به یکی از پرسشنامه های زیر پاسخ دهید.
+    </div>
+    <hr/>
+    <div class="box-body">
+        <table class="table table-hover table-responsive text-center" style="overflow: auto!important">
+            <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>
+                    نام پرسشنامه
+                </th>
+                <th>امتیاز کاربران</th>
+                <th> تعداد سوالات</th>
+                <th>مبلغ دریافتی در صورت پاسخگویی</th>
+                <th>شروع پاسخگویی</th>
+
+
+            </tr>
+            </thead>
+            @{ int row = 1;}
+            @foreach (var q in Model.AvailableQuestionnaireDtos)
+            {
+                <tbody>
+                <tr>
+                    <td>@(row++)</td>
+                    <td>@q.QuestionnaireName</td>
+
+                    <td>
+                        @if (q.Rate!=null)
+                        {
+                            for (int i = 1; i <= q.Rate; i++)
+                             {
+                                 <span class="static-rate rate__full fa fa-star"></span>
+                             }
+                            for (int? i = q.Rate; i < 5; i++)
+                            {
+                                <span class="static-rate rate__full fa fa-star-o"></span>
+                            }
+                        }
+                        else
+                        {
+                            <span>نظری ثبت نشده است.</span>
+                        }
+                       
+
+                        
+                    </td>
+
+                    <td>@q.QuestionsNumber</td>
+                    <td>@q.EachPersonMoney  تومان</td>
+                    <td>
+                        @using (Html.BeginForm(Html.BeginForm("BenchMarkingQuestion", "QuestionnaireForResponder", new { area = "Responder" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                        {
+                            <input type="hidden" name="questionnaireId" value="@q.QuestionnaireId" />
+                            <button type="submit" class="btn btn-success">
+                                شروع پاسخگویی
+                            </button>
+
+                        }
+                    </td>
+
+                </tr>
+                </tbody>
+            }
+           
+        </table>
+    </div>
+</div>
+
+
+
+
+<style>
+    .static-rate {
+        font-size: 2rem;
+        color: orange
+    }
+        .static-rate.rate__none {
+            color: orange
+        }
+     .static-rate.rate__full {
+         font-size: 20px;
+         color: orange;
+     }
+    .static-rate.rate__half {
+        color: orange;
+
+    }
+</style>

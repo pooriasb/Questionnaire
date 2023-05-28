@@ -1,0 +1,68 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionModel2
+
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">لیست پرسشنامه لیاقت سنجی</div>
+        <hr />
+    </div>
+    <div class="box-body">
+        <table class="text-center table table-hover">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>صورت پرسش</th>
+                    <th>تعداد گزینه</th>
+                    @*<th>مشاهده جزئیات</th>*@
+                    <th>ویرایش</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var question in Model.QuestionPacksDto)
+                {
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            @question.QuestionText
+                        </td>
+                        <td>
+
+                            @question.AnswersText.Count
+
+                        </td>
+                        @*<td>
+                            <button class="btn btn-info">
+                                مشاهده جزئیات
+                            </button>
+                        </td>*@
+                        <td>
+                            @using (Html.BeginForm(Html.BeginForm("BenchMarkingQuestionEdit", "BenchMarkingForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                            {
+                                @Html.Hidden("questionnaireId", Model.QuestionnaireId )
+                                <input type="hidden" name="questionId" value="@question.QuestionId"/>
+                                <button type="submit" class="btn btn-warning">
+                                    ویرایش
+                                </button>
+
+                            }
+
+                        </td>
+                        <td>
+                            @using (Html.BeginForm(Html.BeginForm("BenchMarkingQuestionDelete", "BenchMarkingForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                            {
+                                @Html.Hidden("questionnaireId", Model.QuestionnaireId)
+                                <input type="hidden" name="questionId" value="@question.QuestionId" />
+                                <button type="submit" class="btn btn-danger">
+                                    حذف
+                                </button>
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

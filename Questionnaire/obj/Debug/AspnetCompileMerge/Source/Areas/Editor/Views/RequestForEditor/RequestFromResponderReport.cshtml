@@ -1,0 +1,197 @@
+﻿@model QuestionnaireProject.Areas.Editor.Controllers.RequestForEditorController.RequestFromResponderReportModel
+
+@{
+    ViewBag.Title = "RequestFromResponderReport";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>جزئیات درخواست پاسخ دهنده</h2>
+
+<div class="box">
+    <div class="box-header">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>
+                        نام و نام خانوادگی
+                    </th>
+                    <th>
+                        نام کاربری
+                    </th>
+                    <th>
+                        کد شبا
+                    </th>
+
+                    <th>
+                        مبلغ قابل پرداخت
+                    </th>
+                    <th>
+                        پرداخت
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        @Model.UserNameAndLastName
+                    </td>
+                    <td>
+                        @Model.UserName
+                    </td>
+                    <td>
+                        @Model.BankId
+                    </td>
+
+                    <td>
+                        <span>@Model.MoneyToPay</span>
+                        تومان
+                    </td>
+                    <td>
+                        <a href="@Url.Action("ConfirmPaymentToResponder","RequestForEditor", new {area="Editor", username = Model.UserName})" class="btn btn-warning">پرداخت</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="box">
+    <div class="box-header">
+        <button class="btn text-blue" data-toggle="collapse" data-target="#notpaid">
+            <span class="fa fa-plus-circle"></span>
+            پرسشنامه های پرداخت نشده
+        </button>
+    </div>
+    <div class="box-body collapse" id="notpaid">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>
+                        نام پرسشنامه
+                    </th>
+                    <th>
+                        مبلغ پرسشنامه
+                    </th>
+                    <th>
+                        تاریخ پایان
+                    </th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in Model.ReportDtos.Where(r => r.PaidDate == null))
+                {
+                    <tr>
+                        <td>
+                            @report.QuestionnaireName
+                        </td>
+                        <td>
+                            <span>@report.QuestionnairePrice</span>
+                            تومان
+                        </td>
+                        <td>
+                            @report.AnsweredDate
+
+                        </td>
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="box">
+    <div class="box-header">
+        <button class="btn text-blue" data-toggle="collapse" data-target="#paid">
+            <span class="fa fa-plus-circle"></span>
+            پرسشنامه های پرداخت شده
+        </button>
+    </div>
+    <div class="box-body collapse" id="paid">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>
+                        نام پرسشنامه
+                    </th>
+                    <th>
+                        مبلغ پرسشنامه
+                    </th>
+                    <th>
+                        تاریخ پایان
+                    </th>
+                    <th>
+                        تاریخ پرداخت
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in Model.ReportDtos.Where(r => r.PaidDate != null))
+                {
+                    <tr>
+                        <td>
+                            @report.QuestionnaireName
+                        </td>
+                        <td>
+                            <span>@report.QuestionnairePrice</span>
+                            تومان
+                        </td>
+                        <td>
+                            @report.AnsweredDate
+
+                        </td>
+                        <td>
+                            @report.PaidDate
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/jquery-confirm.min.js"></script>
+    <script>
+        $('a.btn-warning').confirm({
+            title:"اخطار",
+            content: "آیا از پرداخت اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function() {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+
+                }
+            }
+        });
+
+
+        jQuery(document).ready(function($){
+            $('select').find('option[value=@ViewBag.CurrentStatus]').attr('selected','selected');
+        });
+
+    </script>
+}
+
+

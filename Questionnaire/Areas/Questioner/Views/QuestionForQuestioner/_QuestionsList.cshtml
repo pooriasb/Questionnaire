@@ -1,0 +1,186 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionForQuestionerModel
+
+<style>
+    .h_iframe-aparat_embed_frame {
+        position: relative;
+    }
+
+        .h_iframe-aparat_embed_frame .ratio {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .h_iframe-aparat_embed_frame iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+</style>
+
+
+
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">لیست پرسشهای اصلی و راستی آزمایی</div>
+        <hr />
+    </div>
+    <div class="box-body">
+        <div style="overflow: auto">
+            <table class="table table-hover text-center table-responsive table-responsive-lg">
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>نوع پرسش</th>
+                        <th>حاوی تصویر/فیلم</th>
+                        <th>صورت پرسش</th>
+                        <th>مشاهده جزئیات</th>
+                        <th>ویرایش</th>
+                        <th>حذف</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var question in Model.FullQuestionPackDtos)
+                    {
+                        string color = "";
+                        if (question.EditorComment != null)
+                        {
+                            color = "bg-red-gradient";
+                        }
+                            <tr class="@color ">
+                                <td>@(i++)</td>
+
+                                @if (question.QuestionType == Enums.QuestionType.Main)
+                                {
+                                    <td> چند گزینه ای</td>
+                                }
+                                @if (question.QuestionType == Enums.QuestionType.Anatomical)
+                                {
+                                    <td> تشریحی</td>
+                                }
+                                @if (question.QuestionType == Enums.QuestionType.Validation)
+                                {
+                                    <td>راستی آزمایی</td>
+                                }
+                                @if (question.QuestionType == Enums.QuestionType.MainWithPicture)
+                                {
+                                    <td> چند گزینه ای تصویری</td>
+                                }
+
+                                <td>
+                                    @if (question.MediaType == Enums.MediaType.NoMedia)
+                                    {
+                                        <span class="fa fa-remove text-red fa-2x"></span>
+
+                                    }
+                                    else if (question.MediaType == Enums.MediaType.Picture)
+                                    {
+                                        <span class="fa fa-picture-o  fa-2x text-green"></span>
+
+                                        @*<img src="/Uploads/QuestionnairePhotos/@question.MediaUrl" style="height: 50px" alt="عکس مربوط به سوال" />*@
+
+                                    }
+                                    else if (question.MediaType == Enums.MediaType.Film)
+                                    {
+                                        <span class="fa fa-film fa-2x text-green"></span>
+                                        @*<div class="h_iframe-aparat_embed_frame"> <span style="display: block;padding-top: 57%"></span><iframe src="https://www.aparat.com/video/video/embed/videohash/@question.MediaUrl/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>*@
+                                    }
+                                </td>
+                                <td>
+                                    @(question.QuestionText.Length > 100 ? question.QuestionText.Substring(0, 100) : question.QuestionText)
+                                </td>
+
+                                @*<td>
+
+                        @{
+                            int j = 1;
+                        }
+                        @if (question.AnswersText != null)
+                        {
+
+
+                            foreach (var answer in question.AnswersText)
+                            {
+                                if (question.QuestionType == Enums.QuestionType.MainWithPicture)
+                                {
+                                    @(j++)<span>.</span>
+                                    <img src="/Uploads/QuestionnairePhotos/@answer" style="height: 50px" alt="عکس مربوط به سوال" />
+
+                                    <hr/>
+                                }
+                                else
+                                {
+                                    @(j++)
+                                    <small>.@answer</small>
+                                    <hr/>
+                                }
+
+
+                            }
+                        }
+                        else
+                        {
+                            <small class="text-green">
+                                <b>تشریحی میباشد.</b>
+                            </small>
+                        }
+
+                    </td>*@
+                                <td>
+                                    <button name="details" id="@question.QuestionId" class="btn btn-info"> مشاهده جزئیات</button>
+                                </td>
+                                <td>
+                                    @if (question.QuestionType == Enums.QuestionType.Main || question.QuestionType == Enums.QuestionType.Anatomical || question.QuestionType == Enums.QuestionType.MainWithPicture)
+                                    {
+                                        using (Html.BeginForm(Html.BeginForm("EditMainQuestion", "QuestionForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                                        {
+                                            @Html.Hidden("questionnaireId", Model.QuestionnaireId)
+                                            <input type="hidden" name="questionId" value="@question.QuestionId" />
+                                            <button type="submit" class="btn btn-warning">
+                                                ویرایش
+                                            </button>
+
+                                        }
+
+                                    }
+                                    @if (question.QuestionType == Enums.QuestionType.Validation)
+                                    {
+                                        using (Html.BeginForm(Html.BeginForm("EditValidationQuestion", "QuestionForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                                        {
+                                            @Html.Hidden("questionnaireId", Model.QuestionnaireId)
+                                            <input type="hidden" name="questionId" value="@question.QuestionId" />
+                                            <button type="submit" class="btn btn-warning">
+                                                ویرایش
+                                            </button>
+
+                                        }
+                                    }
+                                </td>
+                                <td>
+
+                                    <a href="@Url.Action("QuestionDelete","QuestionForQuestioner", new {area="Questioner", questionnaireId=Model.QuestionnaireId, questionId = question.QuestionId})" class="btn btn-danger deleteQuestion">
+                                        حذف
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+

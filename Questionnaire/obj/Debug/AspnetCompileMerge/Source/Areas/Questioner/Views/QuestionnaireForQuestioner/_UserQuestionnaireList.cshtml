@@ -1,0 +1,79 @@
+﻿
+@using QuestionnaireProject.Models
+@using ModelBinderAttribute = System.Web.Http.ModelBinding.ModelBinderAttribute
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionnaireModel
+
+<div class="box">
+    <div class="box-header">
+        <h4 class="box-title">لیست پرسشنامه های ایجاد شده توسط کاربر</h4>
+    </div>
+    <hr />
+    <div class="box-body table-responsive no-padding text-center">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام پرسشنامه</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>سوالات</th>
+                    <th>ویرایش پرسشنامه</th>
+                    <th>حذف پرسشنامه</th>
+                    <th>نهایی سازی</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var questionnaire in Model.QuestionnairesDto.Questionnaires)
+                {
+                    <tr>
+                        <td>1</td>
+                        <td>@questionnaire.Name</td>
+                        <td>@questionnaire.DateCreated.</td>
+                        <td>
+                            @using (Html.BeginForm(Html.BeginForm("Index", "BenchMarkingForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                            {
+                                @Html.Hidden("questionnaireId", questionnaire.Id )
+                                <button type="submit" class="btn btn-info">سوالات پرسشنامه
+
+                                </button>
+
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm(Html.BeginForm("Edit", "QuestionnaireForQuestioner", new {area = "Questioner"}, FormMethod.Post, new {enctype = "multipart/form-data"})))
+                            {
+                                <input type="hidden" name="questionnaireId" value="@questionnaire.Id"/>
+                                <button type="submit"  class="btn btn-warning" >
+                                    ویرایش
+                                </button>
+
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm(Html.BeginForm("Delete", "QuestionnaireForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                            {
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    حذف
+                                </button>
+
+                            }
+                        </td>
+                        <td>
+                            @if (questionnaire.Status == (int) Enums.RequestStatus.Accepted)
+                            {
+                                <a href="@Url.Action("QuestionnairePricing", "QuestionnaireForQuestioner", new {area = "Questioner", questionnaireId = questionnaire.Id})" class="btn btn-primary btn-sm" id="@questionnaire.Id">نهایی سازی</a>
+                            }
+                            else
+                            {
+                                <span class='fa fa-remove text-red'></span>
+                            }
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

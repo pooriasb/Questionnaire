@@ -1,0 +1,34 @@
+﻿@model QuestionnaireProject.Areas.Editor.Models.EditorReviewModel
+
+
+<div class="alert alert-info">
+    <h5>عنوان پرسشنامه</h5>
+    <h3>@Model.ReviewDto.QuestionnaireName</h3>
+    <table class="table table-hover table-responsive text-center text-black">
+        <thead>
+            <tr>
+                <th>استان</th>
+                <th>شهر</th>
+                <th>حداقل سن</th>
+                <th>حداکثر سن</th>
+                <th>رشته</th>
+                <th>تعداد افراد پاسخگو</th>
+                <th>مبلغ اختصاصی به هر فرد</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.ReviewDto.ConditionDto.Provience</td>
+                <td>@Model.ReviewDto.ConditionDto.City</td>
+                <td>@Model.ReviewDto.ConditionDto.MinAge</td>
+                <td>@Model.ReviewDto.ConditionDto.MaxAge</td>
+                <td>@Model.ReviewDto.ConditionDto.Field</td>
+                <td>@Model.ReviewDto.ConditionDto.PeopleCount</td>
+                <td>@Model.ReviewDto.ConditionDto.EachPersonMoney</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

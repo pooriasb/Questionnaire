@@ -1,0 +1,168 @@
+﻿@model QuestionnaireProject.Models.RegisterViewModel
+@{
+    ViewBag.Title = "ثبت نام";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>یک حساب کاربری جدید بسازید.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.NationalCode, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.NationalCode, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.BirthDate, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            <small class="text-green">
+                شماره تلفن همراه بایستی در قالب 09123456789 باشد.
+            </small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <select id="Sex" name="Sex" class="control-label text-right">
+                <option value="">انتخاب نمایید.</option>
+                <option value="1">مرد</option>
+                <option value="0">زن</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.StudyFieldId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <select id="StudyField" name="StudyFieldId" class="control-label text-right">
+                <option value="">انتخاب نمایید.</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="col-md-2 control-label" for="NationalCode">استان</label>
+        <div class="col-md-10">
+            <select id="Proviences" onchange="changeCities()" class="control-label text-right">
+                <option value="">انتخاب نمایید.</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CityId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <select id="Cities" Name="CityId" class="control-label text-right">
+                <option value="">انتخاب نمایید.</option>
+            </select>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ReagentEmail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ReagentEmail, new { @class = "form-control" })
+            <small class="text-green">در صورت داشتن معرف، ایمیل مربوط به کاربر را وارد نمایید.</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="ثبت نام" />
+        </div>
+    </div>
+}
+
+<style>
+    select {
+        width: 300px;
+    }
+</style>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function () {
+
+            $.post("/Api/SignUp/ProvincesAndFields",
+                function (data) {
+                    data.fields.forEach(function (item, index) {
+                        $("#StudyField").append(`<option value="${item.Id}">${item.Name}</option>`);
+
+                    });
+
+                    data.provinces.forEach(function (item, index) {
+                        $("#Proviences").append(`<option value="${item.Id}">${item.Name}</option>`);
+
+                    });
+                });
+        });
+
+
+        changeCities = function () {
+            var provinceId = $("#Proviences").val();
+            $.post("/Api/SignUp/Cities", { id: provinceId },
+
+                function (data) {
+                    data.cities.forEach(function (item, index) {
+                        $("#Cities").append(`<option value="${item.Id}">${item.Name}</option>`);
+
+                    });
+                });
+        }
+
+    </script>
+}

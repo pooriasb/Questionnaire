@@ -1,0 +1,16 @@
+﻿@model List<QuestionnaireProject.Models.Questionnaire>
+@{
+    ViewBag.Title = "Index";
+    //  Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_ResponderDashboardLayout.cshtml";
+
+}
+
+<h2>لیست پرسشنامه</h2>
+
+@foreach (var q in Model)
+{
+    <p>@q.Name</p>
+    
+}
+

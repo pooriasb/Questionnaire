@@ -1,0 +1,15 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.BenchMarkingQuestionModel
+@{
+    ViewBag.Title = "پرسشنامه لیاقت سنجی";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+
+
+<h3>پرسشنامه لیاقت سنجی: <b class="text-green">@Model.BenchMarkingQuestionDto.QuestionnaireName</b></h3>
+
+@Html.Partial("_BenchMarkProgressBox")
+
+@Html.Partial("_BenchMarkQuestion")
+@Html.Partial("_BenchMarkQuestionsList")

@@ -1,0 +1,96 @@
+﻿@using PagedList.Mvc
+@model QuestionnaireProject.Areas.Responder.Controllers.QuestionnaireForResponderController.AnsweredQuestionsModel
+@{
+    ViewBag.Title = "AnsweredQuesionnaires";
+    //Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_ResponderDashboardLayout.cshtml";
+
+}
+
+<h2>پرسشنامه های پاسخ داده شده توسط شما</h2>
+
+<div class="box">
+    <div class="box-header">
+        <h4 class="text-blue">در این قسمت می توانید پرسشنامه هایی را که پاسخ داده اید مشاهده نمایید.</h4>
+    </div>
+    <hr />
+    <div class="box-body">
+        <table class="table table-responsive text-center">
+            <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>نام پرسشنامه</th>
+                <th>مبلغ پرسشنامه</th>
+                <th>تاریخ پاسخگویی</th>
+                <th>تاریخ پرداخت مبلغ</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                int rows = 1;
+            }
+            @foreach (var aq in Model.AnsweredQuestionDtos)
+            {
+                <tr>
+                    <td>@(rows++)</td>
+                    <td>
+                        @aq.QuestionnaireName
+                    </td>
+                    <td>
+                        @if (@aq.ReceivedMoney != null)
+                        {
+                            <span class="text-orange">@aq.ReceivedMoney</span>
+                        }
+                        else
+                        {
+                            <span class="text-red">
+                                <b>
+                                    0
+                                </b>
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @if (@aq.DateFinished != null)
+                        {
+                            <span class="text-orange date">@aq.DateFinished.Value.ToString("MM/dd/yyyy")</span>
+                        }
+                        else
+                        {
+                            <span class="text-red">
+                                <b>
+                                    پاسخ این پرسشنامه نهایی سازی نشده است.
+                                </b>
+                            </span>
+                        }
+
+                    </td>
+                    <td>
+                        @if (@aq.DatePaid != null)
+                        {
+                            <span class="text-orange date">@aq.DatePaid.Value.ToString("MM/dd/yyyy")</span>
+                        }
+                        else
+                        {
+                            <span class="text-orange">
+                                <b>
+                                    واریزی صورت نگرفته است.
+                                </b>
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.AnsweredQuestionDtos.PageCount < Model.AnsweredQuestionDtos.PageNumber ? 0 : Model.AnsweredQuestionDtos.PageNumber) از @Model.AnsweredQuestionDtos.PageCount
+
+    @Html.PagedListPager(Model.AnsweredQuestionDtos, page => Url.Action("AvailableQuestionnaires",
+        new { page, status= ViewBag.CurrentStatus, search = ViewBag.CurrentSearch }))
+</div>

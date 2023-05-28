@@ -1,0 +1,285 @@
+﻿@*@using QuestionnaireProject.Models
+    @model QuestionnaireProject.Areas.Questioner.Models.RequestModel
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    }
+
+    <h2>درخواستهای شما</h2>
+    <div class="box">
+        <div class="box-header">
+            <div class="box-title"></div>
+            <hr />
+        </div>
+        <div class="box-body">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>نام پرسشنامه</th>
+                        <th>آخرین بروزرسانی</th>
+                        <th>وضعیت</th>
+                        <th>پیام ویراستار</th>
+                        <th>مشاهده</th>
+                        <th>نهایی سازی</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var questionnaire in Model.RequestDtos)
+                    {
+                        <tr>
+                            <td>@questionnaire.QuestionnaireName</td>
+                            <td>@questionnaire.UpdateDate</td>
+                            <td>
+                                @if (@questionnaire.RequestStatus == Enums.RequestStatus.Pending)
+                                {
+                                    <span class="text-orange">در حال بررسی</span>
+
+                                }
+                                else if (@questionnaire.RequestStatus == Enums.RequestStatus.Accepted)
+                                {
+                                    <span class="text-red">رد شده</span>
+
+                                }
+                                else if (@questionnaire.RequestStatus == Enums.RequestStatus.Rejected)
+                                {
+                                    <span class="text-green">قبول شده</span>
+
+                                }
+                                else
+                                {
+                                    <span>ارسال نشده</span>
+                                }
+                            </td>
+                            <td>@questionnaire.EditorComment</td>
+                            <td>
+                                <a href="@Url.Action("QuestionnaireSummary","RequestForQuestioner", new{area="Questioner", questionnaireId=questionnaire.QuestionnaireId})" class="btn btn-info">مشاهده</a>
+                            </td>
+                            @if (@questionnaire.RequestStatus == Enums.RequestStatus.Accepted)
+                            {
+                                <td>
+                                    <a href="#" class="btn btn-primary">نهایی سازی</a>
+                                </td>
+                            }
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>*@
+
+@using PagedList.Mvc
+@using QuestionnaireProject.Models
+@model PagedList.IPagedList<QuestionnaireProject.Areas.Editor.Models.QuestionnairePack>
+
+@{
+    ViewBag.Title = "Index";
+    // Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+<h2>مشاهده همه پرسشنامه ها</h2>
+<div class="box">
+    <div class="box-header">
+        @*<div class="box-title">پرسشنامه ها</div>*@
+        @using (Html.BeginForm("Index", "RequestForQuestioner", FormMethod.Get))
+        {
+            <p>
+                <label class="custom-control-label">جست و جو بر اساس وضعیت پرسشنامه</label>
+                <select class="form-control" name="status">
+                    <option value="">همه</option>
+                    <option value="0">پرسشنامه ارسال نشده </option>
+                    <option value="1"> پرسشنامه رد شده</option>
+                    <option value="2"> پرسشنامه در انتظار تایید ناظر</option>
+                    <option value="3">پرسشنامه تایید شده (پرداخت نشده) </option>
+                    <option value="4"> پرسشنامه در حال اجرا</option>
+                    <option value="5"> پرسشنامه پایان یافته</option>
+
+                </select>
+                <br />
+                @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                <small class="text-green">جست و جو بر اساس نام پرسشنامه میباشد.</small>
+                <br />
+                <input type="submit" value="جست و جو" />
+            </p>
+
+        }
+        <hr />
+    </div>
+    <div class="box-body">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+
+                    <th>نام پرسشنامه</th>
+                    <th>تاریخ ثبت</th>
+                    <th>تاریخ تایید</th>
+                    <th>تاریخ پرداخت</th>
+                    <th>تاریخ اتمام</th>
+                    <th>وضعیت پرسشنامه</th>
+                    <th>مشاهده پرسشنامه</th>
+
+                    <th>حذف پرسشنامه</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var q in Model)
+                {
+                    <tr>
+
+                        <td>@q.Name </td>
+
+                        <td>
+                            @if (q.DateCreated != null)
+                            {
+                                <span class="date">
+                                    @q.DateCreated.Value.ToString("MM/dd/yyyy")
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    -
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @if (q.DateConfirmed != null)
+                            {
+                                <span class="date">
+                                    @q.DateConfirmed.Value.ToString("MM/dd/yyyy")
+                                </span>
+
+                            }
+                            else
+                            {
+                                <span>
+                                    -
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @if (q.DatePaid != null)
+                            {
+                                <span class="date">
+                                    @q.DatePaid.Value.ToString("MM/dd/yyyy")
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    -
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @if (q.DateExpire != null)
+                            {
+                                <span class="date">
+                                    @q.DateExpire.Value.ToString("MM/dd/yyyy")
+                                </span>
+
+                            }
+                            else
+                            {
+                                <span>
+                                    -
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @switch (@q.Status)
+                            {
+                                case 0:
+                                    <span>ساخته شده</span>
+                                    break;
+                                case 1:
+                                    <span>رد شده</span>
+                                    break;
+                                case 2:
+                                    <span>در انتظار تایید ناظر</span>
+                                    break;
+                                case 3:
+                                    <span>تایید شده</span>
+
+                                    break;
+                                case 4:
+                                    <span>در حال اجرا</span>
+
+                                    break;
+                                case 5:
+                                    <span>پایان یافته</span>
+
+                                    break;
+                            }
+
+                        </td>
+
+                        <td>
+                            @*@if (q.Status == (int) Enums.RequestStatus.Pending||
+                                     q.Status == (int)Enums.RequestStatus.Rejected ||
+                                     q.Status == (int)Enums.RequestStatus.Accepted)
+                                {*@
+                            <a class="btn btn-info" href="@Url.Action("QuestionnaireFullView", "QuestionnaireForQuestioner", new {area="Questioner", questionnaireId = q.Id})">مشاهده پرسشنامه</a>
+
+                            @*}*@
+                        </td>
+                        @if (q.Status != (int)Enums.RequestStatus.Finished)
+                        {
+                            <td>
+                                <a class="btn btn-danger" href="@Url.Action("FinishBeforeExpireDate", "RequestForQuestioner", new {area="Questioner", questionnaireId = q.Id})">انصراف از ادامه</a>
+                            </td>
+                        }
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, status= ViewBag.CurrentStatus, search = ViewBag.CurrentSearch }))
+</div>
+
+
+<link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/jquery-confirm.min.js"></script>
+    <script>
+
+        $('a.btn-danger').confirm({
+            title:"اخطار",
+            content: "آیا از انصراف اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function() {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+
+                }
+            }
+        });
+
+
+        jQuery(document).ready(function($){
+            $('select').find('option[value=@ViewBag.CurrentStatus]').attr('selected','selected');
+        });
+
+    </script>
+}
+

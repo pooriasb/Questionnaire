@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "داشبورد پرسشگر";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionerLandingPageDto
+
+@Html.Raw(ViewBag.HtmlStr)
+<h2>داشبورد پرسشگر</h2>
+
+
+<div class="row">
+
+    @*<div class="col-md-3">
+            <h3>اعلانها</h3>
+            @foreach (var notification in Model.Notifications)
+            {
+                <div class="alert alert-danger">
+                    <b>@notification.Title</b>
+                    <a href="#" class="pull-left"><span class="fa fa-remove"></span></a>
+                    <hr style="margin: 5px" />
+                    <small>@notification.Text</small>
+                    <br />
+                    <small class="pull-left text-gray">@notification.DateCreated.Value.ToShortDateString()</small>
+                </div>
+            }
+
+        </div>*@
+
+    <div class="col-md-12">
+        <h3>موجودی حساب</h3>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="small-box bg-maroon">
+                    <div class="inner">
+                        <h4>@Model.MoneyBalance</h4>
+
+                        <p>مبلغ موجود در کیف پول شما</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <h3> پرسشنامه ها</h3>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="small-box bg-blue">
+                    <div class="inner">
+                        <h3>@Model.SentRequestsCount</h3>
+
+                        <p>پرسشنامه های ارسالی</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                    <a href="@Url.Action("Index","RequestForQuestioner", new {area = "Questioner"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>@Model.AcceptedRequestsCount</h3>
+
+                        <p>پرسشنامه تایید شده</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <a href="@Url.Action("Index","RequestForQuestioner", new {area = "Questioner"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@Model.RejectedRequsetsCount</h3>
+
+                        <p>پرسشنامه های رد شده</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-remove"></i>
+                    </div>
+                    <a href="/Questioner/RequestForQuestioner?status=1&Search=" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="small-box bg-orange">
+                    <div class="inner">
+                        <h3>@Model.UploadedFilesCount</h3>
+
+                        <p>فایلهای پرسشنامه ارسالی</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-upload"></i>
+                    </div>
+                    <a href="@Url.Action("Index","RequestForQuestioner", new {area = "Questioner"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <h3>وضعیت پرسشنامه ها</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@Model.NotPaidQuestionnairesCount</h3>
+
+                        <p>پرسشنامه های پرداخت نشده</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-check-square"></i>
+                    </div>
+                    <a href="@Url.Action("Index","QuestionnaireForQuestioner", new {area = "Questioner"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="small-box bg-purple">
+                    <div class="inner">
+                        <h3>@Model.InProcessQuestionnairesCount</h3>
+
+                        <p>پرسشنامه های در حال اجرا</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <a href="@Url.Action("InProccessQuestionnaires","QuestionnaireForQuestioner", new {area = "Questioner"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@Model.FinishedQuestionnairesCount</h3>
+
+                        <p>پرسشنامه های پایان یافته</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-flag-checkered"></i>
+                    </div>
+                    <a href="@Url.Action("FinishedQuestionnaires","QuestionnaireForQuestioner", new {area = "Questioner"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

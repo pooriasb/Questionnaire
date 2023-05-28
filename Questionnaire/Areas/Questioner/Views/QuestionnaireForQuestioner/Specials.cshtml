@@ -1,0 +1,118 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionnaireForQuestionerController.SpecialModel
+@{
+    ViewBag.Title = "Specials";
+    //  Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+<h2>اختصاص بسته ها ویژه</h2>
+<div class="container">
+    @foreach (var s in Model.SpecialOffers)
+    {
+        <div class="col-md-4">
+            <div class="box text-center">
+                <div class="box-body text-center">
+                    @if (s.Type == (int)Enums.Special.Ladder)
+                    {
+                        <span class="fa fa-star fa-3x fa-spin slow-spin" style="color: gold"></span>
+                    }
+                    else if (s.Type == (int)Enums.Special.Bold)
+                    {
+                        <div class="text-center" style="color:white;background-color: #000080; border-radius: 100px; width: 6rem; height: 6rem; margin: auto; border-top: 20px">
+                            <span class="fa fa-bold fa-3x" style="margin-top:1.1rem"></span>
+
+                        </div>
+                    }
+                    else if (s.Type == (int)Enums.Special.Color)
+                    {
+                        <div class="text-center" style="color:white;background-color: #8b0000; border-radius: 100px; width: 6rem; height: 6rem; margin: auto; border-top: 20px">
+                            <span class="fa fa-paint-brush fa-3x" style="margin-top:1.1rem"></span>
+
+                        </div>
+                    }
+                    else if (s.Type == (int)Enums.Special.ExtraDays)
+                    {
+                        <div class="text-center" style="color:white;background-color: #008000; border-radius: 100px; width: 6rem; height: 6rem; margin: auto; border-top: 20px">
+                            <span class="fa fa-calendar fa-3x" style="margin-top:1.1rem"></span>
+
+                        </div>
+                    }
+
+                    <h3>
+                        <b>
+                            @if (s.Type == (int)Enums.Special.Ladder)
+                            {
+                                <span>بسته ویژه</span>
+                            }
+                            else if (s.Type == (int)Enums.Special.Bold)
+                            {
+                                <span>نردبان</span>
+
+                            }
+                            else if (s.Type == (int)Enums.Special.Color)
+                            {
+                                <span>رنگی</span>
+
+                            }
+                            else if (s.Type == (int)Enums.Special.ExtraDays)
+                            {
+                                <span>افزایشی</span>
+
+                            }
+                        </b>
+                    </h3>
+                    <p>
+                        <span>@s.Price</span>
+                        تومان
+                    </p>
+                    <p>
+                        <span>@s.Days</span>
+
+                        روزه
+                    </p>
+                    @using (Html.BeginForm("MakeSpecialInvoice", "QuestionnaireForQuestioner", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                    {
+                        <input type="hidden" name="specialId" id="specialId" value="@s.Id"/>
+                        <input type="hidden" name="questionnaireId" id="questionnaireId" value="@Model.QuestionnaireId"/>
+                        <button class="btn btn-warning btn-lg" style="border-radius: 300px">فعالسازی</button>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+
+<style>
+    .container {
+        width: 90rem;
+    }
+
+    button.box :hover {
+        border-radius: 10px !important;
+        transition: 0.5s;
+    }
+
+    div.box:hover h3 {
+        font-size: 30px !important;
+        transition: 0.25s;
+    }
+
+    .slow-spin {
+        -webkit-animation: fa-spin 4s infinite linear;
+        animation: fa-spin 4s infinite linear;
+    }
+
+    .box.box-body.text-center {
+        overflow: hidden
+    }
+
+    .box.text-center {
+        height: 25rem;
+        width: 25rem;
+        border-radius: 200px !important
+    }
+</style>

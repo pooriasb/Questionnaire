@@ -1,0 +1,39 @@
+﻿@{
+    var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
+    string cLayout = "";
+
+    switch (controller)
+    {
+        //Case of Questioner
+        case "Questioner":
+        case "QuestionnaireForQuestioner":
+        case "QuestionForQuestioner":
+        case "BenchMarkingForQuestioner":
+        case "ContactEditorForQuestioner":
+        case "RequestForQuestioner":
+        case "UploadFileForQuestioner":
+        case "ProfileForQuestioner":
+            cLayout = "~/Views/Shared/_QuestionerLayout.cshtml";
+            break;
+        case "Editor":
+        case "QuestionnaireForEditor":
+        case "QuestionForEditor":
+        case "RequestForEditor":
+        case "DownloadFileForEditor":
+        case "ProfileForEditor":
+            cLayout = "~/Views/Shared/_EditorLayout.cshtml";
+            break;
+        case "Responder":
+        case "PaymentForResponder":
+        case "QuestionForResponder":
+        case "QuestionnaireForResponder":
+        case "RequestForResponder":
+            cLayout = "~/Views/Shared/_ResponderLayout.cshtml";
+            break;
+        default:
+            cLayout = "~/Views/Shared/_Layout.cshtml";
+            break;
+
+    }
+    Layout = cLayout;
+}

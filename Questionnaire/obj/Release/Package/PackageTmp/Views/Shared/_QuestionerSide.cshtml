@@ -1,0 +1,87 @@
+﻿<li class="header text-center" style="color: greenyellow; font-size: 15px">کنترل پنل پرسشگر</li>
+
+<li class="menu">
+    <a href="@Url.Action("Index", "Questioner")">
+        <i class="fa fa-dashboard"></i> <span>داشبورد</span>
+    </a>
+</li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-file-text"></i> <span>پرسشنامه</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="active"><a href="@Url.Action("Index", "QuestionnaireForQuestioner", new {area="Questioner"})"><i class="fa fa-files-o"></i> لیست پرسشنامه ها</a></li>
+    </ul>
+</li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-archive"></i>
+        <span>درخواست ها</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+
+        </span>
+
+    </a>
+    <ul class="treeview-menu">
+        <li>
+            <a href="@Url.Action("Index","RequestForQuestioner", new {area="Questioner"})">
+                <i class="fa fa-circle"></i> همه درخواستها
+            </a>
+        </li>
+        @*<li>
+                <a href="~/Assets/pages/layout/boxed.html">
+                    <i class="fa fa-check text-success"></i>  تایید شده
+                    <span class="label label-success pull-left">4</span>
+                </a>
+            </li>
+            <li>
+                <a href="~/Assets/pages/layout/fixed.html">
+                    <i class="fa fa-remove text-danger"></i> رد شده
+                    <span class="label label-danger pull-left">4</span>
+                </a>
+            </li>
+            <li>
+                <a href="~/Assets/pages/layout/collapsed-sidebar.html">
+                    <span class="fa fa-spinner text-info"></span> در حال بررسی
+                    <span class="label label-primary pull-left">4</span>
+
+                </a>
+            </li>*@
+    </ul>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index","UploadFileForQuestioner", new {area="Questioner"})">
+        <i class="fa fa-upload"></i>
+        <span> آپلود فایل پرسشنامه</span>
+    </a>
+</li>
+
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-pie-chart"></i>
+        <span>گزارش ها</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+
+        </span>
+
+    </a>
+    <ul class="treeview-menu">
+        <li>
+            <a href="#">
+                <span class="fa fa-signal"></span> گزارش کلی
+
+            </a>
+        </li>
+        @*<li>
+                <a href="#">
+                    <span class="fa fa-signal"></span> جزء به جزء
+
+                </a>
+            </li>*@
+    </ul>
+</li>   

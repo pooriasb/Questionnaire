@@ -1,0 +1,79 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.BenchMarkingQuestionModel
+@{
+    ViewBag.Title = "پرسشنامه لیاقت سنجی";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+
+}
+
+@if (ViewData.ModelState != null && !ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <h5 class="alert-heading">خطا!</h5>
+        @Html.ValidationSummary("", new { style = "color:white" })
+
+    </div>
+}
+
+
+<h3>پرسشنامه لیاقت سنجی: <b class="text-green">@Model.QuestionnaireName</b></h3>
+
+@Html.Partial("_BenchMarkProgressBox")
+
+@Html.Partial("_BenchMarkQuestion")
+@Html.Partial("_BenchMarkQuestionsList")
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+    <script>
+        $("button[name='details']").on('click',
+            function () {
+                var id = $(this).attr('id');
+                $.post("/Questioner/BenchMarkingForQuestioner/QuestionDetails",
+                    { questionId: id },
+                    function () {
+
+                    }).done(function (data) {
+                        console.log(data);
+                        var question = data.quesiton[0];
+                        var content = `<h5><strong class="text-green">صورت پرسش</strong></h5>
+                                   <p>${question}</p>
+                                    <hr>`;
+                        var answers = ['1', '2', '3', '4'];
+                        $.each(data.answers,
+                            function (index, value) {
+                                content += `<p><strong class="text-blue">گزینه${index + 1}:</strong> ${value}</p>`;
+                            });
+                        $.dialog({
+                            type: "blue",
+                            rtl: true,
+                            title: "جزئیات پرسش لیاقت سنجی",
+                            content: content,
+                            columnClass: "col-md-6 col-md-offset-4",
+
+                        });
+                    });
+
+            })
+
+        $('a.btn-danger').confirm({
+            title: "اخطار",
+            content: "آیا از حذف پرسش اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function () {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+
+                }
+            }
+        });
+    </script>
+}
+

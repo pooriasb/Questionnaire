@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "پرسشنامه ها";
+    //   Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+
+}
+@using System.Web.Mvc.Html
+@using QuestionnaireProject.Areas.Questioner.Models
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionnaireModel
+<h2>پرسشنامه ها</h2>
+<h1 class="text-red">@ViewBag.Error</h1>
+
+
+
+
+@Html.Partial("_NewQuestionnaire")
+
+@Html.Partial("_UserQuestionnaireList")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+
+        $(document).ready(function() {
+
+
+
+
+            var provinceId = @(Model.NewQuestionnaireViewModel.ProvinceId ?? 0);
+
+            $.post("/api/signup/cities",
+                    { id: provinceId },
+                    function(data) {
+
+                    })
+                .done(function(data) {
+
+                    if (data.cities.length === 0) {
+                        $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                            .append("<option value=>همه</option>");
+                    } else {
+                        $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                            .append("<option value=>همه</option>");
+                        $.each(data.cities,
+                            function(index, item) {
+                                //console.log(item);
+                                $("#NewQuestionnaireViewModel_CityId").find("option").end()
+                                    .append(`<option value=${item.Id}>${item.Name}</option>`);
+                            });
+                        if (@(Model.NewQuestionnaireViewModel.CityId ?? 0) === 0) {
+                            $("#NewQuestionnaireViewModel_CityId").val("");
+
+
+                        } else {
+                            $("#NewQuestionnaireViewModel_CityId").val(@Model.NewQuestionnaireViewModel.CityId);
+
+                        }
+
+
+                        $("#NewQuestionnaireViewModel_Sex").val(@Model.NewQuestionnaireViewModel.Sex);
+
+
+                    }
+                });
+
+        });
+
+
+        $('.excel').on('click',
+            function() {
+                var qId = $(this).attr('qId');
+                var qName = $(this).attr('qName');
+                $.confirm({
+                    rtl: true,
+                    title: 'بارگذاری فایل اکسل',
+                    content: `
+                            <p >در صورت نیاز ابتدا
+                                <a href="#" class="text-red">راهنما</a>
+                            را مطالعه نمایید.</p>
+
+                             <div class="alert alert-success">
+                                <h4>نام پرسشنامه: ${qName}</h4>
+                                <p>لطفا فایل پرسشنامه خود را انتخاب نمایید.</p>
+                                <br>
+                                <input type="file" id="fileUpload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+                             </div>
+                             `,
+                    buttons: {
+                        ارسال: function() {
+                            var waitMessage = $.dialog({
+                                rtl: true,
+                                title: "",
+                                content: "لطفا تا پایان بارگزاری کامل پرسشنامه صبور باشید."
+                            });
+                            var file = document.getElementById('fileUpload');
+                            var formData = new FormData();
+                            console.log(file);
+                            if (file.files.length > 0) {
+                                for (var i = 0; i < file.files.length; i++) {
+                                    formData.append('file-' + i, file.files[i]);
+                                }
+                            }
+                            formData.append("QuestionnaireIdForExcel", qId);
+                            console.log(formData);
+                            $(".se-pre-con").fadeIn("slow");
+                            console.log('start');
+                            $.ajax({
+                                url: "/api/QuestionnaireInExcel/Create",
+                                type: "POST",
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                dataType: "JSON",
+                                success: function(data) {
+                                    $.dialog({
+                                        rtl: true,
+                                        title: "پیام سیستم",
+                                        content: data.Message,
+                                        onClose: function () {
+                                            waitMessage.close();
+                                            location.reload();
+                                        }
+                                    });
+
+
+
+                                },
+                                error: function(data) {
+                                    $.dialog({
+                                        rtl: true,
+                                        title: "اخطار",
+                                        content: "در سیستم خطایی رخ داده است. لطفا مجددا سعی نمایید.",
+                                        onClose: function() {
+                                            waitMessage.close();
+                                        }
+                                    });
+                                }
+                            }).always(function() {
+                                $(".se-pre-con").fadeOut("slow");
+                            });
+                        },
+                        انصراف: function() {
+                        },
+                        راهنما: function() {
+                            $.dialog({
+                                content: guideTempelate
+                            });
+                        }
+                    }
+                });
+            });
+
+
+        $("#NewQuestionnaireViewModel_ProvinceId").on("change",
+            function() {
+                var provinceId = this.value;
+                //console.log(provinceId);
+                $.post("/api/signup/cities",
+                    { id: provinceId },
+                    function(data) {
+
+                    }).done(function(data) {
+                    //console.log(data.cities.length);
+
+                    if (data.cities.length === 0) {
+                        $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                            .append("<option value=>همه</option>");
+                    } else {
+                        $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                            .append("<option value=>همه</option>");
+                        $.each(data.cities,
+                            function(index, item) {
+                                //console.log(item);
+                                $("#NewQuestionnaireViewModel_CityId").find("option").end()
+                                    .append(`<option value=${item.Id}>${item.Name}</option>`);
+                            });
+
+                    }
+                });
+            });
+
+        var guideTempelate = `{}
+    <p>
+    جهت بارگذاری پرسشنامه بایستی از روند خاصی پیر,ی نمایید.
+    </p>
+    `;
+
+
+    </script>
+}

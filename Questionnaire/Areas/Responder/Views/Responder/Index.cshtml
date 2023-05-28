@@ -1,0 +1,331 @@
+﻿@using QuestionnaireProject.Models
+@using PagedList.Mvc
+@using PagedList
+@model QuestionnaireProject.Areas.Responder.Models.ResponderIndexDto
+@using QuestionnaireProject.Areas.Responder.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ResponderDashboardLayout.cshtml";
+
+}
+
+<h3>پنل کاربری پاسخ دهنده</h3>
+
+
+
+<div class="container" style="max-width: 100%; width: 90%">
+
+    <div class="row">
+
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>@Model.AnsweredQuestionnaires</h3>
+
+                            <p>پرسشنامه های موجود  </p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </div>
+                        <a href="/Responder/QuestionnaireForResponder/AvailableQuestionnaires" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="small-box bg-orange">
+                        <div class="inner">
+                            <h3>@Model.AvailableQuestionnaires</h3>
+
+                            <p>  پرسشنامه های ناتمام </p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-fw fa-rotate-right"></i>
+                        </div>
+                        <a href="/Responder/QuestionnaireForResponder/UnFinishedQuestionnaire" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="small-box bg-maroon">
+                        <div class="inner">
+                            <h3><i class="fa fa-money"></i></h3>
+
+
+                            <p><span>موجودی شما : </span> @Model.MoneyToReceive &nbsp;<span>تومان</span>    </p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <a href="/Questioner/QuestionnaireForQuestioner/InProccessQuestionnaires" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">پرسشنامه های موجود</div>
+        <div class="panel-body">
+            <table class="table table-hover table-responsive text-center" style="overflow: auto!important">
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <td></td>
+                        <th>
+                            گروه
+                        </th>
+                        <th>امتیاز کاربران</th>
+                        <th> تعداد پرسش ها</th>
+                        <th> فرصت</th>
+                        <th>افراد باقیمانده</th>
+                        <th>قیمت</th>
+
+                        <th>عملیات</th>
+
+
+                    </tr>
+                </thead>
+                @{
+                    string style = "";
+                    string clss = "";
+                    int row = 1;
+                }
+                <tbody>
+
+                    @foreach (var q in Model.AvailableQuestionnaireDtos)
+                    {
+
+                        {
+                            style = "";
+                            if (q.Special == (int)Enums.Special.Bold)
+                            {
+
+                            }
+                            else if (q.Special == (int)Enums.Special.Color)
+                            {
+                                //  style = "background-color: lightskyblue";
+                                clss = "bg-gray-active color-palette";
+                            }
+                            else if (q.Special == (int)Enums.Special.Ladder)
+                            {
+                                clss = "bg-gray-active color-palette";
+                            }
+                        }
+
+                        <tr style="@(style)" class="@(clss)">
+                            <td>@(row++)</td>
+                            <td>
+                                @{
+                                    if (q.Special == (int)Enums.Special.Bold)
+                                    {
+                                        <img style="height:40px;" src="~/Content/ladder.png" />
+                                    }
+                                    if (q.Special == (int)Enums.Special.Ladder)
+                                    {
+                                        <img style="height:40px;" src="~/Content/special.png" />
+                                    }
+
+                                }
+                            </td>
+                            <td>@q.QuestionnaireCategory</td>
+
+                            <td>
+                                @if (q.Rate != null)
+                                {
+                                    for (int i = 1; i <= q.Rate; i++)
+                                    {
+                                        <span class="static-rate rate__full fa fa-star"></span>
+                                    }
+                                    for (int? i = q.Rate; i < 5; i++)
+                                    {
+                                        <span class="static-rate rate__full fa fa-star-o"></span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>نظری ثبت نشده است.</span>
+                                }
+
+
+
+                            </td>
+
+                            <td>
+                                <span class="badge bg-green"> @q.QuestionsNumber</span>
+
+                            </td>
+                            <td>
+
+                                @{
+                                    if (q.DateToExpire <= 0)
+                                    {
+                                        <span class="badge bg-light-blue">آخرین روز</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-light-blue">@q.DateToExpire روز</span>
+
+                                    }
+                                }
+
+
+                            </td>
+                            <td>
+                                <span class="badge bg-red"> @q.PeapleCount</span>
+
+                            </td>
+
+                            <td>
+                                <span class="badge bg-yellow">
+                                    @q.EachPersonMoney  تومان
+
+
+                                </span>
+                            </td>
+
+                            <td>
+                                @using (Html.BeginForm(Html.BeginForm("FirstLevelQuestionShowOneByOne", "QuestionnaireForResponder", new { area = "Responder" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                                {
+                                    <input type="hidden" name="questionnaireId" value="@q.QuestionnaireId" />
+                                    <button type="submit" class="btn btn-success">
+                                        شروع پاسخگویی
+                                    </button>
+
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                    @{
+                        if (Model.AvailableQuestionnaireDtos.Count <= 0)
+                        {
+                            <tr >
+                                پرسشنامه ای  با شرایط شما موجود نمیباشد
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+
+                </table>
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!--list-->
+    @*<div class="row">
+            <div class="col-md-4">
+                <div class="small-box bg-blue">
+                    <div class="inner">
+                        <h3>@Model.AvailableQuestionnaires</h3>
+
+                        <p>تعداد پرسشنامه های ناتمام</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-question"></i>
+                    </div>
+                    <a href="@Url.Action("AvailableQuestionnaires","QuestionnaireForResponder", new{area="Responder"})" class="small-box-footer">شروع پاسخگویی <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>@Model.AnsweredQuestionnaires</h3>
+
+                        <p>تعداد پرسشنامه های پاسخ داده شده</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <a href="@Url.Action("AnsweredQuesionnaires","QuestionnaireForResponder", new{area="Responder"})" class="small-box-footer">مشاهده <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="small-box bg-maroon">
+                    <div class="inner">
+                        <h4>@Model.MoneyToReceive &nbsp;<span>تومان</span></h4>
+
+                        <p>موجودی حساب</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <a href="@Url.Action("Index","RequestForResponder")" class="small-box-footer">تسویه حساب <i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+
+
+
+    <style>
+        .static-rate {
+            font-size: 2rem;
+            color: orange
+        }
+
+            .static-rate.rate__none {
+                color: orange
+            }
+
+            .static-rate.rate__full {
+                font-size: 20px;
+                color: orange;
+            }
+
+            .static-rate.rate__half {
+                color: orange;
+            }
+    </style>
+
+

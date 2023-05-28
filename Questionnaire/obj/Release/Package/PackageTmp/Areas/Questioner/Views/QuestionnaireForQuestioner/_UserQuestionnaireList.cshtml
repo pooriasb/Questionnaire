@@ -1,0 +1,58 @@
+﻿
+@using ModelBinderAttribute = System.Web.Http.ModelBinding.ModelBinderAttribute
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionnaireModel
+
+<div class="box">
+    <div class="box-header">
+        <h4 class="box-title">لیست پرسشنامه های ایجاد شده توسط کاربر</h4>
+    </div>
+    <hr />
+    <div class="box-body table-responsive no-padding text-center">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام پرسشنامه</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>سوالات</th>
+                    <th>ویرایش پرسشنامه</th>
+                    <th>حذف پرسشنامه</th>
+                    <th>نهایی سازی</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var questionnaire in Model.QuestionnairesDto.Questionnaires)
+                {
+                    <tr>
+                        <td>1</td>
+                        <td>@questionnaire.Name</td>
+                        <td>@questionnaire.DateCreated.</td>
+                        <td>
+                            <a href="@Url.Action("Index", "BenchMarkingForQuestioner",new {area="Questioner", questionnaireId=questionnaire.Id})" class="btn btn-info">سوالات پرسشنامه</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit","QuestionnaireForQuestioner", new{area="Questioner", questionnaireId = questionnaire.Id})" class="btn btn-warning btn-sm">ویرایش</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Delete","QuestionnaireForQuestioner", new{area="Questioner", questionnaireId = questionnaire.Id})" class="btn btn-danger btn-sm" id="@questionnaire.Id">حذف</a>
+                        </td>
+                        <td>
+                            @if (questionnaire.DateConfirmed != null)
+                            {
+                                <a href="@Url.Action("#", "QuestionnaireForQuestioner", new {area = "Questioner", questionnaireId = questionnaire.Id})" class="btn btn-primary btn-sm" id="@questionnaire.Id">نهایی سازی</a>
+                            }
+                            else
+                            {
+                                <span class='fa fa-remove text-red'></span>
+                            }
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "آرشیو پرسشنامه ها";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+@using QuestionnaireProject.Models;
+<h3>
+    لیست پرسشنامه های آرشیو شده
+</h3>
+<h4 style="color:green">
+   در آرشیو پرسشنامه ها فقط نام پرسشنامه ذخیره میشود و سوالات و پاسخ های پاسخ دهندگان حذف شده اند
+</h4>
+<div class="container" style="max-width: 100%; width: 90%">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">آرشیو پرسشنامه ها</div>
+                <div class="panel-body">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>گروه پرسشنامه</th>
+                                <th>نام پرسشنامه</th>
+                                <th>تاریخ ایجاد </th>
+                                <th>تاریخ پایان</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ 
+                                if (ViewBag.Packages!=null)
+                                {
+                                    foreach (var item in ViewBag.Packages as List<Questionnaire>)
+                                    {
+                                        <tr>
+                                            <td>@item.QuestionnaireCategory.Name</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.DateCreated.Value.ToString("MM/dd/yyyy")</td>
+                                            <td>@item.DateExpire.Value.ToString("MM/dd/yyyy")</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                          <tr>
+                              <td colspan="4" class="text-center">
+                                  پرسشنامه ای موجود نیست
+                              </td>
+                            </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Models.QuestionModel
+
+@{
+    ViewBag.Title = "سوالات پرسشنامه";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+<style>
+    .fade {
+        opacity: 0;
+        -webkit-transition: opacity 0.75s linear;
+        -moz-transition: opacity 0.75s linear;
+        -ms-transition: opacity 0.75s linear;
+        -o-transition: opacity 0.75s linear;
+        transition: opacity 0.75s linear;
+    }
+</style>
+
+<h2>سوالات پرسشنامه (نام پرسشنام)</h2>
+
+@Html.Partial("_QuestionsProgressBox")
+<div class="nav-tabs-custom">
+    @if (@TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error" role="alert">
+            @TempData["ErrorMessage"] @*make a list of errors*@
+        </div>
+    }
+    <h3 class="bold text-green" style="padding: 20px; margin: 0">ایجاد پرسش جدید:</h3>
+
+    <h4 class="bold text-red" style="padding: 20px; margin: 0">نوع پرسش خود را انتخاب نمایید.</h4>
+
+    <ul class="nav nav-tabs">
+        <li class="@((TempData["MainRedirectModel"] != null) ? "active" : "")"><a href="#mainQuestion" data-toggle="tab" aria-expanded="@((TempData["RedirectModel"] != null) ? "true" : "false")"><b>پرسش اصلی &nbsp;<span class="fa fa-question fa-2x text-blue"></span></b></a></li>
+        <li class="@((TempData["ValidationRedirectModel"] != null) ? "active" : "")"><a href="#validationQuestioin" data-toggle="tab" aria-expanded="false"><b>پرسش راستی آزمایی &nbsp;<span class="fa fa-question fa-2x text-purple"></span></b></a></li>
+    </ul>
+    <div class="tab-content ">
+
+        <div class="tab-pane fade @((TempData["MainRedirectModel"] != null) ? "active in" : "")" style="background-color: lightskyblue; border-radius: 20px" id="mainQuestion">
+            <div class="nav-tabs-custom" style="margin-left: 5%; margin-right: 5%; padding: 10px">
+                @Html.Partial("_NewMainQuestion")
+            </div>
+        </div>
+        <div class="tab-pane fade @((TempData["ValidationRedirectModel"] != null) ? "active in" : "")" style="background-color: lightcoral; border-radius: 20px" id="validationQuestioin">
+                <div class="nav-tabs-custom" style="margin-left: 5%; margin-right: 5%; padding: 10px">
+                    @Html.Partial("_NewValidationQuestion")
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@Html.Partial("_QuestionsList")
+
+<div class="modal fade editModal" tabindex="-1" role="dialog" aria-labelledby="editModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <input type="hidden" name="QuestionId" value="Id" />
+            @Html.Partial("_NewMainQuestion")
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade showModal" tabindex="-1" role="dialog" aria-labelledby="showModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <input type="hidden" name="QuestionId" value="Id" />
+            Information
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            // The following codes check the radio boxes which are available i this
+            // page and would change the status different divs
+
+            if ($('.isAnatomical').is(':checked')) {
+
+                $("#choices").hide();
+                $(".choices").prop("disabled", true);
+            };
+
+            if ($('.isChoiceable').is(':checked')) {
+                $(".choices").prop("disabled", false);
+                $("#choices").show();
+            };
+
+            if ($('.hasNothing').is(':checked')) {
+                $(".film").prop("disabled", true);
+                $(".picture").prop("disabled", true);
+            };
+
+            if ($('.hasPicture').is(':checked')) {
+                $(".film").prop("disabled", true);
+                $(".picture").prop("disabled", false);
+            };
+            if ($('.hasFilm').is(':checked')) {
+                $(".picture").prop("disabled", true);
+                $(".film").prop("disabled", false);
+            };
+
+        });
+        $(".hasNothing").click(function () {
+            $(".film").prop("disabled", true);
+            $(".picture").prop("disabled", true);
+
+        });
+        $(".hasFilm").click(function () {
+            $(".picture").prop("disabled", true);
+            $(".film").prop("disabled", false);
+        });
+        $(".hasPicture").click(function () {
+            $(".film").prop("disabled", true);
+            $(".picture").prop("disabled", false);
+        });
+
+        $('.isChoiceable').click(function () {
+            $(".choices").prop("disabled", false);
+            $("#choices").toggle("slow");
+        });
+        $('.isAnatomical').click(function () {
+            $(".choices").prop("disabled", true);
+            $("#choices").hide("slow");
+        });
+
+    </script>
+
+}
+
+
+
+

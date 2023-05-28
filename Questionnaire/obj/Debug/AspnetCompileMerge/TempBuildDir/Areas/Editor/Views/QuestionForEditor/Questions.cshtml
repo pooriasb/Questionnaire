@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "پرسش ها";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+
+<h2>پرسشهای مربوط به پرسشنامه {نام پرسشنامه}</h2>
+
+<div class="box">
+    <h3 class="text-danger">ابهامات</h3>
+    <ul class="list-group">
+        <li class="list-group-item text-danger">نحوه نمایش سوالات چگونه باشد</li>
+        <li class="list-group-item text-danger">کارت ملی هم در اینجا نمایش داده شود؟</li>
+        <li class="list-group-item text-danger">نمایش مرحله ای؟</li>
+    </ul>
+</div>
+
+<ul class="dropdown-menu">
+    <li class="dropdown-item">asdf</li>
+</ul>
+@Html.Partial("_NationalIdCard")
+@Html.Partial("_Question")
+<a class="btn btn-success btn-lg" href="@Url.Action("SendAcceptToQuestioner","RequestForEditor")">تایید پرسشنامه</a>
+<a class="btn btn-danger btn-lg pull-left" href="@Url.Action("SendRejectToQuestioner","RequestForEditor")">رد پرسشنامه</a>

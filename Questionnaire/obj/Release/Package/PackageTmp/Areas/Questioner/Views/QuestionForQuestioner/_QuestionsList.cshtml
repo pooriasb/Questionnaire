@@ -1,0 +1,142 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionModel
+
+
+
+
+
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">لیست پرسشهای اصلی و راستی آزمایی</div>
+        <hr />
+    </div>
+    <div class="box-body">
+        <div style="overflow: auto">
+            <table class="table table-hover text-center table-responsive table-responsive-lg">
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>نوع پرسش</th>
+                        <th>حاوی تصویر/فیلم</th>
+                        <th>صورت پرسش</th>
+                        <th>پاسخها</th>
+                        <th>ویرایش</th>
+                        <th>حذف</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var question in Model.QuestionDto.QuestionPacks)
+                    {
+                        <tr>
+                            <td>@(i++)</td>
+
+                            @if (question.QuestionType == (int)Enums.QuestionType.Main)
+                            {
+                                <td>اصلی چند گزینه ای</td>
+                            }
+                            @if (question.QuestionType == (int)Enums.QuestionType.Anatomical)
+                            {
+                                <td>اصلی تشریحی</td>
+                            }
+                            @if (question.QuestionType == (int)Enums.QuestionType.Validation)
+                            {
+                                <td>راستی آزمایی</td>
+                            }
+
+                            <td>
+                                @if (question.MediaType == Enums.MediaType.NoMedia)
+                                {
+                                    <span class="fa fa-remove text-red fa-2x"></span>
+
+                                }
+                                else if (question.MediaType == Enums.MediaType.Picture)
+                                {
+                                    <img src="@question.MediaUrl" style="height: 50px" alt="عکس مربوط به سوال" />
+
+                                }
+                                else if (question.MediaType == Enums.MediaType.Film)
+                                {
+                                    //todo this should be changed!!!
+                                    <style>
+                                        .h_iframe-aparat_embed_frame {
+                                            position: relative;
+                                        }
+
+                                            .h_iframe-aparat_embed_frame .ratio {
+                                                display: block;
+                                                width: 100%;
+                                                height: auto;
+                                            }
+
+                                            .h_iframe-aparat_embed_frame iframe {
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                            }
+                                    </style><div class="h_iframe-aparat_embed_frame"> <span style="display: block;padding-top: 57%"></span><iframe src="https://www.aparat.com/video/video/embed/videohash/C1NUZ/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>
+                                }
+                            </td>
+                            <td>
+                                @question.QuestionText
+                            </td>
+                            @*<td>
+                                    <button class="btn btn-info" data-toggle="modal" data-target=".showModal" id="">مشاهده جزئیات</button>
+                                </td>*@
+                            <td>
+                                @{
+                                    int j = 1;
+                                }
+                                @if (question.AnswersText != null)
+                                {
+
+
+                                    foreach (var answer in question.AnswersText)
+                                    {
+
+                                        @(j++)
+                                        <small>.@answer</small>
+                                        <hr/>
+                                    }
+                                }
+                                else
+                                {
+                                    <small class="text-green">
+                                        <b>تشریحی میباشد.</b>
+                                    </small>
+                                }
+
+                            </td>
+                            <td>
+                                @if (question.QuestionType == (int) Enums.QuestionType.Main || question.QuestionType == (int) Enums.QuestionType.Anatomical)
+                                {
+                                    <a class="btn btn-warning" href="@Url.Action("EditMainQuestion", "QuestionForQuestioner", new {questionId = question.QuestionId, questionnaireId = @Request.Params["QuestionnaireId"]})">ویرایش</a>
+
+                                }
+                                @if (question.QuestionType == (int) Enums.QuestionType.Validation)
+                                {
+                                    <a class="btn btn-warning" href="@Url.Action("EditValidationQuestion", "QuestionForQuestioner", new {questionId = question.QuestionId, questionnaireId = @Request.Params["QuestionnaireId"]})">ویرایش</a>
+
+                                }
+                            </td>
+                            <td>
+
+                                <button class="btn btn-danger">حذف</button>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

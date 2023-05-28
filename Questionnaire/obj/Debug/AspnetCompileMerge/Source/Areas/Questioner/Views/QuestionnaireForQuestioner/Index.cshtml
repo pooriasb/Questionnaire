@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@using System.Web.Mvc.Html
+@using QuestionnaireProject.Areas.Questioner.Models
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionnaireModel
+<h2>پرسشنامه ها</h2>
+<h1 class="text-red">@ViewBag.Error</h1>
+
+@Html.Partial("_NewQuestionnaire")
+
+@Html.Partial("_UserQuestionnaireList")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            
+            var provinceId = @(Model.NewQuestionnaireViewModel.ProvinceId??0);
+
+            $.post("/api/signup/cities",
+                { id: provinceId },
+                function(data) {
+
+                })
+                .done(function (data) {
+
+                if (data.cities.length === 0) {
+                    $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                        .append("<option value=>همه</option>");
+                } else {
+                    $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                        .append("<option value=>همه</option>");
+                    $.each(data.cities,
+                        function (index, item) {
+                            console.log(item);
+                            $("#NewQuestionnaireViewModel_CityId").find("option").end()
+                                .append(`<option value=${item.Id}>${item.Name}</option>`);
+                        });
+                    if (@(Model.NewQuestionnaireViewModel.CityId??0) === 0) {
+                        $("#NewQuestionnaireViewModel_CityId").val("");
+
+
+                    } else {
+                        $("#NewQuestionnaireViewModel_CityId").val(@Model.NewQuestionnaireViewModel.CityId);
+
+                    }
+
+                    
+                        $("#NewQuestionnaireViewModel_Sex").val(@Model.NewQuestionnaireViewModel.Sex);
+
+                    
+                }
+            });
+        });
+
+        $("#NewQuestionnaireViewModel_ProvinceId").on("change",
+            function () {
+                var provinceId = this.value;
+                //console.log(provinceId);
+                $.post("/api/signup/cities",
+                    { id: provinceId },
+                    function(data) {
+
+                    }).done(function(data) {
+                    //console.log(data.cities.length);
+
+                    if (data.cities.length === 0) {
+                        $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                            .append("<option value=>همه</option>");
+                    } else {
+                        $("#NewQuestionnaireViewModel_CityId").find("option").remove().end()
+                            .append("<option value=>همه</option>");
+                        $.each(data.cities,
+                            function (index, item) {
+                                console.log(item);
+                                $("#NewQuestionnaireViewModel_CityId").find("option").end()
+                                    .append(`<option value=${item.Id}>${item.Name}</option>`);
+                            });
+
+                    }
+                });
+            });
+
+       
+
+    </script>
+}

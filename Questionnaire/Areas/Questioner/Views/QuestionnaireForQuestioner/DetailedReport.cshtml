@@ -1,0 +1,80 @@
+﻿@using PagedList.Mvc
+@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionnaireForQuestionerController.DetailedReportModel
+@{
+    ViewBag.Title = "DetailedReport";
+    //  Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+<h2> گزارش کامل به تفکیک پاسخ دهنده</h2>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>امتیاز پاسخگویی</th>
+                <th>تاریخ پاسخگویی</th>
+                <th>مشاهده جزئیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                int i = 1;
+            }
+            @if (Model.ResponsesReportDtos != null)
+            {
+                foreach (var r in Model.ResponsesReportDtos)
+                 {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>@r.ResponderName</td>
+                    <td>@r.ResponderLastName</td>
+                    <td>@r.Score</td>
+                    <td>
+                        <span class="date">
+                            @{
+                                if (r.AnsweredDateTime.Value.ToString("MM/dd/yyyy") != null)
+                                {
+
+                                    @r.AnsweredDateTime.Value.ToString("MM/dd/yyyy")
+                                }
+                                else
+                                {
+                                    <span>وارد نشده</span>
+                                }
+                            }
+                        </span>
+                    </td>
+                    <td>
+            @using (Html.BeginForm("EachPersonReport", "ReportForQuestioner", FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
+            {
+                <input type="hidden" name="responseId" id="responseId" value="@r.ResponseId" />
+                <button type="submit" class="btn btn-info">
+                    <span class="fa fa-address-card"></span>
+                    گزارش
+                </button>
+            }
+        </td>
+
+                   
+                </tr>
+                 }
+            }
+            
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.ResponsesReportDtos.PageCount < Model.ResponsesReportDtos.PageNumber ? 0 : Model.ResponsesReportDtos.PageNumber) از @Model.ResponsesReportDtos.PageCount
+
+    @Html.PagedListPager(Model.ResponsesReportDtos, page => Url.Action("InProccessQuestionnaires",
+        new { page }))
+</div>

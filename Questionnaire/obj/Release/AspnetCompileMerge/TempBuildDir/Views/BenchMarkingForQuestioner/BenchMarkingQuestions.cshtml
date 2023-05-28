@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "پرسشنامه لیاقت سنجی";
+}
+
+<h2>پرسشنامه لیاقت سنجی</h2>
+
+<div class="box">
+    <h3 class="text-danger">ابهامات</h3>
+    <ul class="list-group">
+        <li class="list-group-item text-danger">سوالات باید شامل عکس وتصویر باشد؟</li>
+        <li class="list-group-item text-danger">تعداد پاسخ ها باید چندگزینه ای یا تشریحی باشد؟</li>
+        <li class="list-group-item text-danger">چند گزینه؟</li>
+
+
+    </ul>
+</div>
+@Html.Partial("_BenchMarkProgressBox")
+
+@Html.Partial("_BenchMarkQuestion")
+@Html.Partial("_BenchMarkQuestionsList")

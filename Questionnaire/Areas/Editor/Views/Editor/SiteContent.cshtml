@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "SiteContent";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@using QuestionnaireProject.Areas.Editor.Models
+@model SiteContentModel
+<h3>محتوای صفحه اصلی سایت</h3>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+
+@{ 
+    if (TempData["ok"] != null)
+    {
+<div class="alert alert-success">@TempData["ok"]</div>
+    }
+    if (TempData["error"]!=null)
+    {
+        <div class="alert alert-danger">@TempData["error"]</div>
+    }
+}
+<div class="box box-primary">
+    <div class="box-header">محتوا</div>
+
+    <div class="box-body">
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+
+                <form action="/editor/editor/SiteContent" method="post">
+
+
+
+
+
+
+                    <div class="form-group">
+                        <label class="control-label">موضوع سایت</label>
+                        @Html.TextBoxFor(x => x.SiteTitle, new { @class = "form-control", @Value = Model.SiteTitle })
+                        @Html.ValidationMessageFor(x => x.SiteTitle)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">درباره سایت</label>
+                        @Html.TextBoxFor(x => x.SiteAbout, new { @class = "form-control", @Value = Model.SiteAbout })
+                        @Html.ValidationMessageFor(x => x.SiteAbout)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">بدنه متن بالا</label>
+                        @Html.TextBoxFor(x => x.SiteBody1, new { @class = "form-control", @Value = Model.SiteBody1 })
+                        @Html.ValidationMessageFor(x => x.SiteBody1)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">بدنه متن پایین</label>
+                        @Html.TextBoxFor(x => x.SiteBody2, new { @class = "form-control", @Value = Model.SiteBody2 })
+                        @Html.ValidationMessageFor(x => x.SiteBody2)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">هدف</label>
+                        @Html.TextBoxFor(x => x.Sitepurpose, new { @class = "form-control", @Value = Model.Sitepurpose })
+                        @Html.ValidationMessageFor(x => x.Sitepurpose)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">موضوع خدمات 1</label>
+                        @Html.TextBoxFor(x => x.SV1Title, new { @class = "form-control", @Value = Model.SV1Title })
+                        @Html.ValidationMessageFor(x => x.SV1Title)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">توضیحات خدمات 1 </label>
+                        @Html.TextBoxFor(x => x.SV1, new { @class = "form-control", @Value = Model.SV1 })
+                        @Html.ValidationMessageFor(x => x.SV1)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">موضوع خدمات 2</label>
+                        @Html.TextBoxFor(x => x.SV2Title, new { @class = "form-control", @Value = Model.SV2Title })
+                        @Html.ValidationMessageFor(x => x.SV2Title)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">توضیحات خدمات 2</label>
+                        @Html.TextBoxFor(x => x.SV2, new { @class = "form-control", @Value = Model.SV2 })
+                        @Html.ValidationMessageFor(x => x.SV2)
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">موضوع خدمات 3</label>
+                        @Html.TextBoxFor(x => x.SV3Title, new { @class = "form-control", @Value = Model.SV3Title })
+                        @Html.ValidationMessageFor(x => x.SV3Title)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">توضیحات خدمات 3 </label>
+                        @Html.TextBoxFor(x => x.SV3, new { @class = "form-control", @Value = Model.SV3 })
+                        @Html.ValidationMessageFor(x => x.SV3)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">آدرس </label>
+                        @Html.TextBoxFor(x => x.Address, new { @class = "form-control", @Value = Model.Address })
+                        @Html.ValidationMessageFor(x => x.Address)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">ایمیل</label>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @Value = Model.Email })
+                        @Html.ValidationMessageFor(x => x.Email)
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">تلفن</label>
+                        @Html.TextBoxFor(x => x.Tell, new { @class = "form-control", @Value = Model.Tell })
+                        @Html.ValidationMessageFor(x => x.Tell)
+                    </div>
+                    <button class="btn btn-success" type="submit">ذخیره</button>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+
+    </div>
+</div>

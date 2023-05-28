@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="getgroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getgroupResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getmobilebulk">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citycode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getmobilebulkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getmobilebulkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupstr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupstrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getgroupstrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupmobiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupmobilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getgroupmobilesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupmobilesstr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupmobilesstrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getgroupmobilesstrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupcount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="groupid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getgroupcountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getgroupcountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobileno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pnlno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendSMSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemainSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemainSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemainSmsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Send1sms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobileno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Send1smsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Send1smsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Send1Bulk">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobileno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Send1BulkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Send1BulkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getcitymobiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cityid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="mode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getcitymobilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getcitymobilesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getgroupSoapIn">
+    <wsdl:part name="parameters" element="tns:getgroup" />
+  </wsdl:message>
+  <wsdl:message name="getgroupSoapOut">
+    <wsdl:part name="parameters" element="tns:getgroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="getmobilebulkSoapIn">
+    <wsdl:part name="parameters" element="tns:getmobilebulk" />
+  </wsdl:message>
+  <wsdl:message name="getmobilebulkSoapOut">
+    <wsdl:part name="parameters" element="tns:getmobilebulkResponse" />
+  </wsdl:message>
+  <wsdl:message name="getgroupstrSoapIn">
+    <wsdl:part name="parameters" element="tns:getgroupstr" />
+  </wsdl:message>
+  <wsdl:message name="getgroupstrSoapOut">
+    <wsdl:part name="parameters" element="tns:getgroupstrResponse" />
+  </wsdl:message>
+  <wsdl:message name="getgroupmobilesSoapIn">
+    <wsdl:part name="parameters" element="tns:getgroupmobiles" />
+  </wsdl:message>
+  <wsdl:message name="getgroupmobilesSoapOut">
+    <wsdl:part name="parameters" element="tns:getgroupmobilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getgroupmobilesstrSoapIn">
+    <wsdl:part name="parameters" element="tns:getgroupmobilesstr" />
+  </wsdl:message>
+  <wsdl:message name="getgroupmobilesstrSoapOut">
+    <wsdl:part name="parameters" element="tns:getgroupmobilesstrResponse" />
+  </wsdl:message>
+  <wsdl:message name="getgroupcountSoapIn">
+    <wsdl:part name="parameters" element="tns:getgroupcount" />
+  </wsdl:message>
+  <wsdl:message name="getgroupcountSoapOut">
+    <wsdl:part name="parameters" element="tns:getgroupcountResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemainSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:RemainSms" />
+  </wsdl:message>
+  <wsdl:message name="RemainSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:RemainSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Send1smsSoapIn">
+    <wsdl:part name="parameters" element="tns:Send1sms" />
+  </wsdl:message>
+  <wsdl:message name="Send1smsSoapOut">
+    <wsdl:part name="parameters" element="tns:Send1smsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Send1BulkSoapIn">
+    <wsdl:part name="parameters" element="tns:Send1Bulk" />
+  </wsdl:message>
+  <wsdl:message name="Send1BulkSoapOut">
+    <wsdl:part name="parameters" element="tns:Send1BulkResponse" />
+  </wsdl:message>
+  <wsdl:message name="getcitymobilesSoapIn">
+    <wsdl:part name="parameters" element="tns:getcitymobiles" />
+  </wsdl:message>
+  <wsdl:message name="getcitymobilesSoapOut">
+    <wsdl:part name="parameters" element="tns:getcitymobilesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="getgroup">
+      <wsdl:input message="tns:getgroupSoapIn" />
+      <wsdl:output message="tns:getgroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getmobilebulk">
+      <wsdl:input message="tns:getmobilebulkSoapIn" />
+      <wsdl:output message="tns:getmobilebulkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getgroupstr">
+      <wsdl:input message="tns:getgroupstrSoapIn" />
+      <wsdl:output message="tns:getgroupstrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getgroupmobiles">
+      <wsdl:input message="tns:getgroupmobilesSoapIn" />
+      <wsdl:output message="tns:getgroupmobilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getgroupmobilesstr">
+      <wsdl:input message="tns:getgroupmobilesstrSoapIn" />
+      <wsdl:output message="tns:getgroupmobilesstrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getgroupcount">
+      <wsdl:input message="tns:getgroupcountSoapIn" />
+      <wsdl:output message="tns:getgroupcountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMS">
+      <wsdl:input message="tns:SendSMSSoapIn" />
+      <wsdl:output message="tns:SendSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemainSms">
+      <wsdl:input message="tns:RemainSmsSoapIn" />
+      <wsdl:output message="tns:RemainSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Send1sms">
+      <wsdl:input message="tns:Send1smsSoapIn" />
+      <wsdl:output message="tns:Send1smsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Send1Bulk">
+      <wsdl:input message="tns:Send1BulkSoapIn" />
+      <wsdl:output message="tns:Send1BulkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getcitymobiles">
+      <wsdl:input message="tns:getcitymobilesSoapIn" />
+      <wsdl:output message="tns:getcitymobilesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getgroup">
+      <soap:operation soapAction="http://tempuri.org/getgroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getmobilebulk">
+      <soap:operation soapAction="http://tempuri.org/getmobilebulk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupstr">
+      <soap:operation soapAction="http://tempuri.org/getgroupstr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupmobiles">
+      <soap:operation soapAction="http://tempuri.org/getgroupmobiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupmobilesstr">
+      <soap:operation soapAction="http://tempuri.org/getgroupmobilesstr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupcount">
+      <soap:operation soapAction="http://tempuri.org/getgroupcount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMS">
+      <soap:operation soapAction="http://tempuri.org/SendSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemainSms">
+      <soap:operation soapAction="http://tempuri.org/RemainSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Send1sms">
+      <soap:operation soapAction="http://tempuri.org/Send1sms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Send1Bulk">
+      <soap:operation soapAction="http://tempuri.org/Send1Bulk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getcitymobiles">
+      <soap:operation soapAction="http://tempuri.org/getcitymobiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getgroup">
+      <soap12:operation soapAction="http://tempuri.org/getgroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getmobilebulk">
+      <soap12:operation soapAction="http://tempuri.org/getmobilebulk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupstr">
+      <soap12:operation soapAction="http://tempuri.org/getgroupstr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupmobiles">
+      <soap12:operation soapAction="http://tempuri.org/getgroupmobiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupmobilesstr">
+      <soap12:operation soapAction="http://tempuri.org/getgroupmobilesstr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getgroupcount">
+      <soap12:operation soapAction="http://tempuri.org/getgroupcount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemainSms">
+      <soap12:operation soapAction="http://tempuri.org/RemainSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Send1sms">
+      <soap12:operation soapAction="http://tempuri.org/Send1sms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Send1Bulk">
+      <soap12:operation soapAction="http://tempuri.org/Send1Bulk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getcitymobiles">
+      <soap12:operation soapAction="http://tempuri.org/getcitymobiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://webservice.0098sms.com/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://webservice.0098sms.com/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,43 @@
+﻿@model QuestionnaireProject.Controllers.AccountController.VerifyPhoneNumberViewModel
+@{
+    ViewBag.Title = "تایید شماره همراه";
+}
+<h2>@ViewBag.Title</h2>
+<p class="text-info">
+    لطفا بخش پیامهای کوتاه تلفن همراه خود را بررسی کنید.
+</p>
+@*@(Session["verifyCode"] as string)*@
+
+<p class="text-danger">
+    <section id="verify-phone">
+        @using (Html.BeginForm("VerifyPhoneNumber", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>ورود به ناحیه کاربری</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", disabled=true })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="g-recaptcha" style="padding-right: 7vw" data-sitekey="6Lfy34YUAAAAAMlJ6C4wjhsUYSd_Aq1luyujCTQF"></div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ارسال" class="btn btn-default" />
+                </div>
+            </div>
+
+        }
+    </section>
+</p>

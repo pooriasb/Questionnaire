@@ -1,0 +1,22 @@
+﻿@model QuestionnaireProject.Controllers.QuestionsAdminController.Question
+
+<style>
+    .form-control {
+        max-width: 100%
+    }
+</style>
+
+@Html.LabelFor(l => l.QuestionText, "صورت سوال")
+@Html.TextAreaFor(q => q.QuestionText, new { @class = "form-control" })
+
+@Html.LabelFor(l => l.FullAnswer, "پاسخ تشریحی")
+@Html.TextBoxFor(q => q.FullAnswer, new { @class = "form-control" })
+
+@Html.LabelFor(l => l.MultipleChoiceAnswer, "پاسخ چند گزینه ای")
+@Html.TextBoxFor(q => q.MultipleChoiceAnswer, new { @class = "form-control", onfocusout ="splitter()" })
+
+
+
+
+
+

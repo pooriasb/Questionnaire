@@ -1,0 +1,109 @@
+﻿
+
+@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Editor.Models.EditorQuestionModel
+
+<div class="box">
+    <div class="box-body @((TempData["RedirectModel"] != null) ? "in": "")" id="newBenchMarkingQuestion">
+        @using (Html.BeginForm(Html.BeginForm("CreateQuestion", "QuestionForQuestioner", new { area = "Questioner" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+        {
+            @Html.AntiForgeryToken()
+
+        <div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" style="margin: 10px">
+                @Html.LabelFor(model => model.MainQuestionViewModel.QuestionText, htmlAttributes: new { @class = "control-label" })
+                <br />
+                <br />
+
+                <div>
+                    @Html.TextAreaFor(model => model.MainQuestionViewModel.QuestionText, new { @class = "form-control", @placeholder = "صورت پرسش را وارد نمایید.", @style = "max-width:100%" })
+                    @Html.ValidationMessageFor(model => model.MainQuestionViewModel.QuestionText, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+            @Html.ValidationMessageFor(model => model.QuestionType, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="control-label">
+                    @Html.RadioButtonFor(m => m.QuestionType, Enums.QuestionType.Anatomical, new { @class = "isAnatomical", @checked = "checked" })
+                    دارای پاسخ تشریحی
+                </label>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label">
+                    @Html.RadioButtonFor(m => m.QuestionType, Enums.QuestionType.Main, new { @class = "isChoiceable" })
+                    دارای پاسخ چند گزینه ای
+
+                </label>
+                <br />
+
+                <div class="row" style="margin: 10px" id="choices">
+                    <small class="text-green">جهت ثبت پرسش لیاقت سنجی، بایستی حداقل چهار گزینه وارد نمایید</small>
+                    <br />
+                    
+                    @for (int i = 0; i < (int)Enums.MainQuestion.MaxAnswersNumber; i++)
+                    {
+                        <div class="col-md-4">
+
+
+                            @Html.TextAreaFor(model => model.MainQuestionViewModel.Answers[i], new { @class = "form-control choices", placeholder = "گزینه خود را وارد نمایید.", @style = "max-width:100%" })
+
+
+                            <br />
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <hr />
+            <div class="form-group" id="hasNothing">
+                <label class="control-label col-md-12">
+                    @Html.RadioButtonFor(m => m.MainQuestionViewModel.MediaType, Enums.MediaType.NoMedia, new { @checked = "checked", @class = "hasNothing" })
+
+                    بدون فیلم و عکس
+                </label>
+            </div>
+            <br /><br />
+            <div class="form-group" id="hasPicture">
+                <label class="control-label col-md-2">
+                    @Html.RadioButtonFor(m => m.MainQuestionViewModel.MediaType, Enums.MediaType.Picture, new { @class = "hasPicture" })
+                    حاوی عکس
+                </label>
+                <input type="file" id="MainQuestionViewModel_PictureFile" name="MainQuestionViewModel.PictureFile" class="form-control col-md-10 picture" style="max-width: 100%" />
+
+            </div>
+            <br />
+            <div class="form-group" style="margin-top: 20px" id="hasFilm">
+                <label class="control-label col-md-2">
+                    @Html.RadioButtonFor(m => m.MainQuestionViewModel.MediaType, Enums.MediaType.Film, new { @class = "hasFilm" })
+                    حاوی فیلم
+
+                </label>
+                @Html.EditorFor(model => model.MainQuestionViewModel.MediaUrl, new { htmlAttributes = new { @class="form-control col-md-8 film",
+                    placeholder = "لطفا لینک مربوط به فیلم خود در سایت آپارات را وارد نمایید. ",
+                    @style="max-width: 100%",
+                } })
+                @Html.ValidationMessageFor(model => model.MainQuestionViewModel.MediaType, "", new { @class = "text-danger" })
+
+
+
+            </div>
+            <br /><br />
+            
+                @Html.HiddenFor(m => m.QuestionId)
+            
+            <div class=" col-md-10" style="margin-top: 40px">
+                <input type="submit" value="ثبت پرسش" class="btn btn-primary" />
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+</div>
+

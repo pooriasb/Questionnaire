@@ -1,0 +1,34 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionnaireForQuestionerController.MakeSpecialInvoiceModel
+@{
+    ViewBag.Title = "MakeSpecialInvoice";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>فاکتور پرداخت ویژه سازی</h2>
+@using (Html.BeginForm("MakeSpecialPayment", "QuestionnaireForQuestioner", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="alert alert-warning" style="font-size: 20px; line-height: 40px">
+        <span> مبلغ نهایی جهت ویژه سازی پرسشنامه شما با عنوان</span>
+        <br/>
+        <span class="text-black text-center" style="margin-left: auto; margin-right: auto; display: block; width:30rem">@Model.QuestionnaireName</span>
+        <br/>
+        <span>و مبلغ</span>
+        <br />
+
+        <span class="text-black text-center" style="margin-left: auto; margin-right: auto; display: block; width:30rem">
+
+            <b>@Model.Special.Price</b>
+
+            تومان
+        </span>
+        <br/>
+        <span> میباشد. در صورت تمایل میتوانید با پرداخت این مبلغ پرسشنامه خود را نهایی سازی نمایید.</span>
+        <br />
+        <br />
+        <input type="hidden" name="questionnaireId" value="@Model.QuestionnaireId" />
+        <input type="hidden" name="specialId" value="@Model.Special.Id" />
+
+        <button type="submit" class="btn btn-success btn-lg">پرداخت</button>
+    </div>
+}
+

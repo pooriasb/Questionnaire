@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "PaymentResult";
+    //  Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+<h2>پرداخت</h2>
+
+@if (@ViewBag.IsSuccess == true)
+{
+    <div class="alert alert-success">
+        <span>پرداخت شما با موفقیت صورت پذیرفت.</span>
+        <br/>
+        <span>
+            کد پیگیری:
+            @ViewBag.RefId
+        </span>
+</div>
+}
+else
+{
+<div class="alert alert-danger">
+    <span>خطایی در پرداخت شما به وجود آمده است. لطفا مجددا تلاش نمایید.</span>    
+</div>
+}
+
+

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@using System.Web.Mvc.Html
+@using QuestionnaireProject.Areas.Questioner.Models
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionnaireModel
+<h2>پرسشنامه ها</h2>
+<h1 class="text-red">@ViewBag.Error</h1>
+
+@Html.Partial("_NewQuestionnaire")
+
+@Html.Partial("_UserQuestionnaireList")
+
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+

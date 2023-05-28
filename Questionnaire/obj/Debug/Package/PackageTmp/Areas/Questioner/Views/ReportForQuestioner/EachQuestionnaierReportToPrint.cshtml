@@ -1,0 +1,258 @@
+﻿@model List<QuestionnaireProject.Areas.Questioner.Models.EachQuestionnaireReportModel>
+@using QuestionnaireProject.Models
+@{
+    ViewBag.Title = "EachQuestionnaierReportToPrint";
+    //  Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+}
+
+
+@{
+    int? responders = ViewBag.responders as int?;
+}
+<style>
+    @@media print {
+        body * {
+        visibility: hidden;
+            }
+        #print-area, #print-area * {
+            visibility: visible;
+        }
+        
+}
+
+
+
+
+    h2 {
+        font-size: 15px !important;
+        border: 1px solid dimgray;
+        text-align: center;
+        padding: 10px;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        min-width: 1cm;
+        padding: 5px;
+    }
+
+    .dot {
+        border-radius: 50%;
+        behavior: url(PIE.htc);
+        /* remove if you don't care about IE8 */
+        width: 25px;
+        height: 25px;
+        padding: 8px;
+        background: #fff;
+        border: 2px solid #666;
+        color: white;
+        background-color: red;
+        text-align: center;
+        font: 10px Arial, sans-serif;
+    }
+
+    .question {
+        line-height: 1cm;
+        font-weight: bold;
+        min-width: 4cm;
+        font-size: 10px;
+    }
+
+    .answer {
+        font-size: 10px;
+        text-align: center;
+        line-height: 20px;
+    }
+
+    .choice {
+        color: white;
+        background-color: dimgray !important;
+        border: 1px solid dimgray;
+        padding: 2px;
+        border-radius: 2px;
+    }
+
+    @@page {
+        margin: 0.1cm;
+    }
+</style>
+<div class="box">
+    <div class="box-header bg-aqua">
+        <button class="btn btn-default center-block" id="print">
+            <span class="fa fa-print"></span>
+            چاپ گزارش کلی
+        </button>
+
+    </div>
+</div>
+<div id="print-area">
+    @*<h2>پرسشهای راستی آزمایی</h2>
+    <table dir="rtl" style="width:100%">
+        <thead>
+           
+        </thead>
+        <tbody>
+            @foreach (var m in Model.Where(m => m.QuestionType == Enums.QuestionType.Validation))
+            {
+
+
+                <tr>
+                    <td class="question">@m.Question</td>
+
+
+
+                    @{
+                        int i = 1;
+                    }
+
+                    @foreach (var a in m.EachQuestionnaiireAnswerModels.OrderBy(a => a.AnswerId))
+                    {
+
+
+
+
+                        <td class="answer">
+                            <span class="choice">گزینه @(i++)</span>
+                            <br />
+                            <span style="margin-right: 10px">
+                                @($"{(decimal) a.Count / responders * 100:.##}")
+                                %
+                            </span>
+
+                        </td>
+
+                    }
+
+
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+    <h2>پرسشهای اصلی چند گزینه ای</h2>
+
+
+    <table dir="rtl" style="width:100%">
+        <thead>
+            @*<tr>
+                    <th>پرسش</th>
+                    <th>1 گزینه</th>
+                    <th>2 گزینه</th>
+                    <th>3 گزینه</th>
+                    <th>4 گزینه</th>
+                    <th>5 گزینه</th>
+                    <th>6 گزینه</th>
+                    <th>7 گزینه</th>
+                    <th>8 گزینه</th>
+                    <th>9 گزینه</th>
+                    <th>10 گزینه</th>
+                </tr>*@
+        </thead>
+        <tbody>
+            @foreach (var m in Model.Where(m => m.QuestionType == Enums.QuestionType.Main ||
+                                                m.QuestionType == Enums.QuestionType.Main))
+            {
+
+
+            <tr>
+                <td class="question">@m.Question</td>
+
+
+
+                @{
+                    int i = 1;
+                }
+
+                @foreach (var a in m.EachQuestionnaiireAnswerModels.OrderBy(a => a.AnswerId))
+                {
+
+
+
+
+
+                    <td class="answer">
+                        <span class="choice">گزینه @(i++)</span>
+                        <br />
+                        <span style="margin-right: 10px">
+                            @($"{(decimal)a.Count / responders * 100:.##}")
+                            %
+                        </span>
+
+                    </td>
+
+                }
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>پرسشهای اصلی تشریحی</h2>
+
+    @{
+        int j = 1;
+    }
+
+    @foreach (var m in Model.Where(m => m.QuestionType == Enums.QuestionType.Anatomical))
+    {
+        <table dir="rtl" style="width:100%">
+            <thead>
+                <tr>
+
+                    <th class="question" style="text-align: center">
+                        <span>پرسش @(j++) :</span>
+                        @m.Question
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+
+                @{
+                    int i = 1;
+                }
+
+                @foreach (var a in m.EachQuestionnaiireAnswerModels)
+                {
+
+
+
+                    <tr>
+
+                        <td class="answer" style="text-align: right">
+                            <span style="font-weight:900">پاسخ @(i++): </span>
+                            @a.Answer
+                        </td>
+                    </tr>
+
+                }
+
+
+
+
+            </tbody>
+        </table>
+    }
+
+
+</div>
+
+
+
+
+@section Scripts {
+
+    <script>
+        $('#print').click(function () {
+            window.print();  
+        });
+    </script>
+    
+
+}

@@ -1,0 +1,99 @@
+﻿@using PagedList.Mvc
+@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionnaireForQuestionerController.InProccessModel
+
+@{
+    ViewBag.Title = "Specials";
+    //  Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+
+}
+
+<h2>پرسشنامه های در حال اجرا</h2>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام پرسشنامه</th>
+                    <th>تاریخ اتمام</th>
+                    <th>تعداد پاسخ دهنده</th>
+                    <th>ویژه سازی</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var q in Model.InProccessDtos)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@q.QuestionnaireName</td>
+                        <td>
+                            <span class="date">
+                                @q.DateExpire.Value.ToString("MM/dd/yyyy")
+                            </span>
+                        </td>
+                        <td>@q.RespoderAmount</td>
+                        <td>
+                            @if (q.SpecialOffer == null)
+                            {
+                                using (Html.BeginForm("Specials", "QuestionnaireForQuestioner", FormMethod.Post,
+                                     new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="hidden" name="questionnaireId" id="questionnaireId" value="@q.QuestionnaireId" />
+                                    <button type="submit" class="btn btn-info">
+                                        <span class="fa fa-star" style="color: gold"></span>
+                                        ویژه سازی
+                                        <span class="fa fa-star" style="color: gold"></span>
+
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("Specials", "QuestionnaireForQuestioner", FormMethod.Post,
+                                    new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="hidden" name="questionnaireId" id="questionnaireId" value="@q.QuestionnaireId"/>
+                                    <button type="submit" class="btn btn-link">
+                                        + افزودن بسته افزایشی
+                                    </button>
+                                }
+                                if (q.SpecialOffer.Type == (int)Enums.Special.Ladder)
+                                {
+                                    <small class="text-green">بسته نردبان فعال است</small>
+                                }
+                                if (q.SpecialOffer.Type == (int)Enums.Special.Bold)
+                                {
+                                    <small class="text-blue">بسته برجسته ساز فعال است</small>
+
+                                }
+                                if (q.SpecialOffer.Type == (int)Enums.Special.Color)
+                                {
+                                    <small class="text-red">بسته رنگی ساز فعال است</small>
+
+                                }                                
+                               
+
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.InProccessDtos.PageCount < Model.InProccessDtos.PageNumber ? 0 : Model.InProccessDtos.PageNumber) از @Model.InProccessDtos.PageCount
+
+    @Html.PagedListPager(Model.InProccessDtos, page => Url.Action("InProccessQuestionnaires",
+        new { page }))
+</div>

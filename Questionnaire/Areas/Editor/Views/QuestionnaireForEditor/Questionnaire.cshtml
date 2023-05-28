@@ -1,0 +1,409 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Editor.Models.EditorReviewModel
+@{
+    ViewBag.Title = "جزئیات پرسشنامه";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<style>
+    mark {
+        background: orange;
+        color: black;
+    }
+
+    p {
+        line-height: 30px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 50px;
+    }
+
+
+    .btn-circle.btn-xl {
+        width: 90px;
+        height: 90px;
+        padding: 0px 16px;
+        font-size: 15px;
+        line-height: 1.33;
+        border-radius: 35px;
+        margin-bottom: 5px
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 3px solid darkblue;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
+
+<h2>جزئیات پرسشنامه</h2>
+
+@Html.Partial("_QuesitonnaireDetails")
+@Html.Partial("_QuestionerDetails")
+
+
+
+
+
+
+<div class="box context">
+    <div class="box-header">
+        <div class="box-title">
+            پرسشهای لیاقت سنجی
+        </div>
+    </div>
+    <hr />
+    <div class="box-body">
+        @foreach (var q in Model.ReviewDto.QuestionPacks)
+        {
+            if (q.QuestionType == Enums.QuestionType.BenchMarking)
+            {
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="text-green">صورت پرسش</p>
+                        <p class="alert alert-dark">@q.QuestionText</p>
+                        <br />
+
+                    </div>
+
+
+                    <div class="col-md-6" style="border-right: 2px solid #000000">
+                        <p class="text-green">پاسخ ها</p>
+
+
+                        @for (int i = 0; i < q.AnswersText.Count; i++)
+                        {
+                            if (q.CorrectAnswer == q.AnswerId[i])
+                            {
+                                <p class="alert alert-success">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                            else
+                            {
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                        }
+
+                    </div>
+                 
+                </div>
+                <div class="box-footer">
+                    <h5>توضیحات:</h5>
+                    <h5 class="text-red" id="@q.QuestionId">@q.EditorComment</h5>
+                    @if (q.EditorComment != null)
+                    {
+                        <span class="text-red" >این سوال رد شده است </span>
+                    }
+                    else
+                    {
+                        <button class="btn btn-info edit" id="@q.QuestionId">نیاز به ویرایش</button>
+                    }
+
+                    @*<a href="@Url.Action("EditQuestion","QuestionForEditor",new {area="Editor", questionId = q.QuestionId, uri=Request.RawUrl})" class="btn btn-warning">
+            ویرایش
+        </a>
+        <a href="#" class="btn btn-danger">
+            حذف
+        </a>*@
+
+                </div>
+                <hr />
+
+
+
+            }
+
+        }
+
+    </div>
+</div>
+
+<div class="box context">
+    <div class="box-header">
+        <div class="box-title">
+            پرسشهای راستی آزمایی
+        </div>
+    </div>
+    <hr />
+    <div class="box-body">
+        @foreach (var q in Model.ReviewDto.QuestionPacks)
+        {
+            if (q.QuestionType == Enums.QuestionType.Validation)
+            {
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="text-green">صورت پرسش</p>
+                        <p class="alert alert-dark">@q.QuestionText</p>
+                        @if (q.MediaType != Enums.MediaType.NoMedia)
+                        {
+                            <div id="15428817136471576">
+                                <script type="text/JavaScript" src="https://www.aparat.com/embed/csXj2?data[rnddiv]=15428817136471576&data[responsive]=yes"></script>
+                            </div>
+                        }
+
+                        <br />
+
+                    </div>
+
+
+                    <div class="col-md-6" style="border-right: 2px solid #000000">
+                        <p class="text-green">پاسخ ها</p>
+                        @for (int i = 0; i < q.AnswersText.Count; i++)
+                        {
+                            if (q.CorrectAnswer == q.AnswerId[i])
+                            {
+                                <p class="alert alert-success">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                            else
+                            {
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    @q.AnswersText[i]
+                                </p>
+
+                            }
+                        }
+
+                    </div>                   
+                </div>
+                <div class="box-footer"> 
+                    <h5>توضیحات:</h5>
+                    <h5 class="text-red" id="@q.QuestionId">@q.EditorComment</h5>
+                    <button class="btn btn-info edit" id="@q.QuestionId">نیاز به ویرایش</button>
+                    @*<a href="@Url.Action("EditQuestion","QuestionForEditor",new {area="Editor", questionId = q.QuestionId, uri=Request.RawUrl})" class="btn btn-warning">
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        حذف
+                    </a>*@
+
+                </div>
+                <hr />
+
+
+
+            }
+
+
+        }
+
+    </div>
+</div>
+
+<div class="box context">
+    <div class="box-header">
+        <div class="box-title">
+            پرسشهای اصلی چند گزینه ای و تشریحی
+        </div>
+    </div>
+    <hr />
+    <div class="box-body">
+        @foreach (var q in Model.ReviewDto.QuestionPacks)
+        {
+            if (q.QuestionType == Enums.QuestionType.Main ||
+                q.QuestionType == Enums.QuestionType.Anatomical ||
+                q.QuestionType == Enums.QuestionType.MainWithPicture)
+            {
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="text-green">صورت پرسش</p>
+                        <p class="alert alert-dark">@q.QuestionText</p>
+                        @if (q.MediaType == Enums.MediaType.Film)
+                        {
+                            <div id="15428817136471576">
+                                <script type="text/JavaScript" src="https://www.aparat.com/embed/@q.MediaUrl?data[rnddiv]=15428817136471576&data[responsive]=yes"></script>
+                            </div>
+                        }
+                        else if (q.MediaType == Enums.MediaType.Picture)
+                        {
+                            <div>
+                                <img class="thumbnail" src="/Uploads/QuestionnairePhotos/@q.MediaUrl" style="max-width: 45rem" alt="@q.QuestionText" />
+
+                            </div>
+                        }
+
+                        <br />
+
+                    </div>
+
+
+                    <div class="col-md-6" style="border-right: 2px solid #000000">
+                        @if (q.QuestionType == Enums.QuestionType.Main)
+                        {
+                            <p class="text-green">پاسخ ها</p>
+                            for (int j = 0; j < q.AnswersText.Count; j++)
+                            {
+
+
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(j + 1)</span>
+                                    @q.AnswersText[j]
+                                </p>
+
+
+                            }
+
+
+                        }
+                        else if (q.QuestionType == Enums.QuestionType.MainWithPicture)
+                        {
+                            <p class="text-green">پاسخ ها</p>
+                            for (int i = 0; i < q.AnswersText.Count; i++)
+                            {
+
+
+                                <p class="alert">
+                                    <span class="bg-light-blue" style="padding: 3px; border-radius: 3px">گزینه @(i + 1)</span>
+                                    <div>
+                                        <img class="thumbnail" src="/Uploads/QuestionnairePhotos/@q.AnswersText[i]" style="max-width: 45rem" alt="@q.QuestionText" />
+
+                                    </div>
+                                </p>
+
+
+                            }
+                        }
+                        else
+                        {
+                            <h5>پرسش تشریحی میباشد.</h5>
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <h5>توضیحات:</h5>
+                    <h5 class="text-red" id="@q.QuestionId">@q.EditorComment</h5>
+                    <button class="btn btn-info edit" id="@q.QuestionId">نیاز به ویرایش</button>
+                    @*<a href="@Url.Action("EditQuestion","QuestionForEditor",new {area="Editor", questionId = q.QuestionId, uri=Request.RawUrl})" class="btn btn-warning">
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        حذف
+                    </a>*@
+
+                </div>
+                <hr />
+            }
+
+
+        }
+
+    </div>
+</div>
+
+
+<div class="footer" style="max-width: 75vw; width: 75vw">
+    <button data-toggle="collapse" data-target="#assertion" type="button" class="btn btn-info btn-circle btn-xl">
+        <i class="glyphicon glyphicon-comment"></i><br />
+        <b>ارزیابی</b>
+    </button>
+
+    <div id="assertion" class="box bg-light-blue col-lg-12 collapse" style="border-radius: 10px; ">
+        @using (Html.BeginForm("QuestionnaireAssertion", "QuestionnaireForEditor", new { area = "Editor", questionnaireId = Request.Params["questionnaireId"] }, FormMethod.Post))
+        {
+            <div class="box-body">
+                <small>دراین قسمت میتوانید درخواست را تایید یا رد نمایید.</small>
+                @Html.TextAreaFor(model => model.EditorAssert.AssertionComment, new
+                {
+                    @class = "form-control"
+                    , @style = "max-width: 100%", @placeholder = "توضیحات رد یا تایید درخواست"
+                })
+                <br />
+
+
+
+                <input type="submit" class="btn btn-success pull-right" name="Accept" value="تایید درخواست" />
+                <input type="submit" class="btn btn-danger pull-left" name="Reject" value="رد درخواست" />
+            </div>
+
+
+        }
+
+
+    </div>
+</div>
+
+<link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.es6.js"></script>
+    <script src="~/Scripts/jquery-confirm.min.js"></script>
+
+    <script>
+        var fohshes=[];
+        $(document).ready(function () {
+            $.post("/Editor/QuestionnaireForEditor/Fohshes", function() {
+            }).done(function (data) {
+                $.each(data,
+                    function(index, item) {
+                        fohshes.push(item);
+                    });
+                $(".context")
+                    .mark(fohshes); // will mark the keyword "test", requires an element with class "context" to exist
+            });
+        });
+       
+        $("button.edit").on('click',
+            function () {
+                var btn = $(this);
+                var id = $(this).attr("id");
+                $.confirm({
+                    title: 'پیام ویراستار',
+                    content: ` <p>در این قسمت میتوانید نظر خود را درج نمایید.</p>
+                                <textarea id="${id
+                        }" style="width: 500px" required>این پرسش نیاز به ویرایش دارد.</textarea>`,
+                    type: 'blue',
+                    typeAnimated: true,
+                    buttons: {
+                        tryAgain: {
+                            text: 'تایید',
+                            btnClass: 'btn-primary',
+                            action: function() {
+                                var comment = $("textarea[id='" + id + "']").val();
+
+                                console.log('before post!!!' + comment);
+                                $.post("/Editor/QuestionnaireForEditor/SetCommentForQuestion",
+                                    { "questionId": id, "comment": comment },
+                                    function(data) {
+                                        console.log('function ran!!!');
+
+                                    }).done(function(data) {
+                                        $("h5[id='" + id + "']").html(comment);
+                                       // btn.replaceWith('<span class="text-red>  این پرسش رد شده است</span>');
+                                        var message = 'این پرسش رد شده است';
+                                        btn.replaceWith($('<span class="text-red>' + message + '</span>'));
+                                    console.log(data);
+                                });
+                            }
+                        },
+                        انصراف: function() {
+                        }
+                    }
+                });
+            });
+
+    </script>
+}

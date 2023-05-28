@@ -1,0 +1,244 @@
+﻿@using QuestionnaireProject.Models
+@model List<QuestionnaireProject.Areas.Questioner.Models.EachPersonReportModel>
+
+@{
+    ViewBag.Title = "EachPersonReport";
+    //    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+    var UserData = ViewBag.UserData as AspNetUser;
+}
+<style>
+    hr.questions {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-top: 2px solid rgb(41, 44, 124);
+    }
+</style>
+<h2>
+    نام پرسشنامه: <span class="text-blue">@ViewBag.QuestionnaireName</span>
+
+
+    @{
+        if (ViewBag.hasReport == "f")
+        {
+
+            <a href="AddUserReport?UserID=@ViewBag.UserID&PackageID=@ViewBag.PackID&response=@ViewBag.response" class=" btn btn-danger deleteQuestion">ثبت گزارش تخلف</a>
+
+        }
+        else
+        {
+
+            <span style="color:red"> این فرد گزارش شده است.</span>
+        }
+    }
+
+
+</h2>
+@{
+    if (TempData["ok"] != null)
+    {
+        <div class="alert alert-success">@TempData["ok"]</div>
+    }
+    else if (TempData["error"] != null)
+    {
+
+        <div class="alert alert-danger">@TempData["error"]</div>
+
+    }
+}
+<div id="elem">
+    <table class="table table-responsive bg-blue-gradient text-center">
+        <thead>
+            <tr class="text-black">
+                <th>کد شرکت کننده</th>
+                <th>سن</th>
+                <th>رشته تحصیلی</th>
+                <th>شهر</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>@ViewBag.UniqueCode</td>
+                <td>@(DateTime.Now.Year - ViewBag.BirthDate.Year)</td>
+                <td>@ViewBag.UserField</td>
+                <td>@ViewBag.UserCity</td>
+            </tr>
+        </tbody>
+    </table>
+    @*<div class="box">
+        <div class="box-header">
+            سوالات راستی آزمایی
+        </div>
+        <hr />
+        <div class="box-body">
+            @foreach (var qa in Model.Where(q => q.QuestionType == Enums.QuestionType.Validation))
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-blue">
+                            <span class="text-black">
+                                پرسش:
+                            </span>
+                            <strong>
+                                @qa.Question
+                            </strong>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-green">
+                            <span class="text-black">
+                                پاسخ:
+                            </span>
+                            @qa.Response
+                        </p>
+
+                    </div>
+                </div>
+
+                <hr class="questions" />
+
+            }
+        </div>
+
+    </div>*@
+
+    <div class="box">
+        <div class="box-header">
+            سوالات چند گزینه ای
+        </div>
+        <hr />
+
+        <div class="box-body">
+            @foreach (var qa in Model.Where(q => q.QuestionType == Enums.QuestionType.Main ||
+                                                 q.QuestionType == Enums.QuestionType.MainWithPicture))
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-blue">
+                            <span class="text-black">
+                                پرسش:
+                            </span>
+                            <strong>
+                                @qa.Question
+                            </strong>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        @if (qa.QuestionType == Enums.QuestionType.Main)
+                        {
+                            <p class="text-green">
+                                <span class="text-black">
+                                    پاسخ:
+                                </span>
+                                @qa.Response
+                            </p>
+                        }
+                        else
+                        {
+                            <span class="text-black">
+                                پاسخ:
+                            </span>
+                            <img class="thumbnail" src="/Uploads/QuestionnairePhotos/@qa.Response" style="width: 100%" alt="@qa.Question" />
+
+                        }
+                    </div>
+
+                </div>
+
+
+                <hr class="questions" />
+            }
+        </div>
+
+    </div>
+
+    <div class="box">
+        <div class="box-header">
+            سوالات تشریحی
+        </div>
+        @foreach (var qa in Model.Where(q => q.QuestionType == Enums.QuestionType.Anatomical))
+        {
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-blue">
+                        <span class="text-black">
+                            پرسش:
+                        </span>
+                        <strong>
+                            @qa.Question
+                        </strong>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-green">
+                        <span class="text-black">
+                            پاسخ:
+                        </span>
+                        @qa.Response
+                    </p>
+
+                </div>
+            </div>
+
+            <hr class="questions" />
+
+
+        }
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var specialElementHandlers = {
+                '#editor': function (element, renderer) {
+                    return true;
+                }
+            };
+
+            $("button").on('click',
+                function () {
+                    var doc = new jsPDF();
+                    doc.addHTML("<p>asdf</p>",
+                        15,
+                        15,
+                        {
+                            'background': '#fff'
+                        });
+
+                    doc.save('sample-file.pdf');
+                });
+        });
+
+
+    </script>
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-confirm.min.js"></script>
+<script>
+    $('.deleteQuestion').confirm({
+        title: "اخطار",
+        content: "آیا از گزارش این فرد اطمینان دارید؟",
+        buttons: {
+            info: {
+                text: "بلی",
+                btnClass: 'btn-success',
+                action: function () {
+                    location.href = this.$target.attr('href');
+                }
+            },
+            danger: {
+                text: "خیر",
+                btnClass: 'btn-red any-other-class' // multiple classes.
+
+            }
+        }
+    });
+</script>

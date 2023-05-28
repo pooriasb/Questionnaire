@@ -1,0 +1,62 @@
+﻿@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionForQuestionerController.QuestionModel
+
+<div class="box">
+    <div class="box-body @((Model.MainQuestionPackViewModel.QuestionType == Enums.QuestionType.Validation) ? "in": "")" id="newValidationQuestion">
+        @using (Html.BeginForm(Html.BeginForm("CreateQuestion", "QuestionForQuestioner", new { area = "Questioner"@*, questionnaireId = @Request.Params["questionnaireId"]*@ }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group" style="margin: 10px">
+                    @Html.LabelFor(model => model.VbQuestionPackViewModel.QuestionText, htmlAttributes: new { @class = "control-label" })
+                    <br />
+                    <br />
+
+                    <div>
+                        @Html.TextAreaFor(model => model.VbQuestionPackViewModel.QuestionText, new { @class = "form-control", @placeholder = "صورت پرسش را وارد نمایید.", @style = "max-width:100%" })
+                        @Html.ValidationMessageFor(model => model.VbQuestionPackViewModel.QuestionText, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <small class="text-green">جهت ثبت پرسش، بایستی حداقل چهار گزینه وارد نمایید</small>
+
+                <div class="form-group" style="margin: 10px">
+                    @Html.LabelFor(model => model.VbQuestionPackViewModel.AnswersText, htmlAttributes: new { @class = "control-label" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.VbQuestionPackViewModel.AnswersText, "", new { @class = "text-danger" })
+
+                    <br />
+                    <div class="row" style="margin: 10px">
+                        @for (int i = 0; i < (int)Enums.ValidationQuestion.MaxAnswersNumber; i++)
+                        {
+                            <div class="col-md-6">
+                                <label class="control-label" style="margin-bottom: 10px">
+                                    @Html.RadioButtonFor(m => m.VbQuestionPackViewModel.CorrectAnswerChoiceNumber, i + 1)
+                                    <span>پاسخ صحیح</span>
+                                </label>
+
+                                @Html.TextAreaFor(model => model.VbQuestionPackViewModel.AnswersText[i], new { @class = "form-control", placeholder = "گزینه خود را وارد نمایید.", @style = "max-width:100%" })
+                                <br />
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+
+                @Html.HiddenFor(m => m.QuestionnaireId, new { Value = Model.QuestionnaireId })
+
+                @Html.HiddenFor(m => m.VbQuestionPackViewModel.QuestionId, new { Value = Model.VbQuestionPackViewModel.QuestionId })
+
+                @Html.HiddenFor(m => m.VbQuestionPackViewModel.QuestionType, new { Value = (int)Enums.QuestionType.Validation })
+                <div class="col-md-10">
+                    <input type="submit" value="ثبت پرسش لیاقت سنجی" class="btn btn-primary" />
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

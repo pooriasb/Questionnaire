@@ -1,0 +1,264 @@
+﻿@model QuestionnaireProject.Areas.Questioner.Controllers.QuestionnaireForQuestionerController.QuestionnairePricingModel
+@{
+    ViewBag.Title = "QuestionnairePricing";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>قیمت گذاری پرسشنامه:<span>@Model.QuestionnairePricingDto.QuestionnaireName</span></h2>
+@using (Html.BeginForm("QuestionnairePayment", "QuestionnaireForQuestioner", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    <div class="box">
+        <div class="box-header">
+            <span class="text-blue">در این بخش قیمت گذاری پرسش شما صورت میگیرد.</span>
+        </div>
+        <hr/>
+        <div class="alert alert-warning">
+            تعداد افرادی که میتوانند به پرسشنامه شما پاسخ دهند: &nbsp;
+            <span id="peopleCount">
+                <b>
+                    @Model.QuestionnairePricingDto.PeopleCount
+
+                </b>
+            </span>
+            نفر
+        </div>
+        <div class="box-body">
+            <table class="table table-responsive text-center" style="vertical-align: middle">
+                <tr class="bg-light-blue">
+                    <th>تعداد پرسشهای چند&nbsp;گزینه&nbsp;ای<br></th>
+                    <th>
+                        <span id="multipleChoiceAmount">@Model.QuestionnairePricingDto.MultipleChoiceAmount</span>
+
+                    </th>
+                    <th>تعداد پرسشهای حاوی&nbsp;تصویر</th>
+                    <th>
+                        <span id="withPictureAmount">@Model.QuestionnairePricingDto.WithPictureAmount</span>
+                    </th>
+                    <th>تعداد پرسشهای حاوی&nbsp;فیلم</th>
+                    <th>
+                        <span id="withFilmAmount">@Model.QuestionnairePricingDto.WithFilmAmount</span>
+                    </th>
+                    <th>
+                        تعداد پرسشهای
+                        <br/>تشریحی
+                    </th>
+                    <th>
+                        <span id="anatomicalAmount">@Model.QuestionnairePricingDto.AnatomicalAmount</span>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <td>قیمت واحد</td>
+                    <td>
+                        @Html.EditorFor(m => m.QuestionnairePricingViewModel.MultipleChoicePrice, new {@id = "multipleChoicePrice"})
+                        <br />
+                        @Html.ValidationMessageFor(m => m.QuestionnairePricingViewModel.MultipleChoicePrice)
+                    </td>
+                    <td>قیمت واحد</td>
+                    <td>
+                        @Html.EditorFor(m => m.QuestionnairePricingViewModel.WithPicturePrice, new { @class = "withPicturePrice"})
+                        <br />
+                        @Html.ValidationMessageFor(m => m.QuestionnairePricingViewModel.WithPicturePrice)
+
+                    </td>
+                    <td>قیمت واحد</td>
+                    <td>
+                        @Html.EditorFor(m => m.QuestionnairePricingViewModel.WithFilmPrice, new { @class = "withFilmPrice"})
+                        <br />
+                        @Html.ValidationMessageFor(m => m.QuestionnairePricingViewModel.WithFilmPrice)
+
+                    </td>
+                    <td>قیمت واحد</td>
+                    <td>
+                        @Html.EditorFor(m => m.QuestionnairePricingViewModel.AnatomicalPrice, new { @class = "anatomicalPrice"})
+                        <br />
+                        @Html.ValidationMessageFor(m => m.QuestionnairePricingViewModel.AnatomicalPrice)
+
+                    </td>
+                </tr>
+                <tr class="bg-light-blue">
+                    <td>قیمت کل</td>
+                    <td>
+                        <span id="multipleChoiceTotal">0</span>
+                    </td>
+                    <td>قیمت کل</td>
+                    <td>
+                        <span id="withPictureTotal">0</span>
+
+                    </td>
+                    <td>قیمت کل</td>
+                    <td>
+                        <span id="withFilmTotal">0</span>
+
+                    </td>
+                    <td>قیمت کل</td>
+                    <td>
+                        <span id="anatomicalTotal">0</span>
+
+                    </td>
+
+                </tr>
+                <tr class="bg-aqua-active">
+                    <td colspan="8">پیشنهادات قیمت گذاری...<br></td>
+                </tr>
+                <tr>
+                    <td colspan="6" rowspan="1">
+                        <b class="text-green" style="font-size: 20px">
+                            <i class="fa fa-star"></i>
+                            در صورت دارا بودن کد تخفیف، آنرا در بخش پایین قرار دهید.
+
+                        </b>
+
+                    </td>
+                    <td>تعداد کل پرسشها</td>
+                    <td>
+                        <span id="totalAmount">
+                            @(Model.QuestionnairePricingDto.MultipleChoiceAmount +
+                              Model.QuestionnairePricingDto.WithFilmAmount +
+                              Model.QuestionnairePricingDto.WithPictureAmount +
+                              Model.QuestionnairePricingDto.AnatomicalAmount)
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td colspan="6" rowspan="1">
+                        <input type="text" name="QuestionnairePricingViewModel.DiscountCode" id="discountCode" value="" style="font-size: 30px; max-width: 100rem !important; text-align: center"/>
+
+                    </td>
+
+                    <td>
+                        مبلغ کل پرسشها
+
+                    </td>
+                    <td>
+                        <span id="totalPrice">0</span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="6" rowspan="3">
+                        <span id="discountMessage"></span>
+                    </td>
+                    <td>درصد کارمزد سایت</td>
+                    <td>
+                        <span>%</span>
+                        <span id="sitePercent">@Model.QuestionnairePricingDto.SitePercent</span>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>مبلغ کل قابل پرداخت</td>
+                    <td>
+                        <span id="payablePrice">0</span>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+
+                    <td colspan="2" rowspan="1">
+                        @Html.HiddenFor(m=>m.QuestionnaireId, new {Value = Model.QuestionnaireId })
+                        <div>
+                            <button type="submit" class="btn btn-success btn-lg" style="max-width: 300px; width: 300px">پرداخت</button>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+    </div>
+}
+    @section Scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script>
+
+            var calculate = function () {
+                var multipleChoicePrice = $("#QuestionnairePricingViewModel_MultipleChoicePrice").val();
+                var multipleChoiceAmount = $("#multipleChoiceAmount").text();
+                var multipleChoiceTotal = $("#multipleChoiceTotal");
+                var withPicturePrice = $("#QuestionnairePricingViewModel_WithPicturePrice").val();;
+                var withPictureAmount = $("#withPictureAmount").text();
+                var withPictureTotal = $("#withPictureTotal");
+                var withFilmPrice = $("#QuestionnairePricingViewModel_WithFilmPrice").val();;
+                var withFilmAmount = $("#withFilmAmount").text();
+                var withFilmTotal = $("#withFilmTotal");
+                var anatomicalPrice = $("#QuestionnairePricingViewModel_AnatomicalPrice").val();;
+                var anatomicalAmount = $("#anatomicalAmount").text();
+                var anatomicalTotal = $("#anatomicalTotal");
+
+                var totalAmount = $("#totalAmount");
+                var totalPrice = $("#totalPrice");
+                var sitePercent = $("#sitePercent");
+                var payablePrice = $("#payablePrice");
+                var peopleCount = $("#peopleCount");
+
+
+                var multipleChoice = multipleChoiceTotal.text(multipleChoiceAmount * multipleChoicePrice);
+
+
+                var withPicture = withPictureTotal.text(withPictureAmount * withPicturePrice);
+
+
+                var withFilm = withFilmTotal.text(withFilmAmount * withFilmPrice);
+
+
+                var anatomical = anatomicalTotal.text(anatomicalAmount * anatomicalPrice);
+
+                totalPrice.text(
+                        (parseInt(multipleChoice.text()) +
+                        parseInt(withPicture.text()) +
+                        parseInt(withFilm.text()) +
+                        parseInt(anatomical.text())));
+
+                payablePrice.text((parseFloat(sitePercent.text()) / 100) * parseFloat(totalPrice.text()) * parseInt(peopleCount.text()) +
+                    parseFloat(totalPrice.text()) * parseInt(peopleCount.text()));
+
+            }
+
+            var recalculate = $("input[id*='Price']").focusout(function () {
+                calculate();
+            });
+
+            $("input[id='discountCode']").focusout(function () {
+                var discountMessage = $("#discountMessage");
+                var discountCode = $("#discountCode").val();
+                var sitePercent = $("#sitePercent");
+                $.post("/Questioner/QuestionnaireForQuestioner/DiscountCodeValidator",
+                    { code: discountCode })
+                    .done(function (data) {
+                        if (data.result) {
+                            discountMessage.text("کد وارد شده صحیح میباشد. توجه داشته باشید که در صورت لمس دکمه پرداخت کد معرفی شما غیرقابل استفاده خواهد بود.");
+                            if (discountMessage.hasClass('text-red')) {
+                                discountMessage.removeClass('text-red');
+
+                            };
+                            discountMessage.addClass('text-green');
+                            sitePercent.text(data.sitePercent);
+                            calculate();
+
+
+                        } else {
+                            discountMessage.text("کد وارد شده صحیح نمیباشد.");
+                            if (discountMessage.hasClass('text-green')) {
+                                discountMessage.removeClass('text-green');
+
+                            };
+                            discountMessage.addClass('text-red');
+                            sitePercent.text(data.sitePercent);
+                            calculate();
+
+                        }
+                    });
+            });
+        </script>
+
+    }
+

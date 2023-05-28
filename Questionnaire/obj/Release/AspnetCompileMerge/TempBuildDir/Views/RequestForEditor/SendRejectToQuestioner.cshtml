@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "رد درخواست";
+}
+
+<h2>رد درخواست مربوط به پرسشنامه با عنوان: {نام پرسشنامه}</h2>
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">ارسال پیام رد درخواست به پرسشگر</div>
+        <hr/>
+    </div>
+
+    <div class="box-body">
+        <form>
+            <div class="form-group">
+                <label class="control-label">پیام به پرسشگر:</label>
+                <textarea class="form-control" name="" placeholder="لطفا ایرادات خود به پرسشنامه را با جزئیات درج فرمایید."></textarea>
+            </div>
+            <div class="form-group" style="margin-right: 30px">
+                <label class="control-label checkbox"><input type="checkbox" value=""/>عدم تطابق مشخصات کارت ملی</label>
+            </div>
+            <input type="submit" class="btn btn-danger btn-lg" value="رد پرسشنامه"/>
+        </form>
+    </div>
+</div>

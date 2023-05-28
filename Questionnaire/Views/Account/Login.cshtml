@@ -1,0 +1,112 @@
+﻿@using QuestionnaireProject.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "ورود";
+}
+
+<div class="row" style="margin-top: 4vh">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 center-block">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>@ViewBag.Title</h3>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h4 class="text-center">ورود به ناحیه کاربری</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                          
+                                if (TempData["Error"] != null)
+                                {
+                            <label class="text-danger text-center center-block">@TempData["Error"] </label>
+                                }
+                            
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.NationalId, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.NationalId, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.NationalId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-8">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" style="padding-right: 5vw">
+
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+
+                            </div>
+                            @*<div class="g-recaptcha" style="padding-right: 7vw" data-sitekey="6Lfy34YUAAAAAMlJ6C4wjhsUYSd_Aq1luyujCTQF"></div>*@
+                            <br />
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @*<input type="submit" value="ورود" class="btn btn-default btn-lg  center-block" />*@
+                                    <button class="btn btn-danger btn-block" name="LoginAs" value="q">ورود به عنوان پرسشگر</button>
+                                    <button class="btn btn-primary btn-block" name="LoginAs" value="r">ورود به عنوان پاسخ دهنده</button>
+                                    <button class="btn btn-default btn-block" name="LoginAs" value="e">ورود به عنوان ویراستار</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p>
+                                    <a href="#" id="register">ثبت نام کاربر جدید</a>
+                                    @*@Html.ActionLink("ثبت نام به عنوان کاربر جدید", "Register")*@
+                                </p>
+                                @*//Enable this once you have account confirmation enabled for password reset functionality*@
+                                <p>
+                                    @Html.ActionLink("رمز عبور خود را فراموش کرده اید؟", "ForgotPassword")
+                                </p>
+                            </div>
+                            
+                        }
+                    </section>
+                </div>
+                @*<div class="col-md-4">
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>
+                    </div>*@
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#register').on('click',
+            function() {
+                $.dialog({
+                    rtl: true,
+                    theme: 'light',
+                    title: 'ثبت نام کاربر جدید',
+                    content: '<p>عنوان کاربری خود را جهت ثبت نام انتخاب نمایید.</p>' +
+                        '<hr>' +
+                        '<a href="@Url.Action("Register", "Account", new { area = "" })" class="btn btn-info btn-lg center-block">ثبت نام با عنوان پاسخ دهنده</a>' +
+                        '<hr>' +
+                        '<a href="@Url.Action("QuestionerRegister","QuestionerAccount", new {area="Questioner"})" class="btn btn-success btn-lg center-block">ثبت نام با عنوان پاسخ دهنده</a>'
+                });
+            });
+        
+    </script>
+}

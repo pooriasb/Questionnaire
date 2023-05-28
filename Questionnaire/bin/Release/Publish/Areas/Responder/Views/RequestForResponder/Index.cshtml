@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>تسویه حساب</h2>
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">تسویه حساب</div>
+    </div>
+    <div class="box-body">
+        <p>درخواست شما تنها در صورتیکه مبلغ بیش از <span>250000</span> ریال باشد قابل پیگیری است.</p>
+        <p class="text-danger">همچنین درخواست های جدید شما تا زمان تعیین تکلیف آخرین درخواست قابل ثبت نمی باشد.</p>
+        <a class="btn btn-success" href="#">ارسال درخواست پرداخت</a>
+    </div>
+</div>
+
+
+<div class="box">
+    <div class="box-header">
+        <div class="box-title">درخواست های پیشین</div>
+    </div>
+    <div class="box-body">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-title"></div>
+                <hr/>
+            </div>
+            <div class="box-body">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>تاریخ ارسال</th>
+                            <th>وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>1392/01/02</td>
+                        <td>
+                            تایید<span class="fa fa-check-circle text-green"></span>
+                            <br/>
+                            رد<span class="fa fa-check-circle text-red"></span>
+                            <br/>
+                            در حال بررسی<span class="fa fa-check-circle text-yellow"></span>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNet.Identity
+@using QuestionnaireProject.Extensions
+<div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+        <!-- Notifications: style can be found in dropdown.less -->
+        <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">۱۰</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">۱۰ اعلان جدید</li>
+                <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-users text-aqua"></i> ۵ کاربر جدید ثبت نام کردند
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-warning text-yellow"></i> اخطار دقت کنید
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-users text-red"></i> ۴ کاربر جدید ثبت نام کردند
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-shopping-cart text-green"></i> ۲۵ سفارش جدید
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-user text-red"></i> نام کاربریتان را تغییر دادید
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footer"><a href="#">نمایش همه</a></li>
+            </ul>
+        </li>
+        @*<li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="hidden-xs">خروج</span>
+                    <span class="fa fa-sign-out"></span>
+                </a>
+            </li>*@
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                <span class="hidden-xs">@User.Identity.GetFirstName() @User.Identity.GetLastName()</span>
+            </a>
+            <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
+                    <img src="/Assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                   
+                    <p>
+                        @User.Identity.GetFirstName() @User.Identity.GetLastName()
+
+                        @if (User.IsInRole("Questioner"))
+                        {
+                            <small>پرسشگر</small>
+                        }
+
+
+                    </p>
+                </li>
+                <!-- Menu Body -->
+                <li class="user-body">
+                    <div class="row">
+                        <div class="text-center">
+                            <a href="#">صفحه من</a>
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                    <div class="pull-right">
+                        <a href="#" class="btn btn-default btn-flat">پروفایل</a>
+                    </div>
+                    @*<div class="pull-left">
+                            <a href="../../Account/LogOff" class="btn btn-default btn-flat">خروج</a>
+                        </div>*@
+                    <div class="pull-left">
+                        @if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">
+                                    خروج
+                                </a>
+                            }
+                        }
+</div>
+
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</div>

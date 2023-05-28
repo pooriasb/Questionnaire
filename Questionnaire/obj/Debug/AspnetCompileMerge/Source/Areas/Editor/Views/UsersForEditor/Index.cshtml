@@ -1,0 +1,128 @@
+﻿@using System.Web.UI.WebControls
+@using PagedList.Mvc
+@model PagedList.IPagedList<QuestionnaireProject.Areas.Editor.Controllers.UsersForEditorController.UsersDto>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="box">
+    <div class="box-header">
+        @using (Html.BeginForm("Index", "UsersForEditor", FormMethod.Get))
+        {
+            <p>
+                @Html.TextBox("Search")
+                <input type="submit" value="جست و جو" />
+            </p>
+            <small class="text-green">جست و جو براساس نام، نام خانوادگی و کد ملی صورت میگیرد.</small>
+        }
+    </div>
+    <hr />
+    <div class="box-body">
+        <table class="table table-responsive table-hover text-center">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th> نام کاربر</th>
+                    <th>نام خانوادگی</th>
+                    <th>کد ملی</th>
+                    <th>ایمیل</th>
+                    <th>شماره همراه</th>
+                    <th>مسدود سازی</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = Model.PageSize * (Model.PageNumber - 1) + 1;
+                }
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@u.FirstName</td>
+                        <td>@u.LastName</td>
+                        <td>@u.NationalId</td>
+                        <td>@u.Email</td>
+                        <td>@u.PhoneNumber</td>
+                        <td>
+                            @if (u.IsBlocked == null)
+                            {
+                            <a class="btn btn-danger" href="@Url.Action("BlockUser", "UsersForEditor", new {area = "Editor", NationalId = u.NationalId})">مسدودسازی</a>
+                                
+                            }
+                            else
+                            {
+                            <a class="btn btn-success" href="@Url.Action("UnblockUser", "UsersForEditor", new {area = "Editor", NationalId = u.NationalId})">رفع مسدودی</a>
+
+                               
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-center" style="display: block;margin-left: auto; margin-right: auto; width:200px">
+
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+</div>
+
+
+<link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/jquery-confirm.min.js"></script>
+    <script>
+        $('a.btn-danger').confirm({
+            title:"اخطار",
+            content: "آیا از مسدودسازی اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function() {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+                    
+                }               
+            }
+        });
+
+
+        $('a.btn-success').confirm({
+            title:"اخطار",
+            content: "آیا از رفع مسدودی اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function() {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+                    
+                }               
+            }
+        });
+
+
+
+    </script>
+}

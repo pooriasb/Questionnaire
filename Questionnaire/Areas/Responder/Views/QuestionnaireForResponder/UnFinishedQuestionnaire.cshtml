@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "UnFinishedQuestionnaire";
+    Layout = "~/Views/Shared/_ResponderDashboardLayout.cshtml";
+}
+@using QuestionnaireProject.Models
+<h2>پاسخ نامه های ناتمام</h2>
+<style>
+    th, td {
+    
+    text-align:center;  
+    }
+</style>
+<div class="panel panel-primary">
+    <div class="panel-heading">لیست پرسشنامه ها</div>
+    <div class="panel-body">
+        <table class="table table-responsive table-striped table-hover ">
+            <thead>
+                <tr>
+                    @{
+                        if (ViewBag.Packages != null)
+                        {
+                            <th>گروه</th>
+                            <th>تعداد پرسش ها</th>
+                            <th>فرصت</th>
+                            <th>افراد باقیمانده</th>
+                            <th>قیمت</th>
+
+                            <th>شروع</th>
+                        }
+                    }
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (ViewBag.Packages!=null)
+                    {
+                        foreach (var item in ViewBag.Packages as List<Questionnaire>)
+                        {
+                <tr>
+                    <td>
+                        @item.QuestionnaireCategory.Name
+                    </td>
+                    <td>
+                        <span class="badge bg-green">
+                            @item.Questions.Count
+                        </span>
+                    </td>
+
+                    <td class="date">
+                        <span class="badge bg-blue">
+                            @*@item.DateExpire.Value.ToString("MM/dd/yyyy")*@
+                            @((item.DateExpire.Value - DateTime.Now).Days ) روز
+                        </span>
+
+                    </td>
+                    <td>
+                        <span class="badge bg-red">
+                            @( item.Conditions.Where(x=>x.Questionnaire_Id==item.Id).FirstOrDefault().PeopleCount - item.AnsweredByPerson  )
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge bg-yellow">
+                            @item.EachPersonMoneyPrice تومان
+                        </span>
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm(Html.BeginForm("FirstLevelQuestionShowOneByOne", "QuestionnaireForResponder", new { area = "Responder" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+                        {
+                            <input type="hidden" name="questionnaireId" value="@item.Id" />
+                            <button type="submit" class="btn btn-success">
+                                شروع پاسخگویی
+                            </button>
+
+                        }
+                    </td>
+                </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                پرسشنامه ای موجود نیست
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

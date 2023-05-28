@@ -1,0 +1,32 @@
+﻿@using (@Html.BeginForm("CreateQuestion", "QuestionForQuestioner", FormMethod.Post))
+{
+    <div class="form-group">
+        <label>متن پرسش</label>
+        <input type="text" class="form-control" placeholder="صورت پرسش را وارد نمایید.">
+    </div>
+
+    <div class="form-group">
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                پرسش حاوی تصویر
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" >
+                پرسش حاوی فیلم
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>پاسخ های پرسش</label>
+        <textarea type="text" class="form-control" placeholder="گزینه پرسش را وارد نموده و با علامت | از هم جدا نمایید."></textarea>
+        <small>حداکثر 6 پاسخ قابل قبول می باشد.</small>
+    </div>
+
+
+    @Html.AntiForgeryToken()
+    <input type="submit" class="btn btn-success" value="ذخیره" />
+}

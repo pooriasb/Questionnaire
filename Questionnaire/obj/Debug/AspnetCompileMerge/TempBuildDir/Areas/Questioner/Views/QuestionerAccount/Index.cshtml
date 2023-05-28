@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "پنل پرسشگر";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+<h2>پنل پرسشگر</h2>
+@if (!User.Identity.IsAuthenticated && User.IsInRole("Questioner"))
+{
+    
+    <a class="btn btn-lg btn-primary" href="@Url.Action("Login", "Account", new {area = "", ReturnUrl = @Url.Action("Index", "Questioner", new {area = "Questioner"})})">
+        ورود به کنترل پنل پرسشگر
+    </a>
+
+
+    <a class="btn btn-lg btn-primary" href="@Url.Action("QuestionerRegister", "QuestionerAccount", new {area = "Questioner"})">
+        ثبت نام به عنوان پرسشگر
+    </a>
+}
+else
+{
+    <h2>به پنل کاربری پرسشگر خوش آمدید.</h2>
+}
+

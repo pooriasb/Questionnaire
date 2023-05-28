@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@using QuestionnaireProject.Areas.Editor.Models
+@using QuestionnaireProject.Models
+@model CategoryModel
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<h2>گروه سوالات</h2>
+<div class="box box-warning">
+    <div class="box-header">
+        ثبت گروه جدید
+    </div>
+    <div class="box-body">
+
+        @{
+            if (TempData["ok"] != null)
+            {
+                <div class="alert alert-success">@TempData["ok"].ToString()</div>
+            }
+            if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"].ToString()</div>
+            }
+        }
+
+
+
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form action="Categories" method="post">
+                    <div class="form-group">
+                        <label class="control-label">نام گروه</label>
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control txtName" })
+                        @Html.ValidationMessageFor(x => x.Name)
+                        <input type="hidden" id="RecID" name="id" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success save" type="submit">ثبت </button>
+                        <button class="btn btn-warning hidden" id="can" type="button">انصراف </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-responsive table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>کد</th>
+                            <th>نام</th>
+                            <th>ویرایش</th>
+                            <th>حذف</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (ViewBag.Cats != null)
+                            {
+                                foreach (var item in ViewBag.Cats as List<QuestionnaireCategory>)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            <button class="btn btn-primary btnEdit" recName="@item.Name" recID="@item.Id">ویرایش</button>
+                                        </td>
+                                        <td>
+                                            
+                                                <a class="btn btn-danger deleteQuestion"  href="DeleteCategory?id=@item.Id" >حذف</a>
+                                           
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    رکوردی موجود نیست
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $('.btnEdit').click(function () {
+        console.log('clicked');
+        var id = $(this).attr('recID');
+        var name = $(this).attr('recName');
+        console.log('attr');
+
+
+
+
+        $('.txtName').val(name);
+        $('#RecID').val(id);
+        $('.save').html('ویرایش');
+        $('#can').removeClass('hidden');
+    });
+
+    $('#can').click(function () {
+        $('#can').addClass('hidden');
+
+        $('.save').html('ثبت');
+        $('.txtName').val('');
+        $('#RecID').val('');
+
+    });
+</script>
+<script src="~/Scripts/jquery-confirm.min.js"></script>
+<script>
+    $('.deleteQuestion').confirm({
+        title: "اخطار",
+        content: "آيا از حذف  اطمينان داريد؟",
+        buttons: {
+            info: {
+                text: "بلي",
+                btnClass: 'btn-success',
+                action: function () {
+                    location.href = this.$target.attr('href');
+                }
+            },
+            danger: {
+                text: "خير",
+                btnClass: 'btn-red any-other-class' // multiple classes.
+
+            }
+        }
+    });
+</script>
+

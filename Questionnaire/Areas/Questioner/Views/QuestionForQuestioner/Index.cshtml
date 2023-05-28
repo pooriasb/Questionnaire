@@ -1,0 +1,273 @@
+﻿@using QuestionnaireProject.Areas.Editor.Models
+@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Questioner.Models.QuestionForQuestionerModel
+
+@{
+    ViewBag.Title = "سوالات پرسشنامه";
+    //Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_QuestionerDashboardLayout.cshtml";
+
+}
+
+<style>
+    .fade {
+        opacity: 0;
+        -webkit-transition: opacity 0.75s linear;
+        -moz-transition: opacity 0.75s linear;
+        -ms-transition: opacity 0.75s linear;
+        -o-transition: opacity 0.75s linear;
+        transition: opacity 0.75s linear;
+    }
+</style>
+
+<h3>پرسشنامه اصلی: <b class="text-green">@Model.QuestionnaireName</b></h3>
+
+@if (ViewData.ModelState != null && !ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <h5 class="alert-heading">خطا!</h5>
+        @Html.ValidationSummary("", new { style = "color:white" })
+
+    </div>
+}
+
+@Html.Partial("_QuestionsProgressBox")
+<div class="nav-tabs-custom">
+
+    <h3 class="bold text-green" style="padding: 20px; margin: 0">ایجاد پرسش جدید:</h3>
+
+    <h4 class="bold text-red" style="padding: 20px; margin: 0">نوع پرسش خود را انتخاب نمایید.</h4>
+
+    <ul class="nav nav-tabs">
+        <li class="@((Model.MainQuestionPackViewModel.QuestionType == Enums.QuestionType.Main ||
+                      Model.MainQuestionPackViewModel.QuestionType == Enums.QuestionType.Anatomical ||
+                      Model.MainQuestionPackViewModel.QuestionType == Enums.QuestionType.MainWithPicture) ? "active" : "")">
+            <a href="#mainQuestion" data-toggle="tab" aria-expanded="@((TempData["RedirectModel"] != null) ? "true" : "false")"><b><span class="fa fa-plus-circle text-green fa-2x"></span>&nbsp;پرسش اصلی </b></a>
+        </li>
+        <li class="@((Model.VbQuestionPackViewModel.QuestionType == (int) Enums.QuestionType.Validation) ? "active" : "")">
+            <a href="#validationQuestioin" data-toggle="tab" aria-expanded="false"><b><span class="fa fa-plus-circle text-green fa-2x"></span>&nbsp;پرسش راستی آزمایی &nbsp;</b></a>
+        </li>
+    </ul>
+    <div class="tab-content ">
+
+        <div class="tab-pane fade @((Model.MainQuestionPackViewModel.QuestionType == Enums.QuestionType.Main ||
+                                     Model.MainQuestionPackViewModel.QuestionType == Enums.QuestionType.Anatomical ||
+                                     Model.MainQuestionPackViewModel.QuestionType == Enums.QuestionType.MainWithPicture) ? "active in" : "")" style="background-color: lightskyblue; border-radius: 20px" id="mainQuestion">
+            <div class="nav-tabs-custom" style="margin-left: 5%; margin-right: 5%; padding: 10px">
+                @Html.Partial("_NewMainQuestion")
+            </div>
+        </div>
+        <div class="tab-pane fade @((Model.VbQuestionPackViewModel.QuestionType == (int) Enums.QuestionType.Validation) ? "active in" : "")" style="background-color: lightcoral; border-radius: 20px" id="validationQuestioin">
+            <div class="nav-tabs-custom" style="margin-left: 5%; margin-right: 5%; padding: 10px">
+                @Html.Partial("_NewValidationQuestion")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@Html.Partial("_QuestionsList")
+
+
+
+<div class="modal fade showModal" tabindex="-1" role="dialog" aria-labelledby="showModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <input type="hidden" name="QuestionId" value="Id" />
+            Information
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+    <script>
+        $(document).ready(function() {
+            // The following codes check the radio boxes which are available i this
+            // page and would change the status different divs
+
+            if ($('.isAnatomical').is(':checked')) {
+
+                $("#choices").hide();
+                $("#choicesPicture").hide();
+                $(".choices").prop("disabled", true);
+                $(".choicesPicture").prop("disabled", true);
+
+            };
+
+            if ($('.isChoiceable').is(':checked')) {
+                $(".choices").prop("disabled", false);
+                $("#choices").show();
+                $(".choicesPicture").prop("disabled", true);
+                $("#choicesPicture").hide();
+
+            };
+
+            if ($('.isChoiceablePicture').is(':checked')) {
+                $("#choices").hide();
+                $(".choices").prop("disabled", true);
+                $("#choicesPicture").show();
+                $(".choicesPicture").prop("disabled", false);
+
+            };
+
+            if ($('.hasNothing').is(':checked')) {
+                $(".film").prop("disabled", true);
+                $(".picture").prop("disabled", true);
+            };
+
+            if ($('.hasPicture').is(':checked')) {
+                $(".film").prop("disabled", true);
+                $(".picture").prop("disabled", false);
+            };
+            if ($('.hasFilm').is(':checked')) {
+                $(".picture").prop("disabled", true);
+                $(".film").prop("disabled", false);
+            };
+
+        });
+        $(".hasNothing").click(function() {
+            $(".film").prop("disabled", true);
+            $(".picture").prop("disabled", true);
+
+        });
+        $(".hasFilm").click(function() {
+            $(".picture").prop("disabled", true);
+            $(".film").prop("disabled", false);
+        });
+        $(".hasPicture").click(function() {
+            $(".film").prop("disabled", true);
+            $(".picture").prop("disabled", false);
+        });
+
+        $('.isChoiceable').click(function() {
+            $(".choicesPicture").prop("disabled", true);
+            $("#choicesPicture").hide("slow");
+            $(".choices").prop("disabled", false);
+            $("#choices").toggle("slow");
+        });
+
+        $('.isChoiceablePicture').click(function() {
+            $(".choices").prop("disabled", false);
+            $("#choices").hide("slow");
+            $(".choicesPicture").prop("disabled", false);
+            $("#choicesPicture").toggle("slow");
+        });
+
+        $('.isAnatomical').click(function() {
+            $(".choicesPicture").prop("disabled", false);
+            $("#choicesPicture").hide("slow");
+            $(".choices").prop("disabled", false);
+            $("#choices").hide("slow");
+        });
+
+
+        function readURL(input, i) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $(`#MainQuestionPackViewModel_PictureChoices${i}`)
+                        .attr('src', e.target.result)
+                        .height(100);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $("button[name='details']").on('click',
+            function() {
+                var id = $(this).attr('id');
+                $.post("/Questioner/QuestionForQuestioner/QuesitonDetails",
+                        { questionId: id })
+                    .done(function(data) {
+                        console.log(data);
+                        var question = data.question.question;
+                        var type = data.question.type;
+                        var media = data.question.media;
+                        var mediaUrl = data.question.mediaUrl;
+                        var comment = data.question.editorComment;
+                        //
+                        var image = "";
+                        var video = "";
+                        var editorComment = "";
+                        if (comment != null) {
+                            editorComment = `<div class="alert alert-danger">${comment}</div>`
+                        }
+                        if (media === 1) {
+                            image =
+                                `<img class="thumbnail" src="/Uploads/QuestionnairePhotos/${mediaUrl
+                                }" style="width: 100%" alt="عکس مربوط به سوال" />`;
+                        } else if (media === 2) {
+                            video =
+                                `<div class="h_iframe-aparat_embed_frame thumbnail"> <span style="display: block;padding-top: 57%"></span><iframe src="https://www.aparat.com/video/video/embed/videohash/${
+                                mediaUrl
+                                }/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>`;
+                        }
+                        var content = `<h5><strong class="text-green">صورت پرسش</strong></h5>
+                                        ${editorComment}
+                                       <p>${question}</p>
+                                        ${image}
+                                        ${video}
+                                        <hr>`;
+                        $.each(data.answers,
+                            function(index, value) {
+                                if (type === 4) {
+                                    content += `<hr><p><strong class="text-blue">گزینه${index + 1}:</strong></p>
+                                                <img src="/Uploads/QuestionnairePhotos/${value
+                                        }" style="width: 100%" alt="عکس مربوط به سوال" />`;
+
+                                } else {
+                                    content += `<p><strong class="text-blue">گزینه${index + 1}:</strong> ${value}</p>`;
+                                }
+                            });
+                        $.dialog({
+                            type: "blue",
+                            rtl: true,
+                            title: "جزئیات پرسش",
+                            content: content,
+                            columnClass: "col-md-6 col-md-offset-4",
+
+                        });
+                    });
+
+            });
+
+        $('a.deleteQuestion').confirm({
+            title: "اخطار",
+            content: "آیا از حذف پرسش اطمینان دارید؟",
+            buttons: {
+                info: {
+                    text: "بلی",
+                    btnClass: 'btn-success',
+                    action: function() {
+                        location.href = this.$target.attr('href');
+                    }
+                },
+                danger: {
+                    text: "خیر",
+                    btnClass: 'btn-red any-other-class' // multiple classes.
+
+                }
+            }
+        });
+
+        $('button.removeImage').on('click', function () {
+            var id = $(this).attr('id');
+            $('#MainQuestionPackViewModel_PictureChoices' + id).attr('src', '').css('height','25px');
+            $('#MainQuestionPackViewModel_PictureChoices_' + id + '_').val('');
+        })
+    </script>
+
+}
+
+
+
+

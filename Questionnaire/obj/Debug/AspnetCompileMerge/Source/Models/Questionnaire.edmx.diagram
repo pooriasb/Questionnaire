@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="33acd3f79765471ab06d94cec6a48898" Name="Diagram1">
+        <EntityTypeShape EntityType="QuestionnaireModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.AdminAnswer" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="QuestionnaireModel.AdminQuestion" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="QuestionnaireModel.AnatomicalRespns" Width="1.5" PointX="9.75" PointY="33.375" />
+        <EntityTypeShape EntityType="QuestionnaireModel.AspNetRole" Width="1.5" PointX="0.75" PointY="21.125" />
+        <EntityTypeShape EntityType="QuestionnaireModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="27.625" />
+        <EntityTypeShape EntityType="QuestionnaireModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="36.875" />
+        <EntityTypeShape EntityType="QuestionnaireModel.AspNetUser" Width="1.5" PointX="3" PointY="18.5" />
+        <EntityTypeShape EntityType="QuestionnaireModel.City" Width="1.5" PointX="8.25" PointY="10.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Condition" Width="1.5" PointX="10.5" PointY="20.125" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Discount" Width="1.5" PointX="5.25" PointY="42.25" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Media" Width="1.5" PointX="9.75" PointY="25.25" />
+        <EntityTypeShape EntityType="QuestionnaireModel.MultipleChoiceAnswer" Width="1.5" PointX="9.75" PointY="27.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.MultipleChoiceRespons" Width="1.5" PointX="12" PointY="27.875" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Notification" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Option" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Payment" Width="1.5" PointX="5.25" PointY="30.375" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Province" Width="1.5" PointX="6" PointY="10.875" />
+        <EntityTypeShape EntityType="QuestionnaireModel.QuestionerProfile" Width="1.5" PointX="5.25" PointY="39.5" />
+        <EntityTypeShape EntityType="QuestionnaireModel.QuestionnaireRequest" Width="1.5" PointX="7.5" PointY="20.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Questionnaire" Width="1.5" PointX="5.25" PointY="19.25" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Question" Width="1.5" PointX="7.5" PointY="28.875" />
+        <EntityTypeShape EntityType="QuestionnaireModel.ResponderProfile" Width="1.5" PointX="5.25" PointY="13.875" />
+        <EntityTypeShape EntityType="QuestionnaireModel.Respons" Width="1.5" PointX="7.5" PointY="16.375" />
+        <EntityTypeShape EntityType="QuestionnaireModel.SpecialOffer" Width="1.5" PointX="3" PointY="15" />
+        <EntityTypeShape EntityType="QuestionnaireModel.StudyField" Width="1.5" PointX="8.25" PointY="13.5" />
+        <EntityTypeShape EntityType="QuestionnaireModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.UploadedQuestionnaire" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuestionnaireModel.VBAnswer" Width="1.5" PointX="9.75" PointY="30.5" />
+        <EntityTypeShape EntityType="QuestionnaireModel.VBRespons" Width="1.5" PointX="12" PointY="30.625" />
+        <AssociationConnector Association="QuestionnaireModel.FK_AdminAnswers_AdminQuestions" />
+        <AssociationConnector Association="QuestionnaireModel.FK_AnatomicalRespnses_Questions" />
+        <AssociationConnector Association="QuestionnaireModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="QuestionnaireModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Discounts_AspNetUsers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Payments_AspNetUsers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Payments_AspNetUsers1" />
+        <AssociationConnector Association="QuestionnaireModel.FK_QuestionerProfiles_AspNetUsers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_QuestionnaireRequests_AspNetUsers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Questionnaires_AspNetUsers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_ResponderProfiles_AspNetUsers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Responses_AspNetUsers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Cities_Provinces" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Conditions_Cities" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Conditions_Provinces" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Conditions_Questionnaires" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Conditions_StudyFields" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Medias_Questions" />
+        <AssociationConnector Association="QuestionnaireModel.FK_MultipleChoiceAnswers_Questions" />
+        <AssociationConnector Association="QuestionnaireModel.FK_MultipleChoiceResponses_MultipleChoiceAnswers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_QuestionnaireRequests_Questionnaires" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Questionnaires_SepcialOffers" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Questions_Questionnaires" />
+        <AssociationConnector Association="QuestionnaireModel.FK_Responses_Questionnaires" />
+        <AssociationConnector Association="QuestionnaireModel.FK_VBAnswers_Questions" />
+        <AssociationConnector Association="QuestionnaireModel.FK_VBResponses_VBAnswers" />
+        <AssociationConnector Association="QuestionnaireModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

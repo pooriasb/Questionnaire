@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "پرسش جدید ویراستار";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>پرسش جدید ویراستار</h2>
+
+@using QuestionnaireProject.Models
+@model QuestionnaireProject.Areas.Editor.Controllers.AdminBenchMarkingQuestionController.AdminNewQuestion
+
+@if (ViewData.ModelState != null && !ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <h5 class="alert-heading">خطا!</h5>
+        @Html.ValidationSummary("", new { style = "color:white" })
+
+    </div>
+}
+
+<div class="box">
+
+
+
+    <div class="box-body" id="newBenchMarkingQuestion">
+        @using (Html.BeginForm(Html.BeginForm("NewAdminQuestion", "AdminBenchMarkingQuestion", new { area = "Editor" }, FormMethod.Post, new { enctype = "multipart/form-data" })))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group" style="margin: 10px">
+                    @Html.LabelFor(model => model.QuestionText, htmlAttributes: new { @class = "control-label" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.QuestionText, "", new { @class = "text-danger" })
+
+                    <br />
+
+                    <div>
+                        @Html.TextAreaFor(model => model.QuestionText, new { @class = "form-control", @placeholder = "صورت پرسش را وارد نمایید.", @style = "max-width:100%" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    @Html.LabelFor(model => model.CorrectAnswer, htmlAttributes: new { @class = "control-label" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.CorrectAnswer, "", new { @class = "text-danger" })
+
+                    <br />
+
+                    <div>
+                        @Html.TextAreaFor(model => model.CorrectAnswer, new { @class = "form-control", @placeholder = "پاسخ صحیح پرسش را وارد نمایید.", @style = "max-width:100%" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group" style="margin: 10px">
+                    @Html.LabelFor(model => model.AnswersText, htmlAttributes: new { @class = "control-label" })
+                    @Html.ValidationMessageFor(model => model.AnswersText, "", new { @class = "text-danger" })
+                    <span class="text-green">توجه داشته باشید که در این قسمت گزینه ها به صورت رندوم قرار میگیرند.</span>
+
+                    <br />
+                    <div class="row" style="margin: 10px">
+                        @for (int i = 0; i < (int)Enums.BenchMarkingQuestion.MaxAnswersNumber - 1; i++)
+                        {
+
+                            <div class="col-md-6">
+                                <label class="control-label text-blue" style="margin-bottom: 10px">
+                                    <span>گزینه @(i + 1): </span>
+
+                                </label>
+
+                                @Html.TextAreaFor(model => model.AnswersText[i], new { @class = "form-control", placeholder = "گزینه خود را وارد نمایید.", @style = "max-width:100%" })
+                                <br />
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+
+
+                @Html.HiddenFor(m => m.QuestionId, new { Value = Model.QuestionId })
+
+
+                <div class="col-md-offset-1 col-md-10">
+                    <input type="submit" value="ثبت پرسش لیاقت سنجی" class="btn btn-primary" />
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+

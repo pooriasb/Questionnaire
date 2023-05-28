@@ -1,0 +1,27 @@
+﻿<li class="header text-center" style="color: #3c8dbc; font-size: 15px">کنترل پنل پاسخگو</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "Responder", new {area = "Responder"})">
+        <i class="fa fa-dashboard"></i> <span>داشبورد</span>
+    </a>
+</li>
+
+<li class="menu">
+    <a href="@Url.Action("AvailableQuestionnaires", "QuestionnaireForResponder", new {area="Responder"})">
+        <i class="fa fa-file-text"></i> <span> پرسشنامه ها</span>
+    </a>
+<li class="active"></li>
+<li class="menu">
+    <a href="@Url.Action("UnFinishedQuestionnaire", "QuestionnaireForResponder", new {area="Responder"})">
+        <i class="fa fa-file-text"></i> <span> پرسشنامه های ناتمام</span>
+    </a>
+<li class="active"></li>
+<li class="menu">
+    <a href="@Url.Action("AnsweredQuesionnaires", "QuestionnaireForResponder", new {area = "Responder"})">
+        <i class="fa fa-archive"></i> <span>گزارش پاسخگویی</span>
+    </a>
+</li>
+<li class="menu">
+    <a href="@Url.Action("Index", "RequestForResponder", new {area = "Responder"})">
+        <i class="fa fa-money"></i> <span>درخواست پرداخت</span>
+    </a>
+</li>
